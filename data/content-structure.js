@@ -1,7 +1,8 @@
 // data/content-structure.js
 // Enhanced Content Structure for Interactive Learning Platform
+// Browser-compatible version - no ES6 imports/exports
 
-export const contentStructure = {
+window.contentStructure = {
   weeks: {
     1: {
       title: 'React Fundamentals',
@@ -79,13 +80,60 @@ export const contentStructure = {
           challenges: [{
             id: 'challenge1',
             title: 'Build a User Profile Card',
-            description: 'Create a reusable UserProfile component that displays user information with conditional rendering for optional fields.'
+            description: 'Create a reusable UserProfile component that displays user information with conditional rendering for optional fields.',
+            requirements: [
+              'Display name, email, and avatar',
+              'Show role badge if provided',
+              'Handle missing avatar gracefully',
+              'Add hover effects with CSS'
+            ],
+            starterCode: `function UserProfile({ user }) {
+  // TODO: Implement component
+  return (
+    <div className="user-profile">
+      {/* Your code here */}
+    </div>
+  );
+}`,
+            solution: `function UserProfile({ user }) {
+  const { name, email, role, avatar } = user;
+  
+  return (
+    <div className="user-profile">
+      <div className="avatar">
+        {avatar ? (
+          <img src={avatar} alt={name} />
+        ) : (
+          <div className="avatar-placeholder">
+            {name.charAt(0).toUpperCase()}
+          </div>
+        )}
+      </div>
+      <div className="user-info">
+        <h3>{name}</h3>
+        <p>{email}</p>
+        {role && <span className="role-badge">{role}</span>}
+      </div>
+    </div>
+  );
+}`,
+            hints: [
+              'Use destructuring to extract user properties',
+              'Use conditional rendering for optional fields',
+              'Create a fallback for missing avatars'
+            ],
+            testCases: [
+              'Component renders without crashing',
+              'Displays user name and email',
+              'Shows role badge when provided',
+              'Handles missing avatar correctly'
+            ]
           }]
         },
         {
           id: 'day2',
           title: 'State Management with useState',
-          theory: 'Deep dive into React state management using the useState hook. Learn how to update state, handle multiple state variables, and understand re-rendering.',
+          theory: 'Deep dive into React state management using the useState hook. Learn how to update state, handle multiple state variables, and understand re-rendering patterns.',
           codeExamples: [
             {
               label: 'useState Basic Example',
@@ -174,7 +222,31 @@ function UserForm() {
           challenges: [{
             id: 'challenge2',
             title: 'Interactive Todo List',
-            description: 'Build a todo list with add, delete, and toggle functionality using useState hook.'
+            description: 'Build a todo list with add, delete, and toggle functionality using useState hook.',
+            requirements: [
+              'Add new todos with input field',
+              'Mark todos as complete/incomplete',
+              'Delete individual todos',
+              'Show total and completed count',
+              'Filter by all/active/completed'
+            ],
+            starterCode: `import { useState } from 'react';
+
+function TodoList() {
+  // TODO: Add state for todos
+  
+  return (
+    <div className="todo-list">
+      {/* TODO: Implement todo list UI */}
+    </div>
+  );
+}`,
+            hints: [
+              'Use an array to store todos',
+              'Each todo should have id, text, and completed properties',
+              'Use map() to render todo items',
+              'Use filter() to show different views'
+            ]
           }]
         },
         {
@@ -265,7 +337,13 @@ function UserProfile({ userId }) {
           challenges: [{
             id: 'challenge3',
             title: 'Data Fetching Component',
-            description: 'Create a component that fetches and displays data from an API with loading and error states.'
+            description: 'Create a component that fetches and displays data from an API with loading and error states.',
+            requirements: [
+              'Show loading state while fetching',
+              'Display fetched data when successful',
+              'Show error message on fetch failure',
+              'Cleanup on component unmount'
+            ]
           }]
         }
       ]
@@ -276,8 +354,8 @@ function UserProfile({ userId }) {
       days: [
         {
           id: 'day4',
-          title: 'Custom Hooks',
-          theory: 'Learn how to create reusable logic with custom hooks. Understand the rules of hooks and how to extract component logic into reusable functions.',
+          title: 'Custom Hooks & Reusable Logic',
+          theory: 'Learn how to create reusable logic with custom hooks. Understand the rules of hooks and how to extract component logic into reusable functions that can be shared across components.',
           codeExamples: [
             {
               label: 'Custom Hook - useCounter',
@@ -334,89 +412,13 @@ function CounterComponent() {
           challenges: [{
             id: 'challenge4',
             title: 'useLocalStorage Hook',
-            description: 'Create a custom hook that syncs state with localStorage.'
-          }]
-        },
-        {
-          id: 'day5',
-          title: 'Context API & State Management',
-          theory: 'Master React Context API for global state management. Learn when to use context vs prop drilling and how to optimize context performance.',
-          codeExamples: [
-            {
-              label: 'Theme Context Example',
-              code: `import { createContext, useContext, useState } from 'react';
-
-// Create context
-const ThemeContext = createContext();
-
-// Provider component
-function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light');
-  
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-  
-  const value = {
-    theme,
-    toggleTheme
-  };
-  
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
-
-// Custom hook to use theme
-function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within ThemeProvider');
-  }
-  return context;
-}
-
-// Component using theme
-function Button({ children }) {
-  const { theme, toggleTheme } = useTheme();
-  
-  return (
-    <button 
-      className={\`btn btn-\${theme}\`}
-      onClick={toggleTheme}
-    >
-      {children}
-    </button>
-  );
-}`,
-              lang: 'jsx'
-            }
-          ],
-          quizzes: [
-            {
-              question: 'When should you use Context API?',
-              answer: 'For data that needs to be accessed by many components at different nesting levels',
-              options: [
-                'For all state management',
-                'For data needed by many components at different levels',
-                'Never, always use prop drilling',
-                'Only for theme data'
-              ],
-              correct: 1
-            }
-          ],
-          checklist: [
-            'Create and use React Context',
-            'Implement context providers and consumers',
-            'Create custom hooks for context',
-            'Understand context performance implications'
-          ],
-          challenges: [{
-            id: 'challenge5',
-            title: 'Shopping Cart Context',
-            description: 'Build a shopping cart context with add, remove, and update functionality.'
+            description: 'Create a custom hook that syncs state with localStorage and handles edge cases like JSON parsing errors.',
+            requirements: [
+              'Sync state with localStorage',
+              'Handle JSON parsing errors gracefully',
+              'Return current value and setter function',
+              'Work with any data type'
+            ]
           }]
         }
       ]
@@ -543,8 +545,8 @@ function UserList() {
   }
 };
 
-// Export individual week content if needed
-export const week1 = contentStructure.weeks[1];
-export const week2 = contentStructure.weeks[2];
-export const week3 = contentStructure.weeks[3];
-export const week4 = contentStructure.weeks[4];
+// Export individual week content if needed for compatibility
+window.week1 = window.contentStructure.weeks[1];
+window.week2 = window.contentStructure.weeks[2];
+window.week3 = window.contentStructure.weeks[3];
+window.week4 = window.contentStructure.weeks[4];
