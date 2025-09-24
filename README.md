@@ -276,11 +276,6 @@ git push origin feature/your-feature-name
 
 ## 📞 Support & Community
 
-### 🎆 Success Stories
-*"This platform helped me land my dream job at Meta! The spaced repetition was a game-changer."* - Sarah K., Senior React Developer
-
-*"The real-world coding challenges were exactly what I faced in my interviews."* - David L., Full-Stack Engineer
-
 ### 🚑 Get Help
 - **🐛 Issues**: [GitHub Issues](https://github.com/S1NAPANAHI/react-nextjs-interview-prep/issues)
 - **💬 Discussions**: [GitHub Discussions](https://github.com/S1NAPANAHI/react-nextjs-interview-prep/discussions)
