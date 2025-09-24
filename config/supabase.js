@@ -1,18 +1,54 @@
 // Supabase configuration and client setup
-const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // Replace with your Supabase project URL
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Replace with your Supabase anon key
+// Supports both environment variables (Vercel) and direct configuration (local)
+
+// Try to get from environment variables first (Vercel deployment)
+const SUPABASE_URL = 
+  (typeof process !== 'undefined' && process.env?.VITE_SUPABASE_URL) ||
+  (typeof import !== 'undefined' && import.meta?.env?.VITE_SUPABASE_URL) ||
+  'YOUR_SUPABASE_URL'; // Replace with your Supabase project URL for local development
+
+const SUPABASE_ANON_KEY = 
+  (typeof process !== 'undefined' && process.env?.VITE_SUPABASE_ANON_KEY) ||
+  (typeof import !== 'undefined' && import.meta?.env?.VITE_SUPABASE_ANON_KEY) ||
+  'YOUR_SUPABASE_ANON_KEY'; // Replace with your Supabase anon key for local development
 
 // Initialize Supabase client
 const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+// Development logging
+if (typeof console !== 'undefined' && SUPABASE_URL === 'YOUR_SUPABASE_URL') {
+  console.warn('⚠️ Supabase not configured. Please update config/supabase.js or set environment variables.');
+  console.info('📖 See setup/README.md for configuration instructions.');
+}
 
 // Database service for handling all Supabase operations
 class DatabaseService {
   constructor() {
     this.client = supabase;
+    this.isConfigured = SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY';
+  }
+
+  // Check if Supabase is properly configured
+  isReady() {
+    return this.client && this.isConfigured;
+  }
+
+  // Get configuration status
+  getStatus() {
+    return {
+      hasClient: !!this.client,
+      isConfigured: this.isConfigured,
+      url: SUPABASE_URL.includes('supabase') ? 'configured' : 'not configured',
+      key: SUPABASE_ANON_KEY.length > 50 ? 'configured' : 'not configured'
+    };
   }
 
   // Authentication methods
   async signUp(email, password, userData = {}) {
+    if (!this.isReady()) {
+      return { error: new Error('Supabase not configured. Please set up your database first.') };
+    }
+    
     const { data, error } = await this.client.auth.signUp({
       email,
       password,
@@ -24,6 +60,10 @@ class DatabaseService {
   }
 
   async signIn(email, password) {
+    if (!this.isReady()) {
+      return { error: new Error('Supabase not configured. Please set up your database first.') };
+    }
+    
     const { data, error } = await this.client.auth.signInWithPassword({
       email,
       password
@@ -32,21 +72,36 @@ class DatabaseService {
   }
 
   async signOut() {
+    if (!this.isReady()) return { error: null };
+    
     const { error } = await this.client.auth.signOut();
     return { error };
   }
 
   async getCurrentUser() {
+    if (!this.isReady()) return null;
+    
     const { data: { user } } = await this.client.auth.getUser();
     return user;
   }
 
   onAuthStateChange(callback) {
+    if (!this.isReady()) {
+      // Return a mock subscription for offline mode
+      return {
+        unsubscribe: () => {}
+      };
+    }
+    
     return this.client.auth.onAuthStateChange(callback);
   }
 
   // Profile methods
   async getProfile(userId) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     const { data, error } = await this.client
       .from('profiles')
       .select('*')
@@ -56,6 +111,10 @@ class DatabaseService {
   }
 
   async updateProfile(userId, updates) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     const { data, error } = await this.client
       .from('profiles')
       .update({ ...updates, updated_at: new Date().toISOString() })
@@ -67,6 +126,21 @@ class DatabaseService {
 
   // Categories methods
   async getCategories() {
+    if (!this.isReady()) {
+      // Return fallback static data
+      return {
+        data: [
+          { id: 'react_fundamentals', name: 'React Fundamentals', description: 'Core React concepts', icon: '⚛️', color: '#61DAFB', sort_order: 1 },
+          { id: 'react_hooks', name: 'React Hooks', description: 'Hooks and optimization', icon: '🎣', color: '#61DAFB', sort_order: 2 },
+          { id: 'nextjs', name: 'Next.js', description: 'SSR, SSG, and full-stack', icon: '▲', color: '#000000', sort_order: 3 },
+          { id: 'javascript', name: 'JavaScript Core', description: 'Language fundamentals', icon: '🟨', color: '#F7DF1E', sort_order: 4 },
+          { id: 'system_design', name: 'System Design', description: 'Architecture and scalability', icon: '🏗️', color: '#FF6B6B', sort_order: 5 },
+          { id: 'interview_questions', name: 'Interview Questions', description: 'Common interview questions', icon: '❓', color: '#4ECDC4', sort_order: 6 }
+        ],
+        error: null
+      };
+    }
+    
     const { data, error } = await this.client
       .from('categories')
       .select('*')
@@ -77,6 +151,10 @@ class DatabaseService {
 
   // Flashcards methods
   async getFlashcards(categoryId = null) {
+    if (!this.isReady()) {
+      return { data: [], error: new Error('Database not available. Using local mode.') };
+    }
+    
     let query = this.client
       .from('flashcards')
       .select(`
@@ -99,6 +177,10 @@ class DatabaseService {
 
   // User progress methods
   async getUserFlashcardProgress(userId, flashcardId = null) {
+    if (!this.isReady()) {
+      return { data: [], error: new Error('Database not available in offline mode') };
+    }
+    
     let query = this.client
       .from('user_flashcard_progress')
       .select(`
@@ -116,6 +198,10 @@ class DatabaseService {
   }
 
   async updateFlashcardProgress(userId, flashcardId, progressData) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     const updateData = {
       user_id: userId,
       flashcard_id: flashcardId,
@@ -134,6 +220,10 @@ class DatabaseService {
 
   // Study sessions
   async createStudySession(userId, sessionData) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     const { data, error } = await this.client
       .from('study_sessions')
       .insert({
@@ -147,6 +237,20 @@ class DatabaseService {
   }
 
   async getUserStats(userId) {
+    if (!this.isReady()) {
+      return { 
+        data: {
+          current_streak: 0,
+          longest_streak: 0,
+          total_study_time: 0,
+          flashcards_mastered: 0,
+          challenges_completed: 0,
+          weekly_goal: 300
+        }, 
+        error: null 
+      };
+    }
+    
     const { data, error } = await this.client
       .from('user_stats')
       .select('*')
@@ -158,6 +262,10 @@ class DatabaseService {
 
   // Spaced repetition methods
   async getSpacedRepetitionData(userId, flashcardId = null) {
+    if (!this.isReady()) {
+      return { data: [], error: new Error('Database not available in offline mode') };
+    }
+    
     let query = this.client
       .from('spaced_repetition_data')
       .select('*')
@@ -172,6 +280,10 @@ class DatabaseService {
   }
 
   async updateSpacedRepetitionData(userId, flashcardId, quality) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     // Get current data
     const { data: current } = await this.getSpacedRepetitionData(userId, flashcardId);
     const currentData = current?.[0] || {
@@ -216,6 +328,10 @@ class DatabaseService {
 
   // Challenges methods
   async getChallenges(difficulty = null, category = null) {
+    if (!this.isReady()) {
+      return { data: [], error: new Error('Database not available in offline mode') };
+    }
+    
     let query = this.client
       .from('challenges')
       .select('*')
@@ -234,6 +350,10 @@ class DatabaseService {
   }
 
   async getUserChallengeProgress(userId, challengeId = null) {
+    if (!this.isReady()) {
+      return { data: [], error: new Error('Database not available in offline mode') };
+    }
+    
     let query = this.client
       .from('user_challenge_progress')
       .select(`
@@ -251,6 +371,10 @@ class DatabaseService {
   }
 
   async updateChallengeProgress(userId, challengeId, progressData) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     const updateData = {
       user_id: userId,
       challenge_id: challengeId,
@@ -269,6 +393,10 @@ class DatabaseService {
 
   // Analytics methods
   async getPerformanceAnalytics(userId, startDate = null, endDate = null) {
+    if (!this.isReady()) {
+      return { data: [], error: new Error('Database not available in offline mode') };
+    }
+    
     let query = this.client
       .from('performance_analytics')
       .select(`
@@ -290,6 +418,10 @@ class DatabaseService {
   }
 
   async updatePerformanceAnalytics(userId, categoryId, analyticsData) {
+    if (!this.isReady()) {
+      return { error: new Error('Database not available in offline mode') };
+    }
+    
     const updateData = {
       user_id: userId,
       category_id: categoryId,
@@ -308,6 +440,12 @@ class DatabaseService {
 
   // Realtime subscriptions
   subscribeToUserProgress(userId, callback) {
+    if (!this.isReady()) {
+      return {
+        unsubscribe: () => {}
+      };
+    }
+    
     return this.client
       .channel('user-progress')
       .on('postgres_changes', {
@@ -320,6 +458,12 @@ class DatabaseService {
   }
 
   subscribeToUserStats(userId, callback) {
+    if (!this.isReady()) {
+      return {
+        unsubscribe: () => {}
+      };
+    }
+    
     return this.client
       .channel('user-stats')
       .on('postgres_changes', {
@@ -334,3 +478,13 @@ class DatabaseService {
 
 // Create global database service instance
 window.dbService = new DatabaseService();
+
+// Log configuration status for debugging
+if (typeof console !== 'undefined') {
+  const status = window.dbService.getStatus();
+  console.info('🗄️ Database Service Status:', status);
+  
+  if (!status.isConfigured) {
+    console.info('💡 Running in offline mode. Set up Supabase for full functionality.');
+  }
+}
