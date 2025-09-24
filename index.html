@@ -12,7 +12,6 @@
     <!-- External Libraries -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -456,17 +455,6 @@
             color: white;
             position: relative;
             overflow: hidden;
-        }
-
-        .tier-card-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.1;
-            background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"white\" opacity=\"0.1\"/></svg>');
         }
 
         .tier-number {
@@ -1123,7 +1111,7 @@
     
     <script>
         // React hooks
-        const { useState, useEffect, useCallback } = React;
+        const { useState, useEffect } = React;
         const { createRoot } = ReactDOM;
 
         // Question Data - Embedded for immediate functionality
@@ -1139,15 +1127,10 @@
                         question: 'What is React and why is it popular?',
                         difficulty: 'Beginner',
                         category: 'Fundamentals',
-                        answer: 'React is a JavaScript library for building user interfaces, created by Facebook. It\\'s popular because of its **component-based architecture**, **Virtual DOM** for performance, **unidirectional data flow** for predictability, and **strong ecosystem** with extensive community support.',
+                        answer: 'React is a JavaScript library for building user interfaces, created by Facebook. It is popular because of its **component-based architecture**, **Virtual DOM** for performance, **unidirectional data flow** for predictability, and **strong ecosystem** with extensive community support.',
                         codeExample: {
                             title: 'Basic React Component',
-                            code: `function Welcome({ name }) {
-  return <h1>Hello, {name}!</h1>;
-}
-
-// Usage
-<Welcome name="React Developer" />`
+                            code: 'function Welcome({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Usage\n<Welcome name="React Developer" />'
                         },
                         keyPoints: [
                             'Component-based architecture',
@@ -1164,18 +1147,7 @@
                         answer: 'JSX (JavaScript XML) is a syntax extension that allows writing HTML-like code in JavaScript. Key differences: **className** instead of class, **self-closing tags** must be closed, **JavaScript expressions** with {}, **camelCase** properties, and **style objects** instead of strings.',
                         codeExample: {
                             title: 'JSX vs HTML',
-                            code: `// JSX
-function Button({ onClick, children }) {
-  return (
-    <button 
-      className="btn-primary" 
-      onClick={onClick}
-      style={{ backgroundColor: 'blue' }}
-    >
-      {children}
-    </button>
-  );
-}`
+                            code: '// JSX\nfunction Button({ onClick, children }) {\n  return (\n    <button \n      className="btn-primary" \n      onClick={onClick}\n      style={{ backgroundColor: "blue" }}\n    >\n      {children}\n    </button>\n  );\n}'
                         },
                         keyPoints: [
                             'HTML-like syntax in JavaScript',
@@ -1184,7 +1156,6 @@ function Button({ onClick, children }) {
                             'Supports JavaScript expressions with {}'
                         ]
                     }
-                    // Add more top 10 questions as needed
                 ]
             },
             top20: {
@@ -1192,29 +1163,23 @@ function Button({ onClick, children }) {
                 title: 'Top 20 Core',
                 description: 'Core concepts every React developer should master',
                 gradient: 'linear-gradient(135deg, #feca57, #ff9ff3)',
-                questions: [] // Will be loaded from existing data
+                questions: []
             },
             top50: {
                 id: 'top50',
                 title: 'Top 50 Advanced',
                 description: 'Deep dive into advanced React patterns and best practices',
                 gradient: 'linear-gradient(135deg, #48dbfb, #0abde3)',
-                questions: [] // Will be populated
+                questions: []
             },
             top100: {
                 id: 'top100',
                 title: 'Top 100 Complete',
                 description: 'Comprehensive coverage including edge cases and expert topics',
                 gradient: 'linear-gradient(135deg, #1dd1a1, #10ac84)',
-                questions: [] // Will be populated
+                questions: []
             }
         };
-
-        // Supabase Configuration (Replace with your actual credentials)
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        // Uncomment when Supabase is configured:
-        // const supabase = window.supabase?.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // Progress Management Hook
         function useProgress() {
@@ -1289,13 +1254,10 @@ function Button({ onClick, children }) {
         }
 
         // Notification System
-        function showNotification(message, type = 'success', icon = 'check') {
+        function showNotification(message, type, icon) {
             const notification = document.createElement('div');
-            notification.className = `notification show`;
-            notification.innerHTML = `
-                <i class="fas fa-${icon} notification-icon"></i>
-                <span>${message}</span>
-            `;
+            notification.className = 'notification show';
+            notification.innerHTML = '<i class="fas fa-' + (icon || 'check') + ' notification-icon"></i><span>' + message + '</span>';
             document.body.appendChild(notification);
             
             setTimeout(() => {
@@ -1310,4 +1272,688 @@ function Button({ onClick, children }) {
                 React.createElement('div', { className: 'header-container' },
                     React.createElement('div', { className: 'logo-section' },
                         React.createElement('div', { className: 'logo' },
-                            React.createElement('i', { className: 'fab fa-react' })\n                        ),\n                        React.createElement('div', { className: 'brand-text' },\n                            React.createElement('h1', {}, 'Interview Mastery'),\n                            React.createElement('p', {}, 'React & Next.js Prep Platform')\n                        )\n                    ),\n\n                    React.createElement('nav', { className: 'main-nav' },\n                        React.createElement('ul', { className: 'nav-links' },\n                            React.createElement('li', { className: 'nav-item' },\n                                React.createElement('a', {\n                                    href: '#',\n                                    className: `nav-link ${currentView === 'dashboard' ? 'active' : ''}`,\n                                    onClick: (e) => { e.preventDefault(); onNavigate('dashboard'); }\n                                },\n                                    React.createElement('i', { className: 'fas fa-home' }),\n                                    React.createElement('span', {}, 'Dashboard')\n                                )\n                            ),\n                            \n                            React.createElement('li', { className: 'nav-item dropdown' },\n                                React.createElement('a', { href: '#', className: 'nav-link' },\n                                    React.createElement('i', { className: 'fas fa-question-circle' }),\n                                    React.createElement('span', {}, 'Interview Questions'),\n                                    React.createElement('i', { \n                                        className: 'fas fa-chevron-down', \n                                        style: { fontSize: '0.8rem', marginLeft: '0.25rem' } \n                                    })\n                                ),\n                                React.createElement('div', { className: 'dropdown-menu' },\n                                    React.createElement('div', { className: 'dropdown-header' },\n                                        React.createElement('h3', {}, 'Question Tiers'),\n                                        React.createElement('p', {}, 'Choose your preparation level')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top10'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-10' },\n                                            React.createElement('i', { className: 'fas fa-fire' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 10 Essential'),\n                                            React.createElement('p', {}, 'Must-know questions for any React interview')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '90%')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top20'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-20' },\n                                            React.createElement('i', { className: 'fas fa-star' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 20 Core'),\n                                            React.createElement('p', {}, 'Core concepts every developer should master')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '75%')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top50'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-50' },\n                                            React.createElement('i', { className: 'fas fa-chart-line' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 50 Advanced'),\n                                            React.createElement('p', {}, 'Deep dive into advanced patterns')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '50%')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top100'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-100' },\n                                            React.createElement('i', { className: 'fas fa-trophy' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 100 Complete'),\n                                            React.createElement('p', {}, 'Comprehensive coverage of all topics')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '25%')\n                                    )\n                                )\n                            ),\n\n                            React.createElement('li', { className: 'nav-item' },\n                                React.createElement('a', {\n                                    href: '#',\n                                    className: `nav-link ${currentView === 'roadmap' ? 'active' : ''}`,\n                                    onClick: (e) => { e.preventDefault(); onNavigate('roadmap'); }\n                                },\n                                    React.createElement('i', { className: 'fas fa-map-marked-alt' }),\n                                    React.createElement('span', {}, 'Learning Path')\n                                )\n                            ),\n\n                            React.createElement('li', { className: 'nav-item' },\n                                React.createElement('a', {\n                                    href: '#',\n                                    className: `nav-link ${currentView === 'analytics' ? 'active' : ''}`,\n                                    onClick: (e) => { e.preventDefault(); onNavigate('analytics'); }\n                                },\n                                    React.createElement('i', { className: 'fas fa-chart-bar' }),\n                                    React.createElement('span', {}, 'Progress')\n                                )\n                            )\n                        )\n                    ),\n\n                    React.createElement('div', { className: 'header-actions' },\n                        React.createElement('button', {\n                            className: 'search-btn',\n                            title: 'Search',\n                            onClick: () => showNotification('Search feature coming soon!', 'info', 'info')\n                        },\n                            React.createElement('i', { className: 'fas fa-search' })\n                        ),\n                        React.createElement('button', {\n                            className: 'theme-toggle',\n                            onClick: toggleTheme,\n                            title: 'Toggle Theme'\n                        },\n                            React.createElement('i', { className: theme === 'light' ? 'fas fa-moon' : 'fas fa-sun' })\n                        ),\n                        React.createElement('button', {\n                            className: 'profile-btn',\n                            title: 'Profile',\n                            onClick: () => showNotification('Profile features coming soon!', 'info', 'user')\n                        },\n                            React.createElement('i', { className: 'fas fa-user' })\n                        )\n                    )\n                )\n            );\n        }\n\n        // Dashboard Component\n        function Dashboard({ onSelectTier, progress }) {\n            const tiers = [\n                {\n                    id: 'top10',\n                    number: '10',\n                    title: 'Essential Questions',\n                    description: 'Must-know questions that appear in 90% of React interviews',\n                    gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',\n                    icon: 'fas fa-fire',\n                    frequency: '90%'\n                },\n                {\n                    id: 'top20',\n                    number: '20',\n                    title: 'Core Concepts',\n                    description: 'Fundamental React concepts every developer should master',\n                    gradient: 'linear-gradient(135deg, #feca57, #ff9ff3)',\n                    icon: 'fas fa-star',\n                    frequency: '75%'\n                },\n                {\n                    id: 'top50',\n                    number: '50',\n                    title: 'Advanced Topics',\n                    description: 'Deep dive into advanced patterns and best practices',\n                    gradient: 'linear-gradient(135deg, #48dbfb, #0abde3)',\n                    icon: 'fas fa-chart-line',\n                    frequency: '50%'\n                },\n                {\n                    id: 'top100',\n                    number: '100',\n                    title: 'Complete Mastery',\n                    description: 'Comprehensive coverage including edge cases and expert topics',\n                    gradient: 'linear-gradient(135deg, #1dd1a1, #10ac84)',\n                    icon: 'fas fa-trophy',\n                    frequency: '25%'\n                }\n            ];\n\n            const getProgressStats = (tierId) => {\n                const tierQuestions = questionTiers[tierId]?.questions || [];\n                const completed = tierQuestions.filter(q => \n                    progress.questionProgress[q.id]?.confidence >= 3\n                ).length;\n                const avgConfidence = tierQuestions.length > 0 ? \n                    Math.round(tierQuestions.reduce((sum, q) => \n                        sum + (progress.questionProgress[q.id]?.confidence || 0), 0\n                    ) / tierQuestions.length * 20) : 0;\n                \n                return {\n                    total: tierQuestions.length,\n                    completed,\n                    confidence: avgConfidence,\n                    completionRate: tierQuestions.length > 0 ? Math.round((completed / tierQuestions.length) * 100) : 0\n                };\n            };\n\n            return React.createElement('div', { className: 'dashboard fade-in-up' },\n                React.createElement('div', { className: 'dashboard-header' },\n                    React.createElement('h1', { className: 'dashboard-title' }, 'Choose Your Challenge Level'),\n                    React.createElement('p', { className: 'dashboard-subtitle' }, \n                        'Select the tier that matches your preparation goals and current skill level. Track your confidence with our unique 5-circle system.'\n                    )\n                ),\n\n                React.createElement('div', { className: 'tiers-grid' },\n                    tiers.map(tier => {\n                        const stats = getProgressStats(tier.id);\n                        return React.createElement('div', {\n                            key: tier.id,\n                            className: `tier-card tier-${tier.id}`,\n                            onClick: () => onSelectTier(tier.id)\n                        },\n                            React.createElement('div', { \n                                className: 'tier-card-header',\n                                style: { background: tier.gradient }\n                            },\n                                React.createElement('div', { className: 'tier-number' }, tier.number),\n                                React.createElement('h2', { className: 'tier-title' }, tier.title),\n                                React.createElement('p', { className: 'tier-description' }, tier.description)\n                            ),\n                            React.createElement('div', { className: 'tier-card-body' },\n                                React.createElement('div', { className: 'tier-stats' },\n                                    React.createElement('div', { className: 'stat-item' },\n                                        React.createElement('span', { className: 'stat-number' }, stats.total || tier.number),\n                                        React.createElement('span', { className: 'stat-label' }, 'Questions')\n                                    ),\n                                    React.createElement('div', { className: 'stat-item' },\n                                        React.createElement('span', { className: 'stat-number' }, `${stats.completionRate}%`),\n                                        React.createElement('span', { className: 'stat-label' }, 'Complete')\n                                    ),\n                                    React.createElement('div', { className: 'stat-item' },\n                                        React.createElement('span', { className: 'stat-number' }, `${stats.confidence}%`),\n                                        React.createElement('span', { className: 'stat-label' }, 'Confidence')\n                                    )\n                                ),\n                                React.createElement('div', { className: 'tier-progress' },\n                                    React.createElement('div', { \n                                        className: 'tier-progress-fill',\n                                        style: { width: `${stats.completionRate}%` }\n                                    })\n                                ),\n                                React.createElement('button', {\n                                    className: 'btn btn-primary',\n                                    style: { width: '100%', justifyContent: 'center' }\n                                },\n                                    React.createElement('i', { className: tier.icon }),\n                                    React.createElement('span', {}, 'Start Preparation'),\n                                    React.createElement('span', { \n                                        style: { \n                                            marginLeft: 'auto', \n                                            opacity: 0.8,\n                                            fontSize: '0.8rem'\n                                        } \n                                    }, tier.frequency)\n                                )\n                            )\n                        );\n                    })\n                )\n            );\n        }\n\n        // Confidence Tracker Component\n        function ConfidenceTracker({ questionId, initialConfidence = 0, onChange }) {\n            const [confidence, setConfidence] = useState(initialConfidence);\n            const [hoveredLevel, setHoveredLevel] = useState(0);\n\n            const handleCircleClick = (level) => {\n                const newConfidence = confidence === level ? 0 : level;\n                setConfidence(newConfidence);\n                onChange(questionId, newConfidence);\n                \n                const messages = [\n                    'Question reset', 'Just getting started!', 'Making progress!', \n                    'Getting confident!', 'Almost there!', 'Mastered! 🎉'\n                ];\n                showNotification(messages[newConfidence], 'success', 'check-circle');\n            };\n\n            const getConfidenceText = (level) => {\n                const texts = {\n                    0: \"Not familiar yet\",\n                    1: \"Just heard of it\",\n                    2: \"Basic understanding\", \n                    3: \"Can explain it well\",\n                    4: \"Very confident\",\n                    5: \"Expert level mastery\"\n                };\n                return texts[level] || texts[0];\n            };\n\n            const displayLevel = hoveredLevel || confidence;\n\n            return React.createElement('div', { className: 'confidence-section' },\n                React.createElement('div', { className: 'confidence-header' },\n                    React.createElement('div', { className: 'confidence-icon' },\n                        React.createElement('i', { className: 'fas fa-bullseye' })\n                    ),\n                    React.createElement('div', {},\n                        React.createElement('h4', { className: 'confidence-title' }, 'Confidence Level'),\n                        React.createElement('p', { \n                            style: { \n                                margin: 0, \n                                color: 'var(--text-muted)', \n                                fontSize: '0.9rem' \n                            } \n                        }, 'Rate your understanding (inspired by the pencil circle method)')\n                    )\n                ),\n                React.createElement('div', { className: 'confidence-tracker' },\n                    React.createElement('div', { className: 'confidence-circles' },\n                        [1, 2, 3, 4, 5].map(level =>\n                            React.createElement('div', {\n                                key: level,\n                                className: `confidence-circle ${confidence >= level ? 'filled' : ''}`,\n                                onClick: () => handleCircleClick(level),\n                                onMouseEnter: () => setHoveredLevel(level),\n                                onMouseLeave: () => setHoveredLevel(0),\n                                title: `Level ${level}`\n                            })\n                        )\n                    ),\n                    React.createElement('span', { className: 'confidence-label' },\n                        getConfidenceText(displayLevel)\n                    ),\n                    React.createElement('div', { className: 'confidence-percentage' },\n                        `${confidence * 20}%`\n                    )\n                )\n            );\n        }\n\n        // Questions List Component\n        function QuestionsList({ tier, progress, onConfidenceChange, onToggleFavorite }) {\n            const [searchTerm, setSearchTerm] = useState('');\n            const [selectedDifficulty, setSelectedDifficulty] = useState('All');\n            const [selectedCategory, setSelectedCategory] = useState('All');\n            const [expandedQuestions, setExpandedQuestions] = useState({});\n\n            const tierData = questionTiers[tier];\n            const questions = tierData?.questions || [];\n\n            const filteredQuestions = questions.filter(q => {\n                const matchesSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||\n                                    q.answer.toLowerCase().includes(searchTerm.toLowerCase());\n                const matchesDifficulty = selectedDifficulty === 'All' || q.difficulty === selectedDifficulty;\n                const matchesCategory = selectedCategory === 'All' || q.category === selectedCategory;\n                \n                return matchesSearch && matchesDifficulty && matchesCategory;\n            });\n\n            const toggleQuestion = (questionId) => {\n                setExpandedQuestions(prev => ({\n                    ...prev,\n                    [questionId]: !prev[questionId]\n                }));\n            };\n\n            const getDifficultyColor = (difficulty) => {\n                switch(difficulty) {\n                    case 'Beginner': return 'difficulty-beginner';\n                    case 'Intermediate': return 'difficulty-intermediate';\n                    case 'Advanced': return 'difficulty-advanced';\n                    default: return 'difficulty-beginner';\n                }\n            };\n\n            const categories = [...new Set(questions.map(q => q.category))];\n            const difficulties = [...new Set(questions.map(q => q.difficulty))];\n\n            return React.createElement('div', { className: 'questions-container fade-in-up' },\n                React.createElement('div', { className: 'questions-header' },\n                    React.createElement('h1', { className: 'questions-title' }, \n                        `🎯 ${tierData?.title || 'Questions'}`\n                    ),\n                    React.createElement('p', { className: 'questions-subtitle' }, \n                        tierData?.description || 'Comprehensive interview preparation questions'\n                    )\n                ),\n\n                React.createElement('div', { className: 'filters-section' },\n                    React.createElement('div', { className: 'filter-row' },\n                        React.createElement('input', {\n                            type: 'text',\n                            placeholder: '🔍 Search questions and answers...',\n                            value: searchTerm,\n                            onChange: (e) => setSearchTerm(e.target.value),\n                            className: 'search-input'\n                        }),\n                        React.createElement('select', {\n                            value: selectedDifficulty,\n                            onChange: (e) => setSelectedDifficulty(e.target.value),\n                            className: 'filter-select'\n                        },\n                            React.createElement('option', { value: 'All' }, 'All Difficulties'),\n                            difficulties.map(diff =>\n                                React.createElement('option', { key: diff, value: diff }, diff)\n                            )\n                        ),\n                        React.createElement('select', {\n                            value: selectedCategory,\n                            onChange: (e) => setSelectedCategory(e.target.value),\n                            className: 'filter-select'\n                        },\n                            React.createElement('option', { value: 'All' }, 'All Categories'),\n                            categories.map(cat =>\n                                React.createElement('option', { key: cat, value: cat }, cat)\n                            )\n                        )\n                    )\n                ),\n\n                React.createElement('div', { className: 'questions-list' },\n                    filteredQuestions.map((question, index) =>\n                        React.createElement('div', { \n                            key: question.id, \n                            className: `question-card ${expandedQuestions[question.id] ? 'expanded' : ''}` \n                        },\n                            React.createElement('div', { className: 'question-header' },\n                                React.createElement('div', { className: 'question-meta' },\n                                    React.createElement('div', { className: 'question-number' }, `Q${index + 1}`),\n                                    React.createElement('div', { \n                                        className: `difficulty-badge ${getDifficultyColor(question.difficulty)}`\n                                    }, question.difficulty),\n                                    React.createElement('div', { className: 'category-badge' }, question.category)\n                                ),\n                                React.createElement('div', { className: 'question-content-area' },\n                                    React.createElement('h3', { className: 'question-title' }, question.question),\n                                    React.createElement('div', { className: 'question-actions' },\n                                        React.createElement('button', {\n                                            className: 'favorite-btn',\n                                            onClick: (e) => {\n                                                e.stopPropagation();\n                                                onToggleFavorite(question.id);\n                                            }\n                                        }, progress.favorites.includes(question.id) ? '❤️' : '🤍'),\n                                        React.createElement('button', {\n                                            className: 'expand-btn',\n                                            onClick: () => toggleQuestion(question.id)\n                                        }, expandedQuestions[question.id] ? \n                                            React.createElement('span', {}, React.createElement('i', { className: 'fas fa-chevron-up' }), ' Collapse') :\n                                            React.createElement('span', {}, React.createElement('i', { className: 'fas fa-chevron-down' }), ' Expand')\n                                        )\n                                    )\n                                )\n                            ),\n                            \n                            expandedQuestions[question.id] && React.createElement('div', { className: 'question-content' },\n                                React.createElement(ConfidenceTracker, {\n                                    questionId: question.id,\n                                    initialConfidence: progress.questionProgress[question.id]?.confidence || 0,\n                                    onChange: onConfidenceChange\n                                }),\n                                \n                                React.createElement('div', { className: 'answer-section' },\n                                    React.createElement('div', { className: 'section-title' },\n                                        React.createElement('div', { className: 'section-icon' },\n                                            React.createElement('i', { className: 'fas fa-lightbulb' })\n                                        ),\n                                        React.createElement('span', {}, 'Detailed Answer')\n                                    ),\n                                    React.createElement('div', {\n                                        className: 'answer-text',\n                                        dangerouslySetInnerHTML: {\n                                            __html: question.answer\n                                                .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')\n                                                .replace(/\\n/g, '<br>')\n                                        }\n                                    })\n                                ),\n                                \n                                question.codeExample && React.createElement('div', { className: 'code-example' },\n                                    React.createElement('div', { className: 'code-header' },\n                                        React.createElement('i', { className: 'fas fa-code' }),\n                                        React.createElement('span', { className: 'code-title' }, question.codeExample.title)\n                                    ),\n                                    React.createElement('pre', { className: 'code-block' },\n                                        React.createElement('code', {}, question.codeExample.code)\n                                    )\n                                ),\n                                \n                                question.keyPoints && React.createElement('div', { className: 'key-points' },\n                                    React.createElement('div', { className: 'section-title' },\n                                        React.createElement('div', { className: 'section-icon' },\n                                            React.createElement('i', { className: 'fas fa-key' })\n                                        ),\n                                        React.createElement('span', {}, 'Key Takeaways')\n                                    ),\n                                    React.createElement('ul', {},\n                                        question.keyPoints.map((point, i) =>\n                                            React.createElement('li', { key: i },\n                                                React.createElement('div', { className: 'key-point-icon' }, '✓'),\n                                                React.createElement('span', {}, point)\n                                            )\n                                        )\n                                    )\n                                ),\n                                \n                                React.createElement('div', { className: 'question-bottom-actions' },\n                                    React.createElement('button', {\n                                        className: 'btn btn-outline',\n                                        onClick: () => {\n                                            navigator.clipboard.writeText(`${question.question}\\n\\n${question.answer}`);\n                                            showNotification('Question copied to clipboard!', 'success', 'copy');\n                                        }\n                                    },\n                                        React.createElement('i', { className: 'fas fa-copy' }),\n                                        React.createElement('span', {}, 'Copy Question')\n                                    ),\n                                    React.createElement('button', {\n                                        className: 'btn btn-ghost',\n                                        onClick: () => toggleQuestion(question.id)\n                                    },\n                                        React.createElement('i', { className: 'fas fa-minus' }),\n                                        React.createElement('span', {}, 'Collapse')\n                                    )\n                                )\n                            )\n                        )\n                    )\n                )\n            );\n        }\n\n        // Main App Component\n        function App() {\n            const [currentView, setCurrentView] = useState('dashboard');\n            const [selectedTier, setSelectedTier] = useState('top10');\n            const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');\n            \n            const { progress, updateQuestionConfidence, toggleFavorite } = useProgress();\n\n            useEffect(() => {\n                document.documentElement.setAttribute('data-theme', theme);\n                localStorage.setItem('theme', theme);\n            }, [theme]);\n\n            const toggleTheme = () => {\n                setTheme(theme === 'light' ? 'dark' : 'light');\n            };\n\n            const handleNavigate = (view, tier = null) => {\n                setCurrentView(view);\n                if (tier) setSelectedTier(tier);\n            };\n\n            const handleSelectTier = (tierId) => {\n                setSelectedTier(tierId);\n                setCurrentView('questions');\n            };\n\n            const handleConfidenceChange = (questionId, confidence) => {\n                updateQuestionConfidence(questionId, confidence);\n                // Future: Save to Supabase\n                /*\n                if (supabase) {\n                    supabase.from('user_progress').upsert({\n                        question_id: questionId,\n                        confidence_level: confidence,\n                        updated_at: new Date().toISOString()\n                    });\n                }\n                */\n            };\n\n            return React.createElement('div', { className: 'app', 'data-theme': theme },\n                React.createElement(ModernHeader, {\n                    currentView,\n                    onNavigate: handleNavigate,\n                    theme,\n                    toggleTheme\n                }),\n                \n                React.createElement('main', { className: 'main-content' },\n                    currentView === 'dashboard' && React.createElement(Dashboard, {\n                        onSelectTier: handleSelectTier,\n                        progress\n                    }),\n                    \n                    currentView === 'questions' && React.createElement(QuestionsList, {\n                        tier: selectedTier,\n                        progress,\n                        onConfidenceChange: handleConfidenceChange,\n                        onToggleFavorite: toggleFavorite\n                    }),\n                    \n                    currentView === 'roadmap' && React.createElement('div', {\n                        style: { \n                            padding: '4rem 2rem', \n                            textAlign: 'center',\n                            maxWidth: '800px',\n                            margin: '0 auto'\n                        }\n                    },\n                        React.createElement('h1', { \n                            style: { \n                                fontSize: '3rem', \n                                background: 'var(--primary-gradient)',\n                                WebkitBackgroundClip: 'text',\n                                WebkitTextFillColor: 'transparent',\n                                marginBottom: '2rem'\n                            } \n                        }, '🗺️ Learning Roadmap'),\n                        React.createElement('p', { \n                            style: { \n                                fontSize: '1.2rem', \n                                color: 'var(--text-muted)',\n                                marginBottom: '2rem'\n                            } \n                        }, 'Coming soon! A structured 4-week learning path with daily goals and milestones.'),\n                        React.createElement('button', {\n                            className: 'btn btn-primary',\n                            onClick: () => handleNavigate('dashboard')\n                        }, 'Back to Dashboard')\n                    ),\n                    \n                    currentView === 'analytics' && React.createElement('div', {\n                        style: { \n                            padding: '4rem 2rem', \n                            textAlign: 'center',\n                            maxWidth: '800px',\n                            margin: '0 auto'\n                        }\n                    },\n                        React.createElement('h1', { \n                            style: { \n                                fontSize: '3rem', \n                                background: 'var(--primary-gradient)',\n                                WebkitBackgroundClip: 'text',\n                                WebkitTextFillColor: 'transparent',\n                                marginBottom: '2rem'\n                            } \n                        }, '📊 Progress Analytics'),\n                        React.createElement('div', {\n                            style: {\n                                display: 'grid',\n                                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',\n                                gap: '2rem',\n                                margin: '2rem 0'\n                            }\n                        },\n                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },\n                                React.createElement('span', { className: 'stat-number' }, progress.overallStats.questionsStudied),\n                                React.createElement('span', { className: 'stat-label' }, 'Questions Studied')\n                            ),\n                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },\n                                React.createElement('span', { className: 'stat-number' }, progress.favorites.length),\n                                React.createElement('span', { className: 'stat-label' }, 'Favorites Saved')\n                            ),\n                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },\n                                React.createElement('span', { className: 'stat-number' }, `${progress.overallStats.averageConfidence * 20}%`),\n                                React.createElement('span', { className: 'stat-label' }, 'Avg Confidence')\n                            )\n                        ),\n                        React.createElement('button', {\n                            className: 'btn btn-primary',\n                            onClick: () => handleNavigate('dashboard')\n                        }, 'Back to Dashboard')\n                    )\n                )\n            );\n        }\n\n        // Initialize App\n        function initializeApp() {\n            const loadingScreen = document.getElementById('loading-screen');\n            const root = createRoot(document.getElementById('root'));\n            \n            root.render(React.createElement(App));\n            \n            setTimeout(() => {\n                loadingScreen.style.display = 'none';\n            }, 1200);\n        }\n\n        // Start the app\n        if (document.readyState === 'loading') {\n            document.addEventListener('DOMContentLoaded', initializeApp);\n        } else {\n            initializeApp();\n        }\n    </script>\n</body>\n</html>
+                            React.createElement('i', { className: 'fab fa-react' })
+                        ),
+                        React.createElement('div', { className: 'brand-text' },
+                            React.createElement('h1', {}, 'Interview Mastery'),
+                            React.createElement('p', {}, 'React & Next.js Prep Platform')
+                        )
+                    ),
+
+                    React.createElement('nav', { className: 'main-nav' },
+                        React.createElement('ul', { className: 'nav-links' },
+                            React.createElement('li', { className: 'nav-item' },
+                                React.createElement('a', {
+                                    href: '#',
+                                    className: 'nav-link ' + (currentView === 'dashboard' ? 'active' : ''),
+                                    onClick: (e) => { e.preventDefault(); onNavigate('dashboard'); }
+                                },
+                                    React.createElement('i', { className: 'fas fa-home' }),
+                                    React.createElement('span', {}, 'Dashboard')
+                                )
+                            ),
+                            
+                            React.createElement('li', { className: 'nav-item dropdown' },
+                                React.createElement('a', { href: '#', className: 'nav-link' },
+                                    React.createElement('i', { className: 'fas fa-question-circle' }),
+                                    React.createElement('span', {}, 'Interview Questions'),
+                                    React.createElement('i', { 
+                                        className: 'fas fa-chevron-down', 
+                                        style: { fontSize: '0.8rem', marginLeft: '0.25rem' } 
+                                    })
+                                ),
+                                React.createElement('div', { className: 'dropdown-menu' },
+                                    React.createElement('div', { className: 'dropdown-header' },
+                                        React.createElement('h3', {}, 'Question Tiers'),
+                                        React.createElement('p', {}, 'Choose your preparation level')
+                                    ),
+                                    React.createElement('a', {
+                                        href: '#',
+                                        className: 'dropdown-item',
+                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top10'); }
+                                    },
+                                        React.createElement('div', { className: 'dropdown-icon tier-icon-10' },
+                                            React.createElement('i', { className: 'fas fa-fire' })
+                                        ),
+                                        React.createElement('div', { className: 'dropdown-content' },
+                                            React.createElement('h4', {}, 'Top 10 Essential'),
+                                            React.createElement('p', {}, 'Must-know questions for any React interview')
+                                        ),
+                                        React.createElement('span', { className: 'dropdown-badge' }, '90%')
+                                    ),
+                                    React.createElement('a', {
+                                        href: '#',
+                                        className: 'dropdown-item',
+                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top20'); }
+                                    },
+                                        React.createElement('div', { className: 'dropdown-icon tier-icon-20' },
+                                            React.createElement('i', { className: 'fas fa-star' })
+                                        ),
+                                        React.createElement('div', { className: 'dropdown-content' },
+                                            React.createElement('h4', {}, 'Top 20 Core'),
+                                            React.createElement('p', {}, 'Core concepts every developer should master')
+                                        ),
+                                        React.createElement('span', { className: 'dropdown-badge' }, '75%')
+                                    ),
+                                    React.createElement('a', {
+                                        href: '#',
+                                        className: 'dropdown-item',
+                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top50'); }
+                                    },
+                                        React.createElement('div', { className: 'dropdown-icon tier-icon-50' },
+                                            React.createElement('i', { className: 'fas fa-chart-line' })
+                                        ),
+                                        React.createElement('div', { className: 'dropdown-content' },
+                                            React.createElement('h4', {}, 'Top 50 Advanced'),
+                                            React.createElement('p', {}, 'Deep dive into advanced patterns')
+                                        ),
+                                        React.createElement('span', { className: 'dropdown-badge' }, '50%')
+                                    ),
+                                    React.createElement('a', {
+                                        href: '#',
+                                        className: 'dropdown-item',
+                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top100'); }
+                                    },
+                                        React.createElement('div', { className: 'dropdown-icon tier-icon-100' },
+                                            React.createElement('i', { className: 'fas fa-trophy' })
+                                        ),
+                                        React.createElement('div', { className: 'dropdown-content' },
+                                            React.createElement('h4', {}, 'Top 100 Complete'),
+                                            React.createElement('p', {}, 'Comprehensive coverage of all topics')
+                                        ),
+                                        React.createElement('span', { className: 'dropdown-badge' }, '25%')
+                                    )
+                                )
+                            ),
+
+                            React.createElement('li', { className: 'nav-item' },
+                                React.createElement('a', {
+                                    href: '#',
+                                    className: 'nav-link ' + (currentView === 'roadmap' ? 'active' : ''),
+                                    onClick: (e) => { e.preventDefault(); onNavigate('roadmap'); }
+                                },
+                                    React.createElement('i', { className: 'fas fa-map-marked-alt' }),
+                                    React.createElement('span', {}, 'Learning Path')
+                                )
+                            ),
+
+                            React.createElement('li', { className: 'nav-item' },
+                                React.createElement('a', {
+                                    href: '#',
+                                    className: 'nav-link ' + (currentView === 'analytics' ? 'active' : ''),
+                                    onClick: (e) => { e.preventDefault(); onNavigate('analytics'); }
+                                },
+                                    React.createElement('i', { className: 'fas fa-chart-bar' }),
+                                    React.createElement('span', {}, 'Progress')
+                                )
+                            )
+                        )
+                    ),
+
+                    React.createElement('div', { className: 'header-actions' },
+                        React.createElement('button', {
+                            className: 'search-btn',
+                            title: 'Search',
+                            onClick: () => showNotification('Search feature coming soon!', 'info', 'info')
+                        },
+                            React.createElement('i', { className: 'fas fa-search' })
+                        ),
+                        React.createElement('button', {
+                            className: 'theme-toggle',
+                            onClick: toggleTheme,
+                            title: 'Toggle Theme'
+                        },
+                            React.createElement('i', { className: theme === 'light' ? 'fas fa-moon' : 'fas fa-sun' })
+                        ),
+                        React.createElement('button', {
+                            className: 'profile-btn',
+                            title: 'Profile',
+                            onClick: () => showNotification('Profile features coming soon!', 'info', 'user')
+                        },
+                            React.createElement('i', { className: 'fas fa-user' })
+                        )
+                    )
+                )
+            );
+        }
+
+        // Dashboard Component
+        function Dashboard({ onSelectTier, progress }) {
+            const tiers = [
+                {
+                    id: 'top10',
+                    number: '10',
+                    title: 'Essential Questions',
+                    description: 'Must-know questions that appear in 90% of React interviews',
+                    gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+                    icon: 'fas fa-fire',
+                    frequency: '90%'
+                },
+                {
+                    id: 'top20',
+                    number: '20',
+                    title: 'Core Concepts',
+                    description: 'Fundamental React concepts every developer should master',
+                    gradient: 'linear-gradient(135deg, #feca57, #ff9ff3)',
+                    icon: 'fas fa-star',
+                    frequency: '75%'
+                },
+                {
+                    id: 'top50',
+                    number: '50',
+                    title: 'Advanced Topics',
+                    description: 'Deep dive into advanced patterns and best practices',
+                    gradient: 'linear-gradient(135deg, #48dbfb, #0abde3)',
+                    icon: 'fas fa-chart-line',
+                    frequency: '50%'
+                },
+                {
+                    id: 'top100',
+                    number: '100',
+                    title: 'Complete Mastery',
+                    description: 'Comprehensive coverage including edge cases and expert topics',
+                    gradient: 'linear-gradient(135deg, #1dd1a1, #10ac84)',
+                    icon: 'fas fa-trophy',
+                    frequency: '25%'
+                }
+            ];
+
+            const getProgressStats = (tierId) => {
+                const tierQuestions = questionTiers[tierId]?.questions || [];
+                const completed = tierQuestions.filter(q => 
+                    progress.questionProgress[q.id]?.confidence >= 3
+                ).length;
+                const avgConfidence = tierQuestions.length > 0 ? 
+                    Math.round(tierQuestions.reduce((sum, q) => 
+                        sum + (progress.questionProgress[q.id]?.confidence || 0), 0
+                    ) / tierQuestions.length * 20) : 0;
+                
+                return {
+                    total: tierQuestions.length,
+                    completed,
+                    confidence: avgConfidence,
+                    completionRate: tierQuestions.length > 0 ? Math.round((completed / tierQuestions.length) * 100) : 0
+                };
+            };
+
+            return React.createElement('div', { className: 'dashboard fade-in-up' },
+                React.createElement('div', { className: 'dashboard-header' },
+                    React.createElement('h1', { className: 'dashboard-title' }, 'Choose Your Challenge Level'),
+                    React.createElement('p', { className: 'dashboard-subtitle' }, 
+                        'Select the tier that matches your preparation goals and current skill level. Track your confidence with our unique 5-circle system.'
+                    )
+                ),
+
+                React.createElement('div', { className: 'tiers-grid' },
+                    tiers.map(tier => {
+                        const stats = getProgressStats(tier.id);
+                        return React.createElement('div', {
+                            key: tier.id,
+                            className: 'tier-card tier-' + tier.id,
+                            onClick: () => onSelectTier(tier.id)
+                        },
+                            React.createElement('div', { 
+                                className: 'tier-card-header',
+                                style: { background: tier.gradient }
+                            },
+                                React.createElement('div', { className: 'tier-number' }, tier.number),
+                                React.createElement('h2', { className: 'tier-title' }, tier.title),
+                                React.createElement('p', { className: 'tier-description' }, tier.description)
+                            ),
+                            React.createElement('div', { className: 'tier-card-body' },
+                                React.createElement('div', { className: 'tier-stats' },
+                                    React.createElement('div', { className: 'stat-item' },
+                                        React.createElement('span', { className: 'stat-number' }, stats.total || tier.number),
+                                        React.createElement('span', { className: 'stat-label' }, 'Questions')
+                                    ),
+                                    React.createElement('div', { className: 'stat-item' },
+                                        React.createElement('span', { className: 'stat-number' }, stats.completionRate + '%'),
+                                        React.createElement('span', { className: 'stat-label' }, 'Complete')
+                                    ),
+                                    React.createElement('div', { className: 'stat-item' },
+                                        React.createElement('span', { className: 'stat-number' }, stats.confidence + '%'),
+                                        React.createElement('span', { className: 'stat-label' }, 'Confidence')
+                                    )
+                                ),
+                                React.createElement('div', { className: 'tier-progress' },
+                                    React.createElement('div', { 
+                                        className: 'tier-progress-fill',
+                                        style: { width: stats.completionRate + '%' }
+                                    })
+                                ),
+                                React.createElement('button', {
+                                    className: 'btn btn-primary',
+                                    style: { width: '100%', justifyContent: 'center' }
+                                },
+                                    React.createElement('i', { className: tier.icon }),
+                                    React.createElement('span', {}, 'Start Preparation'),
+                                    React.createElement('span', { 
+                                        style: { 
+                                            marginLeft: 'auto', 
+                                            opacity: 0.8,
+                                            fontSize: '0.8rem'
+                                        } 
+                                    }, tier.frequency)
+                                )
+                            )
+                        );
+                    })
+                )
+            );
+        }
+
+        // Confidence Tracker Component
+        function ConfidenceTracker({ questionId, initialConfidence, onChange }) {
+            const [confidence, setConfidence] = useState(initialConfidence || 0);
+            const [hoveredLevel, setHoveredLevel] = useState(0);
+
+            const handleCircleClick = (level) => {
+                const newConfidence = confidence === level ? 0 : level;
+                setConfidence(newConfidence);
+                onChange(questionId, newConfidence);
+                
+                const messages = [
+                    'Question reset', 'Just getting started!', 'Making progress!', 
+                    'Getting confident!', 'Almost there!', 'Mastered! 🎉'
+                ];
+                showNotification(messages[newConfidence], 'success', 'check-circle');
+            };
+
+            const getConfidenceText = (level) => {
+                const texts = {
+                    0: "Not familiar yet",
+                    1: "Just heard of it",
+                    2: "Basic understanding", 
+                    3: "Can explain it well",
+                    4: "Very confident",
+                    5: "Expert level mastery"
+                };
+                return texts[level] || texts[0];
+            };
+
+            const displayLevel = hoveredLevel || confidence;
+
+            return React.createElement('div', { className: 'confidence-section' },
+                React.createElement('div', { className: 'confidence-header' },
+                    React.createElement('div', { className: 'confidence-icon' },
+                        React.createElement('i', { className: 'fas fa-bullseye' })
+                    ),
+                    React.createElement('div', {},
+                        React.createElement('h4', { className: 'confidence-title' }, 'Confidence Level'),
+                        React.createElement('p', { 
+                            style: { 
+                                margin: 0, 
+                                color: 'var(--text-muted)', 
+                                fontSize: '0.9rem' 
+                            } 
+                        }, 'Rate your understanding (inspired by the pencil circle method)')
+                    )
+                ),
+                React.createElement('div', { className: 'confidence-tracker' },
+                    React.createElement('div', { className: 'confidence-circles' },
+                        [1, 2, 3, 4, 5].map(level =>
+                            React.createElement('div', {
+                                key: level,
+                                className: 'confidence-circle ' + (confidence >= level ? 'filled' : ''),
+                                onClick: () => handleCircleClick(level),
+                                onMouseEnter: () => setHoveredLevel(level),
+                                onMouseLeave: () => setHoveredLevel(0),
+                                title: 'Level ' + level
+                            })
+                        )
+                    ),
+                    React.createElement('span', { className: 'confidence-label' },
+                        getConfidenceText(displayLevel)
+                    ),
+                    React.createElement('div', { className: 'confidence-percentage' },
+                        (confidence * 20) + '%'
+                    )
+                )
+            );
+        }
+
+        // Questions List Component
+        function QuestionsList({ tier, progress, onConfidenceChange, onToggleFavorite }) {
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+            const [selectedCategory, setSelectedCategory] = useState('All');
+            const [expandedQuestions, setExpandedQuestions] = useState({});
+
+            const tierData = questionTiers[tier];
+            const questions = tierData?.questions || [];
+
+            const filteredQuestions = questions.filter(q => {
+                const matchesSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    q.answer.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesDifficulty = selectedDifficulty === 'All' || q.difficulty === selectedDifficulty;
+                const matchesCategory = selectedCategory === 'All' || q.category === selectedCategory;
+                
+                return matchesSearch && matchesDifficulty && matchesCategory;
+            });
+
+            const toggleQuestion = (questionId) => {
+                setExpandedQuestions(prev => {
+                    const newExpanded = { ...prev };
+                    newExpanded[questionId] = !newExpanded[questionId];
+                    return newExpanded;
+                });
+            };
+
+            const getDifficultyColor = (difficulty) => {
+                switch(difficulty) {
+                    case 'Beginner': return 'difficulty-beginner';
+                    case 'Intermediate': return 'difficulty-intermediate';
+                    case 'Advanced': return 'difficulty-advanced';
+                    default: return 'difficulty-beginner';
+                }
+            };
+
+            const categories = [...new Set(questions.map(q => q.category))];
+            const difficulties = [...new Set(questions.map(q => q.difficulty))];
+
+            return React.createElement('div', { className: 'questions-container fade-in-up' },
+                React.createElement('div', { className: 'questions-header' },
+                    React.createElement('h1', { className: 'questions-title' }, 
+                        '🎯 ' + (tierData?.title || 'Questions')
+                    ),
+                    React.createElement('p', { className: 'questions-subtitle' }, 
+                        tierData?.description || 'Comprehensive interview preparation questions'
+                    )
+                ),
+
+                React.createElement('div', { className: 'filters-section' },
+                    React.createElement('div', { className: 'filter-row' },
+                        React.createElement('input', {
+                            type: 'text',
+                            placeholder: '🔍 Search questions and answers...',
+                            value: searchTerm,
+                            onChange: (e) => setSearchTerm(e.target.value),
+                            className: 'search-input'
+                        }),
+                        React.createElement('select', {
+                            value: selectedDifficulty,
+                            onChange: (e) => setSelectedDifficulty(e.target.value),
+                            className: 'filter-select'
+                        },
+                            React.createElement('option', { value: 'All' }, 'All Difficulties'),
+                            difficulties.map(diff =>
+                                React.createElement('option', { key: diff, value: diff }, diff)
+                            )
+                        ),
+                        React.createElement('select', {
+                            value: selectedCategory,
+                            onChange: (e) => setSelectedCategory(e.target.value),
+                            className: 'filter-select'
+                        },
+                            React.createElement('option', { value: 'All' }, 'All Categories'),
+                            categories.map(cat =>
+                                React.createElement('option', { key: cat, value: cat }, cat)
+                            )
+                        )
+                    )
+                ),
+
+                React.createElement('div', { className: 'questions-list' },
+                    filteredQuestions.map((question, index) =>
+                        React.createElement('div', { 
+                            key: question.id, 
+                            className: 'question-card ' + (expandedQuestions[question.id] ? 'expanded' : '')
+                        },
+                            React.createElement('div', { className: 'question-header' },
+                                React.createElement('div', { className: 'question-meta' },
+                                    React.createElement('div', { className: 'question-number' }, 'Q' + (index + 1)),
+                                    React.createElement('div', { 
+                                        className: 'difficulty-badge ' + getDifficultyColor(question.difficulty)
+                                    }, question.difficulty),
+                                    React.createElement('div', { className: 'category-badge' }, question.category)
+                                ),
+                                React.createElement('div', { className: 'question-content-area' },
+                                    React.createElement('h3', { className: 'question-title' }, question.question),
+                                    React.createElement('div', { className: 'question-actions' },
+                                        React.createElement('button', {
+                                            className: 'favorite-btn',
+                                            onClick: (e) => {
+                                                e.stopPropagation();
+                                                onToggleFavorite(question.id);
+                                            }
+                                        }, progress.favorites.includes(question.id) ? '❤️' : '🤍'),
+                                        React.createElement('button', {
+                                            className: 'expand-btn',
+                                            onClick: () => toggleQuestion(question.id)
+                                        }, 
+                                            React.createElement('span', {}, 
+                                                React.createElement('i', { className: expandedQuestions[question.id] ? 'fas fa-chevron-up' : 'fas fa-chevron-down' }),
+                                                ' ' + (expandedQuestions[question.id] ? 'Collapse' : 'Expand')
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            
+                            expandedQuestions[question.id] && React.createElement('div', { className: 'question-content' },
+                                React.createElement(ConfidenceTracker, {
+                                    questionId: question.id,
+                                    initialConfidence: progress.questionProgress[question.id]?.confidence || 0,
+                                    onChange: onConfidenceChange
+                                }),
+                                
+                                React.createElement('div', { className: 'answer-section' },
+                                    React.createElement('div', { className: 'section-title' },
+                                        React.createElement('div', { className: 'section-icon' },
+                                            React.createElement('i', { className: 'fas fa-lightbulb' })
+                                        ),
+                                        React.createElement('span', {}, 'Detailed Answer')
+                                    ),
+                                    React.createElement('div', {
+                                        className: 'answer-text',
+                                        dangerouslySetInnerHTML: {
+                                            __html: question.answer
+                                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                                .replace(/\n/g, '<br>')
+                                        }
+                                    })
+                                ),
+                                
+                                question.codeExample && React.createElement('div', { className: 'code-example' },
+                                    React.createElement('div', { className: 'code-header' },
+                                        React.createElement('i', { className: 'fas fa-code' }),
+                                        React.createElement('span', { className: 'code-title' }, question.codeExample.title)
+                                    ),
+                                    React.createElement('pre', { className: 'code-block' },
+                                        React.createElement('code', {}, question.codeExample.code)
+                                    )
+                                ),
+                                
+                                question.keyPoints && React.createElement('div', { className: 'key-points' },
+                                    React.createElement('div', { className: 'section-title' },
+                                        React.createElement('div', { className: 'section-icon' },
+                                            React.createElement('i', { className: 'fas fa-key' })
+                                        ),
+                                        React.createElement('span', {}, 'Key Takeaways')
+                                    ),
+                                    React.createElement('ul', {},
+                                        question.keyPoints.map((point, i) =>
+                                            React.createElement('li', { key: i },
+                                                React.createElement('div', { className: 'key-point-icon' }, '✓'),
+                                                React.createElement('span', {}, point)
+                                            )
+                                        )
+                                    )
+                                ),
+                                
+                                React.createElement('div', { className: 'question-bottom-actions' },
+                                    React.createElement('button', {
+                                        className: 'btn btn-outline',
+                                        onClick: () => {
+                                            navigator.clipboard.writeText(question.question + '\n\n' + question.answer);
+                                            showNotification('Question copied to clipboard!', 'success', 'copy');
+                                        }
+                                    },
+                                        React.createElement('i', { className: 'fas fa-copy' }),
+                                        React.createElement('span', {}, 'Copy Question')
+                                    ),
+                                    React.createElement('button', {
+                                        className: 'btn btn-ghost',
+                                        onClick: () => toggleQuestion(question.id)
+                                    },
+                                        React.createElement('i', { className: 'fas fa-minus' }),
+                                        React.createElement('span', {}, 'Collapse')
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const [currentView, setCurrentView] = useState('dashboard');
+            const [selectedTier, setSelectedTier] = useState('top10');
+            const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+            
+            const { progress, updateQuestionConfidence, toggleFavorite } = useProgress();
+
+            useEffect(() => {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }, [theme]);
+
+            const toggleTheme = () => {
+                setTheme(theme === 'light' ? 'dark' : 'light');
+            };
+
+            const handleNavigate = (view, tier) => {
+                setCurrentView(view);
+                if (tier) setSelectedTier(tier);
+            };
+
+            const handleSelectTier = (tierId) => {
+                setSelectedTier(tierId);
+                setCurrentView('questions');
+            };
+
+            const handleConfidenceChange = (questionId, confidence) => {
+                updateQuestionConfidence(questionId, confidence);
+            };
+
+            return React.createElement('div', { className: 'app', 'data-theme': theme },
+                React.createElement(ModernHeader, {
+                    currentView: currentView,
+                    onNavigate: handleNavigate,
+                    theme: theme,
+                    toggleTheme: toggleTheme
+                }),
+                
+                React.createElement('main', { className: 'main-content' },
+                    currentView === 'dashboard' && React.createElement(Dashboard, {
+                        onSelectTier: handleSelectTier,
+                        progress: progress
+                    }),
+                    
+                    currentView === 'questions' && React.createElement(QuestionsList, {
+                        tier: selectedTier,
+                        progress: progress,
+                        onConfidenceChange: handleConfidenceChange,
+                        onToggleFavorite: toggleFavorite
+                    }),
+                    
+                    currentView === 'roadmap' && React.createElement('div', {
+                        style: { 
+                            padding: '4rem 2rem', 
+                            textAlign: 'center',
+                            maxWidth: '800px',
+                            margin: '0 auto'
+                        }
+                    },
+                        React.createElement('h1', { 
+                            style: { 
+                                fontSize: '3rem', 
+                                background: 'var(--primary-gradient)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                marginBottom: '2rem'
+                            } 
+                        }, '🗺️ Learning Roadmap'),
+                        React.createElement('p', { 
+                            style: { 
+                                fontSize: '1.2rem', 
+                                color: 'var(--text-muted)',
+                                marginBottom: '2rem'
+                            } 
+                        }, 'Coming soon! A structured 4-week learning path with daily goals and milestones.'),
+                        React.createElement('button', {
+                            className: 'btn btn-primary',
+                            onClick: () => handleNavigate('dashboard')
+                        }, 'Back to Dashboard')
+                    ),
+                    
+                    currentView === 'analytics' && React.createElement('div', {
+                        style: { 
+                            padding: '4rem 2rem', 
+                            textAlign: 'center',
+                            maxWidth: '800px',
+                            margin: '0 auto'
+                        }
+                    },
+                        React.createElement('h1', { 
+                            style: { 
+                                fontSize: '3rem', 
+                                background: 'var(--primary-gradient)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                marginBottom: '2rem'
+                            } 
+                        }, '📊 Progress Analytics'),
+                        React.createElement('div', {
+                            style: {
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                                gap: '2rem',
+                                margin: '2rem 0'
+                            }
+                        },
+                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },
+                                React.createElement('span', { className: 'stat-number' }, progress.overallStats.questionsStudied),
+                                React.createElement('span', { className: 'stat-label' }, 'Questions Studied')
+                            ),
+                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },
+                                React.createElement('span', { className: 'stat-number' }, progress.favorites.length),
+                                React.createElement('span', { className: 'stat-label' }, 'Favorites Saved')
+                            ),
+                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },
+                                React.createElement('span', { className: 'stat-number' }, (progress.overallStats.averageConfidence * 20) + '%'),
+                                React.createElement('span', { className: 'stat-label' }, 'Avg Confidence')
+                            )
+                        ),
+                        React.createElement('button', {
+                            className: 'btn btn-primary',
+                            onClick: () => handleNavigate('dashboard')
+                        }, 'Back to Dashboard')
+                    )
+                )
+            );
+        }
+
+        // Initialize App
+        function initializeApp() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const root = createRoot(document.getElementById('root'));
+            
+            root.render(React.createElement(App));
+            
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 1200);
+        }
+
+        // Start the app
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+    </script>
+</body>
+</html>
