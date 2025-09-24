@@ -1,0 +1,352 @@
+{
+  "title": "Top 20 React Interview Questions",
+  "description": "Master the most frequently asked React interview questions with detailed explanations and examples",
+  "lastUpdated": "2025-09-24",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is React and why is it popular?",
+      "difficulty": "Beginner",
+      "category": "Fundamentals",
+      "answer": "React is a JavaScript library for building user interfaces, particularly web applications. It was created by Facebook and is now maintained by Facebook and the community.\n\n**Key reasons for popularity:**\n\n1. **Component-Based Architecture**: Break UI into reusable, self-contained components\n2. **Virtual DOM**: Efficient updates by comparing virtual representations\n3. **Unidirectional Data Flow**: Predictable state management\n4. **Large Ecosystem**: Rich community and extensive library support\n5. **Developer Experience**: Great tools like React DevTools\n6. **Performance**: Optimizations like reconciliation and lazy loading",
+      "codeExample": {
+        "title": "Basic React Component",
+        "code": "function Welcome({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Usage\n<Welcome name=\"React Developer\" />"
+      },
+      "keyPoints": [
+        "Component-based architecture",
+        "Virtual DOM for performance",
+        "Strong ecosystem and community",
+        "Backed by Meta (Facebook)"
+      ],
+      "followUpQuestions": [
+        "What is the Virtual DOM?",
+        "How does React differ from Angular?",
+        "What are React components?"
+      ]
+    },
+    {
+      "id": "q2",
+      "question": "What is a Single Page Application (SPA)?",
+      "difficulty": "Beginner",
+      "category": "Architecture",
+      "answer": "A Single Page Application (SPA) is a web application that loads a single HTML page and dynamically updates content as users interact, rather than reloading entire pages.\n\n**How SPAs work:**\n1. Initial page load downloads the entire application\n2. Subsequent navigation updates only changed content\n3. Client-side routing manages URL changes\n4. AJAX requests fetch new data without page refresh\n\n**Advantages:**\n- Faster navigation after initial load\n- Smoother user experience\n- Reduced server requests\n- Better mobile experience\n\n**Disadvantages:**\n- Longer initial load time\n- SEO challenges\n- Browser history complexity\n- JavaScript dependency",
+      "codeExample": {
+        "title": "React Router SPA Example",
+        "code": "import { BrowserRouter, Routes, Route } from 'react-router-dom';\n\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/about\" element={<About />} />\n        <Route path=\"/contact\" element={<Contact />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}"
+      },
+      "keyPoints": [
+        "Single HTML page with dynamic updates",
+        "Client-side routing",
+        "Better UX after initial load",
+        "SEO considerations needed"
+      ]
+    },
+    {
+      "id": "q3",
+      "question": "What is JSX and how does it differ from HTML?",
+      "difficulty": "Beginner",
+      "category": "JSX",
+      "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows writing HTML-like code directly in JavaScript files. It makes React components more readable and expressive.\n\n**Key Differences from HTML:**\n\n1. **Attribute Names**: `className` instead of `class`, `htmlFor` instead of `for`\n2. **Self-Closing Tags**: All tags must be properly closed (`<img />`, `<br />`)\n3. **JavaScript Expressions**: Use `{}` to embed JavaScript\n4. **camelCase Properties**: `onClick` instead of `onclick`\n5. **Style Attribute**: Takes objects instead of strings\n\n**JSX Compilation:**\nJSX is transpiled to `React.createElement()` calls by Babel.",
+      "codeExample": {
+        "title": "JSX vs HTML Comparison",
+        "code": "// JSX\nfunction Button({ onClick, children }) {\n  return (\n    <button \n      className=\"btn-primary\" \n      onClick={onClick}\n      style={{ backgroundColor: 'blue', color: 'white' }}\n    >\n      {children}\n    </button>\n  );\n}\n\n// Compiles to:\nReact.createElement('button', {\n  className: 'btn-primary',\n  onClick: onClick,\n  style: { backgroundColor: 'blue', color: 'white' }\n}, children);"
+      },
+      "keyPoints": [
+        "Syntax extension for JavaScript",
+        "HTML-like syntax in JS",
+        "Transpiled to React.createElement",
+        "Supports JavaScript expressions"
+      ]
+    },
+    {
+      "id": "q4",
+      "question": "Explain the difference between functional and class components",
+      "difficulty": "Beginner",
+      "category": "Components",
+      "answer": "React components can be written as functions or classes, with functional components becoming the modern standard after React 16.8 introduced hooks.\n\n**Class Components:**\n- Extend React.Component\n- Use render() method to return JSX\n- Manage state with this.state and this.setState()\n- Access lifecycle methods directly\n- More verbose syntax\n\n**Functional Components:**\n- Simple JavaScript functions that return JSX\n- Use hooks for state and side effects\n- Cleaner, more concise syntax\n- Better performance optimizations\n- Easier to test and reason about",
+      "codeExample": {
+        "title": "Class vs Functional Component",
+        "code": "// Class Component\nclass Counter extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { count: 0 };\n  }\n\n  render() {\n    return (\n      <div>\n        <p>Count: {this.state.count}</p>\n        <button onClick={() => this.setState({count: this.state.count + 1})}>\n          Increment\n        </button>\n      </div>\n    );\n  }\n}\n\n// Functional Component\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Functional components are modern standard",
+        "Hooks enable state and effects in functions",
+        "Class components use this.state",
+        "Functional components are more concise"
+      ]
+    },
+    {
+      "id": "q5",
+      "question": "What is the difference between stateless and stateful components in React?",
+      "difficulty": "Beginner",
+      "category": "State",
+      "answer": "Components can be categorized based on whether they manage internal state or not.\n\n**Stateless Components:**\n- Do not manage or store internal data\n- Receive data through props only\n- Pure functions that return JSX\n- Easier to test and debug\n- Better performance (can be optimized)\n\n**Stateful Components:**\n- Manage their own internal state\n- Can update state based on user interactions\n- Handle complex logic and data manipulation\n- Re-render when state changes\n- More complex but more powerful",
+      "codeExample": {
+        "title": "Stateless vs Stateful Examples",
+        "code": "// Stateless Component\nfunction Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Stateful Component\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Stateless components are pure functions",
+        "Stateful components manage internal data",
+        "Use stateless for presentation",
+        "Use stateful for interactivity"
+      ]
+    },
+    {
+      "id": "q6",
+      "question": "What are props in React and how are they used?",
+      "difficulty": "Beginner",
+      "category": "Props",
+      "answer": "Props (properties) are the mechanism for passing data from parent to child components in React. They are read-only and help make components reusable and configurable.\n\n**Key Characteristics:**\n- Read-only (immutable) in child components\n- Passed down from parent to child\n- Can be any JavaScript value (strings, numbers, objects, functions)\n- Enable component reusability\n- Support default values with defaultProps\n\n**Props Flow:**\n1. Parent component passes data as attributes\n2. Child component receives props as function parameter\n3. Child uses props to render dynamic content",
+      "codeExample": {
+        "title": "Props Usage Example",
+        "code": "// Child Component\nfunction UserCard({ name, email, avatar, onEdit }) {\n  return (\n    <div className=\"user-card\">\n      <img src={avatar} alt={name} />\n      <h3>{name}</h3>\n      <p>{email}</p>\n      <button onClick={() => onEdit(name)}>Edit</button>\n    </div>\n  );\n}\n\n// Parent Component\nfunction UserList() {\n  const handleEdit = (userName) => {\n    console.log(`Editing ${userName}`);\n  };\n\n  return (\n    <div>\n      <UserCard \n        name=\"John Doe\" \n        email=\"john@example.com\"\n        avatar=\"/avatar1.jpg\"\n        onEdit={handleEdit}\n      />\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Read-only data from parent",
+        "Enable component reusability",
+        "Can pass any JavaScript value",
+        "Support callback functions for communication"
+      ]
+    },
+    {
+      "id": "q7",
+      "question": "What is the difference between state and props?",
+      "difficulty": "Intermediate",
+      "category": "State",
+      "answer": "State and props are both used to manage data in React components, but they serve different purposes and have different characteristics.\n\n**State:**\n- Internal to the component\n- Mutable (can be changed)\n- Managed by the component itself\n- Triggers re-renders when updated\n- Private to the component\n\n**Props:**\n- External data passed from parent\n- Immutable (read-only)\n- Controlled by parent component\n- Cannot be modified by child\n- Used for component configuration",
+      "codeExample": {
+        "title": "State vs Props Example",
+        "code": "// Component using both state and props\nfunction TodoItem({ todo, onToggle, onDelete }) { // props\n  const [isEditing, setIsEditing] = useState(false); // state\n\n  return (\n    <div>\n      {isEditing ? (\n        <input \n          value={todo.text} \n          onChange={(e) => {/* Can't modify props directly */}}\n        />\n      ) : (\n        <span>{todo.text}</span>\n      )}\n      \n      <button onClick={() => setIsEditing(!isEditing)}>\n        {isEditing ? 'Save' : 'Edit'}\n      </button>\n      \n      <button onClick={() => onToggle(todo.id)}>\n        {todo.completed ? 'Undo' : 'Complete'}\n      </button>\n      \n      <button onClick={() => onDelete(todo.id)}>\n        Delete\n      </button>\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "State is internal and mutable",
+        "Props are external and read-only",
+        "State triggers re-renders",
+        "Props are controlled by parent"
+      ]
+    },
+    {
+      "id": "q8",
+      "question": "What are controlled and uncontrolled components?",
+      "difficulty": "Intermediate",
+      "category": "Forms",
+      "answer": "This concept relates to how form elements manage their data in React applications.\n\n**Controlled Components:**\n- Form data is handled by React component state\n- Value is controlled by React\n- Changes trigger state updates\n- Provides immediate validation and formatting\n- More predictable and easier to debug\n\n**Uncontrolled Components:**\n- Form data is handled by the DOM itself\n- Use refs to access form values\n- Less React code required\n- Good for simple forms\n- Less control over form behavior",
+      "codeExample": {
+        "title": "Controlled vs Uncontrolled Forms",
+        "code": "// Controlled Component\nfunction ControlledForm() {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    console.log({ email, password });\n  };\n\n  return (\n    <form onSubmit={handleSubmit}>\n      <input\n        type=\"email\"\n        value={email}\n        onChange={(e) => setEmail(e.target.value)}\n      />\n      <input\n        type=\"password\"\n        value={password}\n        onChange={(e) => setPassword(e.target.value)}\n      />\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}\n\n// Uncontrolled Component\nfunction UncontrolledForm() {\n  const emailRef = useRef();\n  const passwordRef = useRef();\n\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    console.log({\n      email: emailRef.current.value,\n      password: passwordRef.current.value\n    });\n  };\n\n  return (\n    <form onSubmit={handleSubmit}>\n      <input type=\"email\" ref={emailRef} />\n      <input type=\"password\" ref={passwordRef} />\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}"
+      },
+      "keyPoints": [
+        "Controlled: React manages form state",
+        "Uncontrolled: DOM manages form state",
+        "Controlled provides more control and validation",
+        "Uncontrolled is simpler for basic forms"
+      ]
+    },
+    {
+      "id": "q9",
+      "question": "What is the purpose of the key attribute in React lists?",
+      "difficulty": "Intermediate",
+      "category": "Rendering",
+      "answer": "The key attribute is crucial for React's reconciliation algorithm when rendering lists of elements. It helps React identify which items have changed, been added, or removed.\n\n**Why Keys Are Important:**\n1. **Performance**: React can efficiently update only changed items\n2. **Component State**: Preserves component state correctly\n3. **DOM Manipulation**: Minimizes unnecessary DOM operations\n4. **Predictable Behavior**: Ensures consistent rendering\n\n**Key Requirements:**\n- Must be unique among siblings\n- Should be stable across re-renders\n- Preferably use data IDs rather than array indices",
+      "codeExample": {
+        "title": "Proper Key Usage",
+        "code": "// ❌ Bad: Using array index as key\nfunction BadList({ items }) {\n  return (\n    <ul>\n      {items.map((item, index) => (\n        <li key={index}>{item.name}</li>\n      ))}\n    </ul>\n  );\n}\n\n// ✅ Good: Using unique, stable identifier\nfunction GoodList({ items }) {\n  return (\n    <ul>\n      {items.map((item) => (\n        <li key={item.id}>{item.name}</li>\n      ))}\n    </ul>\n  );\n}\n\n// ✅ Complex example with component state\nfunction TodoList({ todos }) {\n  return (\n    <div>\n      {todos.map((todo) => (\n        <TodoItem \n          key={todo.id} // Preserves component state\n          todo={todo}\n          onEdit={handleEdit}\n          onDelete={handleDelete}\n        />\n      ))}\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Helps React identify list changes",
+        "Improves rendering performance",
+        "Should be unique and stable",
+        "Avoid using array indices when possible"
+      ]
+    },
+    {
+      "id": "q10",
+      "question": "What are fragments in React and why are they used?",
+      "difficulty": "Beginner",
+      "category": "JSX",
+      "answer": "React Fragments allow you to group multiple elements without adding extra nodes to the DOM. They solve the problem of React components needing to return a single root element.\n\n**Why Use Fragments:**\n1. **Clean DOM**: Avoid unnecessary wrapper divs\n2. **Semantic HTML**: Maintain proper HTML structure\n3. **CSS Layout**: Prevent CSS grid/flexbox issues\n4. **Performance**: Reduce DOM nodes\n\n**Fragment Syntax:**\n- `<React.Fragment>`: Full syntax\n- `<>`: Short syntax (most common)\n- `<Fragment>`: With import",
+      "codeExample": {
+        "title": "Fragment Usage Examples",
+        "code": "// Without Fragment (❌ Creates extra div)\nfunction UserInfo() {\n  return (\n    <div> {/* Unnecessary wrapper */}\n      <h1>John Doe</h1>\n      <p>Software Developer</p>\n    </div>\n  );\n}\n\n// With Fragment (✅ Clean DOM)\nfunction UserInfo() {\n  return (\n    <>\n      <h1>John Doe</h1>\n      <p>Software Developer</p>\n    </>\n  );\n}\n\n// With key prop (use React.Fragment)\nfunction UserList({ users }) {\n  return (\n    <div>\n      {users.map(user => (\n        <React.Fragment key={user.id}>\n          <h3>{user.name}</h3>\n          <p>{user.email}</p>\n          <hr />\n        </React.Fragment>\n      ))}\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Group elements without extra DOM nodes",
+        "Short syntax: <></>",
+        "Use React.Fragment for keys",
+        "Improves semantic HTML structure"
+      ]
+    },
+    {
+      "id": "q11",
+      "question": "What is the Virtual DOM and how does React use it to improve performance?",
+      "difficulty": "Intermediate",
+      "category": "Performance",
+      "answer": "The Virtual DOM is a lightweight, in-memory representation of the real DOM. React uses it to optimize updates and improve application performance.\n\n**How Virtual DOM Works:**\n1. **Initial Render**: React creates a virtual DOM tree\n2. **State Change**: New virtual DOM tree is created\n3. **Diffing**: React compares (diffs) old and new virtual trees\n4. **Reconciliation**: Calculate minimum changes needed\n5. **Update**: Apply only necessary changes to real DOM\n\n**Performance Benefits:**\n- Batched updates reduce DOM manipulations\n- Efficient diffing algorithm\n- Predictable performance\n- Cross-browser consistency",
+      "codeExample": {
+        "title": "Virtual DOM Concept",
+        "code": "// When state changes, React creates new virtual DOM\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  // Virtual DOM representation\n  // {\n  //   type: 'div',\n  //   props: {\n  //     children: [\n  //       { type: 'p', props: { children: `Count: ${count}` }},\n  //       { type: 'button', props: { onClick: increment, children: 'Increment' }}\n  //     ]\n  //   }\n  // }\n\n  return (\n    <div>\n      <p>Count: {count}</p> {/* Only this updates in real DOM */}\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}\n\n// React only updates the <p> element's text content\n// The button and div remain unchanged in the real DOM"
+      },
+      "keyPoints": [
+        "In-memory representation of real DOM",
+        "Enables efficient diffing algorithm",
+        "Minimizes expensive DOM operations",
+        "Batches updates for better performance"
+      ]
+    },
+    {
+      "id": "q12",
+      "question": "What are React lifecycle methods and when are they used?",
+      "difficulty": "Intermediate",
+      "category": "Lifecycle",
+      "answer": "Lifecycle methods are special methods in class components that allow you to hook into different phases of a component's life. With hooks, these are replaced by useEffect.\n\n**Main Lifecycle Phases:**\n\n**1. Mounting (Component Creation):**\n- constructor()\n- componentDidMount()\n\n**2. Updating (Component Changes):**\n- componentDidUpdate()\n- getSnapshotBeforeUpdate()\n\n**3. Unmounting (Component Removal):**\n- componentWillUnmount()\n\n**Modern Equivalent:**\nWith hooks, useEffect handles all lifecycle scenarios.",
+      "codeExample": {
+        "title": "Lifecycle Methods vs Hooks",
+        "code": "// Class Component Lifecycle\nclass UserProfile extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { user: null, loading: true };\n  }\n\n  async componentDidMount() {\n    // Runs after component mounts\n    const user = await fetchUser(this.props.userId);\n    this.setState({ user, loading: false });\n  }\n\n  async componentDidUpdate(prevProps) {\n    // Runs after component updates\n    if (prevProps.userId !== this.props.userId) {\n      const user = await fetchUser(this.props.userId);\n      this.setState({ user, loading: false });\n    }\n  }\n\n  componentWillUnmount() {\n    // Cleanup before component unmounts\n    this.cancelRequests();\n  }\n\n  render() {\n    if (this.state.loading) return <div>Loading...</div>;\n    return <div>{this.state.user.name}</div>;\n  }\n}\n\n// Functional Component with Hooks\nfunction UserProfile({ userId }) {\n  const [user, setUser] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    let cancelled = false;\n\n    async function loadUser() {\n      setLoading(true);\n      const userData = await fetchUser(userId);\n      if (!cancelled) {\n        setUser(userData);\n        setLoading(false);\n      }\n    }\n\n    loadUser();\n\n    // Cleanup function (componentWillUnmount equivalent)\n    return () => {\n      cancelled = true;\n    };\n  }, [userId]); // Dependency array for componentDidUpdate equivalent\n\n  if (loading) return <div>Loading...</div>;\n  return <div>{user.name}</div>;\n}"
+      },
+      "keyPoints": [
+        "Control component behavior at different phases",
+        "Modern approach uses useEffect hook",
+        "Mounting, updating, and unmounting phases",
+        "Essential for data fetching and cleanup"
+      ]
+    },
+    {
+      "id": "q13",
+      "question": "What do you understand by props drilling?",
+      "difficulty": "Intermediate",
+      "category": "State Management",
+      "answer": "Props drilling refers to the process of passing data through multiple layers of components, even when intermediate components don't need that data. It's a common problem in React applications with deep component trees.\n\n**Problems with Props Drilling:**\n1. **Maintenance**: Hard to track data flow\n2. **Scalability**: Becomes unwieldy with deep nesting\n3. **Coupling**: Creates unnecessary dependencies\n4. **Refactoring**: Difficult to restructure components\n\n**Solutions:**\n1. **React Context API**: Share data globally\n2. **State Management Libraries**: Redux, Zustand\n3. **Component Composition**: Avoid deep nesting\n4. **Custom Hooks**: Encapsulate stateful logic",
+      "codeExample": {
+        "title": "Props Drilling Problem and Solution",
+        "code": "// ❌ Props Drilling Problem\nfunction App() {\n  const [user, setUser] = useState({ name: 'John', theme: 'dark' });\n  \n  return <Layout user={user} setUser={setUser} />;\n}\n\nfunction Layout({ user, setUser }) {\n  // Layout doesn't need user data, just passing it down\n  return (\n    <div>\n      <Header user={user} />\n      <Sidebar user={user} setUser={setUser} />\n    </div>\n  );\n}\n\nfunction Header({ user }) {\n  // Header doesn't need user data, just passing it down\n  return (\n    <header>\n      <UserMenu user={user} />\n    </header>\n  );\n}\n\nfunction UserMenu({ user }) {\n  // Finally uses the user data!\n  return <div>Welcome, {user.name}!</div>;\n}\n\n// ✅ Solution with Context API\nconst UserContext = createContext();\n\nfunction App() {\n  const [user, setUser] = useState({ name: 'John', theme: 'dark' });\n  \n  return (\n    <UserContext.Provider value={{ user, setUser }}>\n      <Layout />\n    </UserContext.Provider>\n  );\n}\n\nfunction Layout() {\n  // No props needed!\n  return (\n    <div>\n      <Header />\n      <Sidebar />\n    </div>\n  );\n}\n\nfunction UserMenu() {\n  // Direct access to user data\n  const { user } = useContext(UserContext);\n  return <div>Welcome, {user.name}!</div>;\n}"
+      },
+      "keyPoints": [
+        "Passing props through unnecessary components",
+        "Creates maintenance and scalability issues",
+        "Context API provides a solution",
+        "Consider component composition patterns"
+      ]
+    },
+    {
+      "id": "q14",
+      "question": "What is the Context API and how is it used for state management?",
+      "difficulty": "Intermediate",
+      "category": "State Management",
+      "answer": "The Context API is React's built-in solution for sharing state across the component tree without props drilling. It provides a way to create global state that can be accessed by any component.\n\n**Key Components:**\n1. **createContext()**: Creates a context\n2. **Provider**: Supplies the context value\n3. **useContext()**: Consumes the context value\n\n**Common Use Cases:**\n- Theme management\n- User authentication\n- Language/localization\n- Global app settings\n- Shopping cart state",
+      "codeExample": {
+        "title": "Complete Context API Example",
+        "code": "import { createContext, useContext, useReducer } from 'react';\n\n// 1. Create Context\nconst CartContext = createContext();\n\n// 2. Create Custom Hook for easier usage\nfunction useCart() {\n  const context = useContext(CartContext);\n  if (!context) {\n    throw new Error('useCart must be used within CartProvider');\n  }\n  return context;\n}\n\n// 3. Reducer for complex state management\nfunction cartReducer(state, action) {\n  switch (action.type) {\n    case 'ADD_ITEM':\n      return {\n        ...state,\n        items: [...state.items, action.payload],\n        total: state.total + action.payload.price\n      };\n    case 'REMOVE_ITEM':\n      const filteredItems = state.items.filter(item => item.id !== action.payload);\n      return {\n        ...state,\n        items: filteredItems,\n        total: filteredItems.reduce((sum, item) => sum + item.price, 0)\n      };\n    default:\n      return state;\n  }\n}\n\n// 4. Provider Component\nfunction CartProvider({ children }) {\n  const [state, dispatch] = useReducer(cartReducer, {\n    items: [],\n    total: 0\n  });\n\n  return (\n    <CartContext.Provider value={{ state, dispatch }}>\n      {children}\n    </CartContext.Provider>\n  );\n}\n\n// 5. Usage in Components\nfunction App() {\n  return (\n    <CartProvider>\n      <Header />\n      <ProductList />\n      <Cart />\n    </CartProvider>\n  );\n}\n\nfunction ProductList() {\n  const { dispatch } = useCart();\n\n  const addToCart = (product) => {\n    dispatch({ type: 'ADD_ITEM', payload: product });\n  };\n\n  return (\n    <div>\n      {products.map(product => (\n        <button key={product.id} onClick={() => addToCart(product)}>\n          Add {product.name} to Cart\n        </button>\n      ))}\n    </div>\n  );\n}\n\nfunction Cart() {\n  const { state } = useCart();\n\n  return (\n    <div>\n      <h2>Cart ({state.items.length} items)</h2>\n      <p>Total: ${state.total}</p>\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Built-in solution for global state",
+        "Eliminates props drilling",
+        "Use with useReducer for complex state",
+        "Create custom hooks for better API"
+      ]
+    },
+    {
+      "id": "q15",
+      "question": "What are Higher-Order Components (HOCs)? Give an example.",
+      "difficulty": "Advanced",
+      "category": "Patterns",
+      "answer": "A Higher-Order Component (HOC) is a function that takes a component and returns a new component with additional functionality. It's a pattern for reusing component logic.\n\n**HOC Characteristics:**\n- Function that takes a component as argument\n- Returns a new enhanced component\n- Doesn't modify the original component\n- Follows the convention `withSomething`\n\n**Common Use Cases:**\n- Authentication checks\n- Data fetching\n- Analytics tracking\n- Error handling\n- Theme injection",
+      "codeExample": {
+        "title": "HOC Examples",
+        "code": "// 1. Authentication HOC\nfunction withAuth(WrappedComponent) {\n  return function AuthenticatedComponent(props) {\n    const { user, loading } = useAuth();\n\n    if (loading) {\n      return <div>Loading...</div>;\n    }\n\n    if (!user) {\n      return <div>Please log in to access this page.</div>;\n    }\n\n    return <WrappedComponent {...props} user={user} />;\n  };\n}\n\n// 2. Data Fetching HOC\nfunction withUserData(WrappedComponent) {\n  return function WithUserDataComponent(props) {\n    const [user, setUser] = useState(null);\n    const [loading, setLoading] = useState(true);\n\n    useEffect(() => {\n      async function fetchUser() {\n        try {\n          const userData = await api.getUser(props.userId);\n          setUser(userData);\n        } catch (error) {\n          console.error('Failed to fetch user:', error);\n        } finally {\n          setLoading(false);\n        }\n      }\n\n      fetchUser();\n    }, [props.userId]);\n\n    return (\n      <WrappedComponent \n        {...props} \n        user={user} \n        loading={loading} \n      />\n    );\n  };\n}\n\n// 3. Usage\nfunction UserProfile({ user, loading }) {\n  if (loading) return <div>Loading user...</div>;\n  \n  return (\n    <div>\n      <h1>{user.name}</h1>\n      <p>{user.email}</p>\n    </div>\n  );\n}\n\n// Enhanced components\nconst AuthenticatedUserProfile = withAuth(UserProfile);\nconst UserProfileWithData = withUserData(UserProfile);\nconst FullyEnhancedProfile = withAuth(withUserData(UserProfile));\n\n// 4. Multiple HOCs with compose\nfunction compose(...fns) {\n  return (x) => fns.reduceRight((acc, fn) => fn(acc), x);\n}\n\nconst EnhancedProfile = compose(\n  withAuth,\n  withUserData,\n  withAnalytics\n)(UserProfile);"
+      },
+      "keyPoints": [
+        "Function that enhances components",
+        "Promotes code reuse and separation of concerns",
+        "Don't modify original component",
+        "Can be composed together"
+      ]
+    },
+    {
+      "id": "q16",
+      "question": "Explain the concept of reconciliation in React",
+      "difficulty": "Advanced",
+      "category": "Performance",
+      "answer": "Reconciliation is React's algorithm for efficiently updating the DOM when component state or props change. It's the process of comparing the new Virtual DOM tree with the previous one and determining the minimum changes needed.\n\n**Reconciliation Process:**\n1. **Trigger**: State or props change\n2. **Re-render**: Component creates new Virtual DOM tree\n3. **Diffing**: Compare new tree with previous tree\n4. **Reconciliation**: Calculate minimal DOM updates\n5. **Commit**: Apply changes to real DOM\n\n**Optimization Strategies:**\n- Element type comparison\n- Key-based list reconciliation\n- Component instance reuse\n- Subtree skipping",
+      "codeExample": {
+        "title": "Reconciliation in Action",
+        "code": "// Example showing how React handles reconciliation\nfunction TodoList({ todos }) {\n  return (\n    <ul>\n      {todos.map(todo => (\n        <li key={todo.id}> {/* Key helps reconciliation */}\n          <TodoItem todo={todo} />\n        </li>\n      ))}\n    </ul>\n  );\n}\n\n// When todos array changes:\n// Before: [{ id: 1, text: 'Learn React' }, { id: 2, text: 'Build App' }]\n// After:  [{ id: 1, text: 'Learn React' }, { id: 3, text: 'Deploy' }, { id: 2, text: 'Build App' }]\n\n// React's reconciliation process:\n// 1. Compare trees element by element\n// 2. Todo with id:1 - no change (reuse)\n// 3. Todo with id:3 - new element (create)\n// 4. Todo with id:2 - moved (relocate)\n\n// Optimization with React.memo\nconst TodoItem = React.memo(function TodoItem({ todo }) {\n  console.log('Rendering todo:', todo.id);\n  \n  return (\n    <div>\n      <span>{todo.text}</span>\n      {todo.completed && <span>✓</span>}\n    </div>\n  );\n});\n\n// This component only re-renders if todo prop actually changes\n// React.memo prevents unnecessary renders during reconciliation"
+      },
+      "keyPoints": [
+        "Algorithm for efficient DOM updates",
+        "Compares Virtual DOM trees",
+        "Minimizes actual DOM manipulations",
+        "Uses keys and element types for optimization"
+      ]
+    },
+    {
+      "id": "q17",
+      "question": "How do React portals work and when should they be used?",
+      "difficulty": "Advanced",
+      "category": "Advanced Features",
+      "answer": "React Portals provide a way to render children into a DOM node that exists outside the parent component's DOM hierarchy. This is useful for modals, tooltips, and other UI elements that need to break out of their container.\n\n**How Portals Work:**\n1. Render components outside normal DOM hierarchy\n2. Maintain React component tree structure\n3. Preserve event bubbling through React tree\n4. Use ReactDOM.createPortal()\n\n**Common Use Cases:**\n- Modals and dialogs\n- Tooltips\n- Dropdown menus\n- Notifications\n- Overlays",
+      "codeExample": {
+        "title": "Portal Implementation",
+        "code": "import { createPortal } from 'react-dom';\n\n// 1. Basic Portal Component\nfunction Portal({ children, container }) {\n  const portalContainer = container || document.body;\n  return createPortal(children, portalContainer);\n}\n\n// 2. Modal Component using Portal\nfunction Modal({ isOpen, onClose, children }) {\n  const [modalRoot] = useState(() => {\n    const div = document.createElement('div');\n    div.id = 'modal-root';\n    return div;\n  });\n\n  useEffect(() => {\n    document.body.appendChild(modalRoot);\n    return () => {\n      document.body.removeChild(modalRoot);\n    };\n  }, [modalRoot]);\n\n  if (!isOpen) return null;\n\n  return createPortal(\n    <div className=\"modal-overlay\" onClick={onClose}>\n      <div className=\"modal-content\" onClick={e => e.stopPropagation()}>\n        <button className=\"modal-close\" onClick={onClose}>×</button>\n        {children}\n      </div>\n    </div>,\n    modalRoot\n  );\n}\n\n// 3. Tooltip Component\nfunction Tooltip({ children, content, position = 'top' }) {\n  const [isVisible, setIsVisible] = useState(false);\n  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });\n  const triggerRef = useRef();\n\n  const showTooltip = (e) => {\n    const rect = triggerRef.current.getBoundingClientRect();\n    setTooltipPosition({\n      x: rect.left + rect.width / 2,\n      y: rect.top - 10\n    });\n    setIsVisible(true);\n  };\n\n  return (\n    <>\n      <div\n        ref={triggerRef}\n        onMouseEnter={showTooltip}\n        onMouseLeave={() => setIsVisible(false)}\n      >\n        {children}\n      </div>\n      \n      {isVisible && createPortal(\n        <div \n          className=\"tooltip\"\n          style={{\n            position: 'fixed',\n            left: tooltipPosition.x,\n            top: tooltipPosition.y,\n            transform: 'translateX(-50%)',\n            backgroundColor: 'black',\n            color: 'white',\n            padding: '8px',\n            borderRadius: '4px',\n            fontSize: '14px',\n            pointerEvents: 'none',\n            zIndex: 1000\n          }}\n        >\n          {content}\n        </div>,\n        document.body\n      )}\n    </>\n  );\n}\n\n// 4. Usage\nfunction App() {\n  const [showModal, setShowModal] = useState(false);\n\n  return (\n    <div className=\"app\">\n      <button onClick={() => setShowModal(true)}>\n        Open Modal\n      </button>\n      \n      <Tooltip content=\"This is a helpful tooltip!\">\n        <span>Hover me</span>\n      </Tooltip>\n\n      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>\n        <h2>Modal Content</h2>\n        <p>This modal is rendered using a React Portal!</p>\n      </Modal>\n    </div>\n  );\n}"
+      },
+      "keyPoints": [
+        "Render components outside parent DOM hierarchy",
+        "Maintain React component tree structure",
+        "Perfect for modals, tooltips, overlays",
+        "Event bubbling works through React tree"
+      ]
+    },
+    {
+      "id": "q18",
+      "question": "How does React Router handle navigation in a single page?",
+      "difficulty": "Intermediate",
+      "category": "Routing",
+      "answer": "React Router is a library that enables navigation between different components in a React application while maintaining the single-page application behavior. It manages the browser history and renders different components based on the current URL.\n\n**Core Concepts:**\n1. **BrowserRouter**: Uses HTML5 history API\n2. **Routes & Route**: Define path-component mappings\n3. **Link**: Navigate without page refresh\n4. **useNavigate**: Programmatic navigation\n5. **useParams**: Access URL parameters\n\n**Navigation Process:**\n1. User clicks Link or URL changes\n2. Router matches current path with Route definitions\n3. Corresponding component renders\n4. Browser history updates without page reload",
+      "codeExample": {
+        "title": "Complete React Router Example",
+        "code": "import { \n  BrowserRouter, \n  Routes, \n  Route, \n  Link, \n  useNavigate, \n  useParams,\n  useLocation\n} from 'react-router-dom';\n\n// 1. Main App with Router\nfunction App() {\n  return (\n    <BrowserRouter>\n      <nav>\n        <Link to=\"/\">Home</Link>\n        <Link to=\"/about\">About</Link>\n        <Link to=\"/users\">Users</Link>\n        <Link to=\"/products/123\">Product 123</Link>\n      </nav>\n\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/about\" element={<About />} />\n        <Route path=\"/users\" element={<Users />} />\n        <Route path=\"/users/:id\" element={<UserProfile />} />\n        <Route path=\"/products/:productId\" element={<Product />} />\n        <Route path=\"*\" element={<NotFound />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}\n\n// 2. Component with URL parameters\nfunction UserProfile() {\n  const { id } = useParams(); // Get :id from URL\n  const navigate = useNavigate();\n  const [user, setUser] = useState(null);\n\n  useEffect(() => {\n    // Fetch user data based on ID\n    fetchUser(id).then(setUser);\n  }, [id]);\n\n  const goBack = () => {\n    navigate('/users'); // Programmatic navigation\n  };\n\n  if (!user) return <div>Loading...</div>;\n\n  return (\n    <div>\n      <h1>{user.name}</h1>\n      <p>{user.email}</p>\n      <button onClick={goBack}>Back to Users</button>\n    </div>\n  );\n}\n\n// 3. Protected Route Component\nfunction ProtectedRoute({ children }) {\n  const { user } = useAuth();\n  const location = useLocation();\n\n  if (!user) {\n    // Redirect to login with return URL\n    return <Navigate to=\"/login\" state={{ from: location }} replace />;\n  }\n\n  return children;\n}\n\n// 4. Usage with protected routes\nfunction AppWithAuth() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/login\" element={<Login />} />\n        <Route path=\"/\" element={<Home />} />\n        <Route \n          path=\"/dashboard\" \n          element={\n            <ProtectedRoute>\n              <Dashboard />\n            </ProtectedRoute>\n          } \n        />\n      </Routes>\n    </BrowserRouter>\n  );\n}\n\n// 5. Custom hook for navigation\nfunction useNavigation() {\n  const navigate = useNavigate();\n  const location = useLocation();\n\n  const goToUser = (userId) => {\n    navigate(`/users/${userId}`);\n  };\n\n  const goBack = () => {\n    navigate(-1); // Go back in history\n  };\n\n  const isActive = (path) => {\n    return location.pathname === path;\n  };\n\n  return { goToUser, goBack, isActive, currentPath: location.pathname };\n}"
+      },
+      "keyPoints": [
+        "Enables SPA navigation without page reloads",
+        "Uses browser history API",
+        "Route matching and component rendering",
+        "Supports nested routes and parameters"
+      ]
+    },
+    {
+      "id": "q19",
+      "question": "What is React Strict Mode and how does it help developers?",
+      "difficulty": "Intermediate",
+      "category": "Development Tools",
+      "answer": "React Strict Mode is a development tool that helps identify potential problems in a React application. It activates additional checks and warnings for its descendants, helping developers write better React code.\n\n**What Strict Mode Does:**\n1. **Identifies unsafe lifecycles**\n2. **Warns about legacy string ref API**\n3. **Warns about deprecated findDOMNode usage**\n4. **Detects unexpected side effects**\n5. **Warns about legacy context API**\n6. **Ensures reusable state**\n\n**Important Notes:**\n- Only runs in development mode\n- Has no effect on production builds\n- Can be applied to any part of the application",
+      "codeExample": {
+        "title": "Strict Mode Usage and Effects",
+        "code": "import { StrictMode } from 'react';\n\n// 1. Basic Strict Mode Usage\nfunction App() {\n  return (\n    <StrictMode>\n      <Header />\n      <MainContent />\n      <Footer />\n    </StrictMode>\n  );\n}\n\n// 2. Partial Strict Mode (only some components)\nfunction App() {\n  return (\n    <div>\n      <Header />\n      <StrictMode>\n        <MainContent /> {/* Only this part is in strict mode */}\n      </StrictMode>\n      <Footer />\n    </div>\n  );\n}\n\n// 3. Component that shows Strict Mode effects\nfunction ExampleComponent() {\n  const [count, setCount] = useState(0);\n\n  // ⚠️ Strict Mode will call this twice in development\n  // to help detect side effects\n  useEffect(() => {\n    console.log('Effect running'); // You'll see this twice\n    \n    // Side effect that Strict Mode helps identify\n    document.title = `Count: ${count}`;\n    \n    return () => {\n      console.log('Cleanup running'); // Also called twice\n    };\n  }, [count]);\n\n  // ⚠️ This function might be called twice in Strict Mode\n  const handleClick = () => {\n    console.log('Button clicked'); // Might see this twice\n    setCount(prev => prev + 1);\n  };\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={handleClick}>Increment</button>\n    </div>\n  );\n}\n\n// 4. How Strict Mode helps catch bugs\nfunction BuggyComponent() {\n  const [data, setData] = useState([]);\n\n  useEffect(() => {\n    // ❌ Bad: Side effect that mutates external state\n    window.globalData = data; // Strict Mode helps identify this\n    \n    // ❌ Bad: Not cleaning up subscriptions\n    const subscription = eventEmitter.subscribe('data', (newData) => {\n      setData(newData);\n    });\n    \n    // ✅ Good: Proper cleanup\n    return () => {\n      subscription.unsubscribe();\n    };\n  }, [data]);\n\n  return <div>{/* Component JSX */}</div>;\n}\n\n// 5. Strict Mode compatible component\nfunction WellBehavedComponent() {\n  const [user, setUser] = useState(null);\n\n  useEffect(() => {\n    let cancelled = false;\n\n    async function fetchUser() {\n      try {\n        const userData = await api.getUser();\n        // ✅ Check if component is still mounted\n        if (!cancelled) {\n          setUser(userData);\n        }\n      } catch (error) {\n        if (!cancelled) {\n          console.error('Failed to fetch user:', error);\n        }\n      }\n    }\n\n    fetchUser();\n\n    // ✅ Proper cleanup\n    return () => {\n      cancelled = true;\n    };\n  }, []);\n\n  return user ? <div>Welcome, {user.name}!</div> : <div>Loading...</div>;\n}"
+      },
+      "keyPoints": [
+        "Development-only tool for identifying problems",
+        "Helps catch side effects and unsafe patterns",
+        "Intentionally double-invokes functions",
+        "No effect on production builds"
+      ]
+    },
+    {
+      "id": "q20",
+      "question": "How do you optimize React application performance?",
+      "difficulty": "Advanced",
+      "category": "Performance",
+      "answer": "React performance optimization involves multiple strategies to ensure your application runs smoothly and efficiently. Here are the key techniques:\n\n**1. Prevent Unnecessary Re-renders:**\n- React.memo() for components\n- useMemo() for expensive calculations\n- useCallback() for function stability\n\n**2. Code Splitting:**\n- React.lazy() and Suspense\n- Dynamic imports\n- Route-based splitting\n\n**3. Bundle Optimization:**\n- Tree shaking\n- Dead code elimination\n- Minimize bundle size\n\n**4. State Management:**\n- Keep state local when possible\n- Avoid deep object updates\n- Use state colocation",
+      "codeExample": {
+        "title": "Performance Optimization Techniques",
+        "code": "// 1. React.memo to prevent unnecessary re-renders\nconst ExpensiveComponent = React.memo(function ExpensiveComponent({ data, theme }) {\n  console.log('ExpensiveComponent rendering');\n  \n  return (\n    <div className={theme}>\n      {data.map(item => (\n        <div key={item.id}>{item.name}</div>\n      ))}\n    </div>\n  );\n});\n\n// 2. useMemo for expensive calculations\nfunction DataVisualization({ data, filters }) {\n  // ✅ Memoize expensive calculation\n  const processedData = useMemo(() => {\n    console.log('Processing data...');\n    return data\n      .filter(item => filters.includes(item.category))\n      .map(item => ({\n        ...item,\n        score: calculateComplexScore(item) // Expensive operation\n      }))\n      .sort((a, b) => b.score - a.score);\n  }, [data, filters]); // Only recalculate when dependencies change\n\n  return (\n    <div>\n      {processedData.map(item => (\n        <div key={item.id}>\n          {item.name}: {item.score}\n        </div>\n      ))}\n    </div>\n  );\n}\n\n// 3. useCallback for stable function references\nfunction TodoList({ todos, onToggle, onDelete }) {\n  const [filter, setFilter] = useState('all');\n\n  // ✅ Memoize callback to prevent child re-renders\n  const handleToggle = useCallback((id) => {\n    onToggle(id);\n  }, [onToggle]);\n\n  const handleDelete = useCallback((id) => {\n    onDelete(id);\n  }, [onDelete]);\n\n  const filteredTodos = useMemo(() => {\n    switch (filter) {\n      case 'active': return todos.filter(todo => !todo.completed);\n      case 'completed': return todos.filter(todo => todo.completed);\n      default: return todos;\n    }\n  }, [todos, filter]);\n\n  return (\n    <div>\n      <FilterButtons filter={filter} onFilterChange={setFilter} />\n      {filteredTodos.map(todo => (\n        <TodoItem\n          key={todo.id}\n          todo={todo}\n          onToggle={handleToggle}\n          onDelete={handleDelete}\n        />\n      ))}\n    </div>\n  );\n}\n\n// 4. Code Splitting with React.lazy\nconst LazyDashboard = React.lazy(() => import('./Dashboard'));\nconst LazySettings = React.lazy(() => import('./Settings'));\n\nfunction App() {\n  return (\n    <Router>\n      <Suspense fallback={<div>Loading...</div>}>\n        <Routes>\n          <Route path=\"/dashboard\" element={<LazyDashboard />} />\n          <Route path=\"/settings\" element={<LazySettings />} />\n        </Routes>\n      </Suspense>\n    </Router>\n  );\n}\n\n// 5. Virtual Scrolling for Large Lists\nfunction VirtualizedList({ items }) {\n  const [visibleStart, setVisibleStart] = useState(0);\n  const [visibleEnd, setVisibleEnd] = useState(10);\n  const itemHeight = 50;\n  const containerHeight = 500;\n  const visibleCount = Math.ceil(containerHeight / itemHeight);\n\n  const handleScroll = (e) => {\n    const scrollTop = e.target.scrollTop;\n    const newStart = Math.floor(scrollTop / itemHeight);\n    setVisibleStart(newStart);\n    setVisibleEnd(newStart + visibleCount);\n  };\n\n  const visibleItems = items.slice(visibleStart, visibleEnd);\n\n  return (\n    <div \n      style={{ height: containerHeight, overflow: 'auto' }}\n      onScroll={handleScroll}\n    >\n      <div style={{ height: items.length * itemHeight, position: 'relative' }}>\n        {visibleItems.map((item, index) => (\n          <div\n            key={item.id}\n            style={{\n              position: 'absolute',\n              top: (visibleStart + index) * itemHeight,\n              height: itemHeight,\n              width: '100%'\n            }}\n          >\n            {item.name}\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n\n// 6. Performance monitoring\nfunction usePerformanceMonitoring(componentName) {\n  useEffect(() => {\n    const startTime = performance.now();\n    \n    return () => {\n      const endTime = performance.now();\n      console.log(`${componentName} render time: ${endTime - startTime}ms`);\n    };\n  });\n}\n\nfunction MonitoredComponent() {\n  usePerformanceMonitoring('MonitoredComponent');\n  \n  // Component logic...\n  return <div>Monitored content</div>;\n}"
+      },
+      "keyPoints": [
+        "Prevent unnecessary re-renders with memoization",
+        "Code splitting for smaller bundles",
+        "Virtual scrolling for large datasets",
+        "Monitor and measure performance"
+      ]
+    }
+  ]
+}
