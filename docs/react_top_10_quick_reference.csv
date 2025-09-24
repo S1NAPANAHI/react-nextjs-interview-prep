@@ -1,0 +1,11 @@
+rank,question,key_points,difficulty
+1,What is React and why would you use it?,"React is a JavaScript library developed by Facebook for building user interfaces, particularly single-page applications. It uses a component-based arc...",Beginner
+2,What is JSX and how does it work?,JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. It makes React components more re...,Beginner
+3,What is the Virtual DOM?,"The Virtual DOM is a lightweight JavaScript representation of the actual DOM. React creates a virtual copy, compares it with the previous version when...",Beginner
+4,What's the difference between props and state?,Props (properties) are immutable data passed from parent to child components - they're read-only. State is mutable data owned by a component that can ...,Beginner
+5,What are React components? Functional vs Class components?,"Components are reusable, self-contained pieces of UI. Functional components are JavaScript functions that return JSX and use hooks for state/lifecycle...",Beginner
+6,Why are keys important in React lists?,"Keys help React identify which items have changed, been added, or removed in lists. They provide stable identity for each element, enabling efficient ...",Beginner
+7,What is useEffect and when do you use it?,"useEffect is a Hook that lets you perform side effects in functional components (data fetching, subscriptions, DOM manipulation). It runs after render...",Beginner
+8,What are controlled vs uncontrolled components?,Controlled components have their value controlled by React state - the component's value comes from state and updates through event handlers. Uncontro...,Beginner
+9,What are React Hooks and name the common ones?,"Hooks are functions that let you use state and other React features in functional components. Common hooks include: useState (state management), useEf...",Intermediate
+10,How do you handle events in React?,"React uses SyntheticEvents, which are wrappers around native DOM events providing consistent behavior across browsers. Event handlers are named using ...",Beginner

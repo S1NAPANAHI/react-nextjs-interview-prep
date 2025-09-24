@@ -1095,6 +1095,109 @@
         .notification-icon {
             font-size: 1.2rem;
         }
+        /* Question Set Selector */
+.question-set-selector {
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.set-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.set-btn {
+    padding: 15px 20px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.set-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.set-btn.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
+
+.count {
+    display: block;
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* Enhanced Question Cards */
+
+.question-card:hover {
+    transform: translateY(-2px);
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.difficulty-badge.beginner { background: #e8f5e8; color: #2d5a2d; }
+.difficulty-badge.intermediate { background: #fff3cd; color: #856404; }
+.difficulty-badge.advanced { background: #f8d7da; color: #721c24; }
+
+.category-tag {
+    padding: 4px 10px;
+    background: var(--secondary);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.8em;
+}
+
+.code-example {
+    margin: 20px 0;
+    border-left: 4px solid var(--primary);
+    padding-left: 15px;
+}
+
+.code-block {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.key-points, .follow-up-questions {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.question-actions button {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.question-actions button:hover {
+    background: var(--primary);
+    color: white;
+}
     </style>
 </head>
 
@@ -1114,72 +1217,62 @@
         const { useState, useEffect } = React;
         const { createRoot } = ReactDOM;
 
-        // Question Data - Embedded for immediate functionality
-        const questionTiers = {
-            top10: {
-                id: 'top10',
-                title: 'Top 10 Essential',
-                description: 'Must-know questions that appear in 90% of React interviews',
-                gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
-                questions: [
-                    {
-                        id: 'q1',
-                        question: 'What is React and why is it popular?',
-                        difficulty: 'Beginner',
-                        category: 'Fundamentals',
-                        answer: 'React is a JavaScript library for building user interfaces, created by Facebook. It is popular because of its **component-based architecture**, **Virtual DOM** for performance, **unidirectional data flow** for predictability, and **strong ecosystem** with extensive community support.',
-                        codeExample: {
-                            title: 'Basic React Component',
-                            code: 'function Welcome({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Usage\n<Welcome name="React Developer" />'
-                        },
-                        keyPoints: [
-                            'Component-based architecture',
-                            'Virtual DOM for performance',
-                            'Strong ecosystem and community',
-                            'Backed by Meta (Facebook)'
-                        ]
-                    },
-                    {
-                        id: 'q2',
-                        question: 'What is JSX and how does it differ from HTML?',
-                        difficulty: 'Beginner',
-                        category: 'JSX',
-                        answer: 'JSX (JavaScript XML) is a syntax extension that allows writing HTML-like code in JavaScript. Key differences: **className** instead of class, **self-closing tags** must be closed, **JavaScript expressions** with {}, **camelCase** properties, and **style objects** instead of strings.',
-                        codeExample: {
-                            title: 'JSX vs HTML',
-                            code: '// JSX\nfunction Button({ onClick, children }) {\n  return (\n    <button \n      className="btn-primary" \n      onClick={onClick}\n      style={{ backgroundColor: "blue" }}\n    >\n      {children}\n    </button>\n  );\n}'
-                        },
-                        keyPoints: [
-                            'HTML-like syntax in JavaScript',
-                            'Must use className instead of class',
-                            'Self-closing tags must be closed',
-                            'Supports JavaScript expressions with {}'
-                        ]
+        function useQuestions() {
+            const [questionSets, setQuestionSets] = useState({
+                'top-10': null,
+                'top-20': null,
+                'top-50': null,
+                'top-100': null
+            });
+            const [currentSet, setCurrentSet] = useState('top-20');
+            const [loading, setLoading] = useState(true);
+            const [currentQuestions, setCurrentQuestions] = useState([]);
+
+            useEffect(() => {
+                async function loadAllQuestionSets() {
+                    setLoading(true);
+                    const newQuestionSets = {};
+                    const loadPromises = Object.keys(questionSets).map(async (setName) => {
+                        try {
+                            const response = await fetch(`data/${setName}-questions.json`);
+                            if (response.ok) {
+                                newQuestionSets[setName] = await response.json();
+                                console.log(`Loaded ${setName} questions`);
+                            } else {
+                                console.warn(`Could not load ${setName} questions`);
+                            }
+                        } catch (error) {
+                            console.error(`Error loading ${setName}:`, error);
+                        }
+                    });
+
+                    await Promise.all(loadPromises);
+                    setQuestionSets(newQuestionSets);
+                    if (newQuestionSets[currentSet]) {
+                        setCurrentQuestions(newQuestionSets[currentSet].questions);
                     }
-                ]
-            },
-            top20: {
-                id: 'top20',
-                title: 'Top 20 Core',
-                description: 'Core concepts every React developer should master',
-                gradient: 'linear-gradient(135deg, #feca57, #ff9ff3)',
-                questions: []
-            },
-            top50: {
-                id: 'top50',
-                title: 'Top 50 Advanced',
-                description: 'Deep dive into advanced React patterns and best practices',
-                gradient: 'linear-gradient(135deg, #48dbfb, #0abde3)',
-                questions: []
-            },
-            top100: {
-                id: 'top100',
-                title: 'Top 100 Complete',
-                description: 'Comprehensive coverage including edge cases and expert topics',
-                gradient: 'linear-gradient(135deg, #1dd1a1, #10ac84)',
-                questions: []
+                    setLoading(false);
+                }
+
+                loadAllQuestionSets();
+            }, []);
+
+            function switchQuestionSet(setName) {
+                if (questionSets[setName]) {
+                    setCurrentSet(setName);
+                    setCurrentQuestions(questionSets[setName].questions);
+                    console.log(`Switched to ${setName} (${questionSets[setName].questions.length} questions)`);
+                }
             }
-        };
+
+            return {
+                questionSets,
+                currentSet,
+                currentQuestions,
+                loading,
+                switchQuestionSet
+            };
+        }
 
         // Progress Management Hook
         function useProgress() {
@@ -1418,10 +1511,10 @@
         }
 
         // Dashboard Component
-        function Dashboard({ onSelectTier, progress }) {
+        function Dashboard({ onSelectTier, progress, questionSets }) {
             const tiers = [
                 {
-                    id: 'top10',
+                    id: 'top-10',
                     number: '10',
                     title: 'Essential Questions',
                     description: 'Must-know questions that appear in 90% of React interviews',
@@ -1430,7 +1523,7 @@
                     frequency: '90%'
                 },
                 {
-                    id: 'top20',
+                    id: 'top-20',
                     number: '20',
                     title: 'Core Concepts',
                     description: 'Fundamental React concepts every developer should master',
@@ -1439,7 +1532,7 @@
                     frequency: '75%'
                 },
                 {
-                    id: 'top50',
+                    id: 'top-50',
                     number: '50',
                     title: 'Advanced Topics',
                     description: 'Deep dive into advanced patterns and best practices',
@@ -1448,7 +1541,7 @@
                     frequency: '50%'
                 },
                 {
-                    id: 'top100',
+                    id: 'top-100',
                     number: '100',
                     title: 'Complete Mastery',
                     description: 'Comprehensive coverage including edge cases and expert topics',
@@ -1459,7 +1552,7 @@
             ];
 
             const getProgressStats = (tierId) => {
-                const tierQuestions = questionTiers[tierId]?.questions || [];
+                const tierQuestions = questionSets[tierId]?.questions || [];
                 const completed = tierQuestions.filter(q => 
                     progress.questionProgress[q.id]?.confidence >= 3
                 ).length;
@@ -1612,15 +1705,11 @@
             );
         }
 
-        // Questions List Component
-        function QuestionsList({ tier, progress, onConfidenceChange, onToggleFavorite }) {
+        function QuestionsList({ questions, tier, progress, onConfidenceChange, onToggleFavorite, switchQuestionSet, questionSets }) {
             const [searchTerm, setSearchTerm] = useState('');
             const [selectedDifficulty, setSelectedDifficulty] = useState('All');
             const [selectedCategory, setSelectedCategory] = useState('All');
             const [expandedQuestions, setExpandedQuestions] = useState({});
-
-            const tierData = questionTiers[tier];
-            const questions = tierData?.questions || [];
 
             const filteredQuestions = questions.filter(q => {
                 const matchesSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -1651,17 +1740,27 @@
             const categories = [...new Set(questions.map(q => q.category))];
             const difficulties = [...new Set(questions.map(q => q.difficulty))];
 
-            return React.createElement('div', { className: 'questions-container fade-in-up' },
-                React.createElement('div', { className: 'questions-header' },
-                    React.createElement('h1', { className: 'questions-title' }, 
-                        '🎯 ' + (tierData?.title || 'Questions')
-                    ),
-                    React.createElement('p', { className: 'questions-subtitle' }, 
-                        tierData?.description || 'Comprehensive interview preparation questions'
+            function createQuestionSetSelector() {
+                return React.createElement('div', { className: 'question-set-selector' },
+                    React.createElement('h3', {}, 'Choose Question Set'),
+                    React.createElement('div', { className: 'set-buttons' },
+                        Object.keys(questionSets).map(setName =>
+                            React.createElement('button', {
+                                key: setName,
+                                className: 'set-btn ' + (tier === setName ? 'active' : ''),
+                                'data-set': setName,
+                                onClick: () => switchQuestionSet(setName)
+                            },
+                                `Top ${setName.split('-')[1]`,
+                                React.createElement('span', { className: 'count' }, `(${questionSets[setName]?.questions.length || 0} questions)`)
+                            )
+                        )
                     )
-                ),
+                );
+            }
 
-                React.createElement('div', { className: 'filters-section' },
+            function createFilterControls() {
+                return React.createElement('div', { className: 'filters-section' },
                     React.createElement('div', { className: 'filter-row' },
                         React.createElement('input', {
                             type: 'text',
@@ -1691,15 +1790,51 @@
                             )
                         )
                     )
-                ),
+                );
+            }
 
+            function renderCodeExample(codeExample) {
+                return React.createElement('div', { className: 'code-example' },
+                    React.createElement('h4', { className: 'code-title' }, codeExample.title),
+                    React.createElement('pre', { className: 'code-block' },
+                        React.createElement('code', { className: 'language-javascript' }, codeExample.code)
+                    ),
+                    React.createElement('button', { className: 'btn-copy-code' }, 'Copy Code')
+                );
+            }
+
+            function renderKeyPoints(keyPoints) {
+                return React.createElement('div', { className: 'key-points' },
+                    React.createElement('h4', {}, 'Key Points:'),
+                    React.createElement('ul', { className: 'points-list' },
+                        keyPoints.map((point, i) => React.createElement('li', { key: i }, point))
+                    )
+                );
+            }
+
+            function renderFollowUpQuestions(followUpQuestions) {
+                return React.createElement('div', { className: 'follow-up-questions' },
+                    React.createElement('h4', {}, 'Follow-up Questions:'),
+                    React.createElement('ul', { className: 'follow-up-list' },
+                        followUpQuestions.map((q, i) => React.createElement('li', { key: i }, q))
+                    )
+                );
+            }
+
+            function formatAnswer(answer) {
+                return answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br />');
+            }
+
+            return React.createElement('div', { className: 'questions-container fade-in-up' },
+                createQuestionSetSelector(),
+                createFilterControls(),
                 React.createElement('div', { className: 'questions-list' },
                     filteredQuestions.map((question, index) =>
                         React.createElement('div', { 
                             key: question.id, 
                             className: 'question-card ' + (expandedQuestions[question.id] ? 'expanded' : '')
                         },
-                            React.createElement('div', { className: 'question-header' },
+                            React.createElement('div', { className: 'question-header', onClick: () => toggleQuestion(question.id) },
                                 React.createElement('div', { className: 'question-meta' },
                                     React.createElement('div', { className: 'question-number' }, 'Q' + (index + 1)),
                                     React.createElement('div', { 
@@ -1718,8 +1853,7 @@
                                             }
                                         }, progress.favorites.includes(question.id) ? '❤️' : '🤍'),
                                         React.createElement('button', {
-                                            className: 'expand-btn',
-                                            onClick: () => toggleQuestion(question.id)
+                                            className: 'expand-btn'
                                         }, 
                                             React.createElement('span', {}, 
                                                 React.createElement('i', { className: expandedQuestions[question.id] ? 'fas fa-chevron-up' : 'fas fa-chevron-down' }),
@@ -1747,38 +1881,12 @@
                                     React.createElement('div', {
                                         className: 'answer-text',
                                         dangerouslySetInnerHTML: {
-                                            __html: question.answer
-                                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                                .replace(/\n/g, '<br>')
+                                            __html: formatAnswer(question.answer)
                                         }
-                                    })
-                                ),
-                                
-                                question.codeExample && React.createElement('div', { className: 'code-example' },
-                                    React.createElement('div', { className: 'code-header' },
-                                        React.createElement('i', { className: 'fas fa-code' }),
-                                        React.createElement('span', { className: 'code-title' }, question.codeExample.title)
-                                    ),
-                                    React.createElement('pre', { className: 'code-block' },
-                                        React.createElement('code', {}, question.codeExample.code)
-                                    )
-                                ),
-                                
-                                question.keyPoints && React.createElement('div', { className: 'key-points' },
-                                    React.createElement('div', { className: 'section-title' },
-                                        React.createElement('div', { className: 'section-icon' },
-                                            React.createElement('i', { className: 'fas fa-key' })
-                                        ),
-                                        React.createElement('span', {}, 'Key Takeaways')
-                                    ),
-                                    React.createElement('ul', {},
-                                        question.keyPoints.map((point, i) =>
-                                            React.createElement('li', { key: i },
-                                                React.createElement('div', { className: 'key-point-icon' }, '✓'),
-                                                React.createElement('span', {}, point)
-                                            )
-                                        )
-                                    )
+                                    }),
+                                    question.codeExample ? renderCodeExample(question.codeExample) : '',
+                                    question.keyPoints ? renderKeyPoints(question.keyPoints) : '',
+                                    question.followUpQuestions ? renderFollowUpQuestions(question.followUpQuestions) : ''
                                 ),
                                 
                                 React.createElement('div', { className: 'question-bottom-actions' },
@@ -1807,13 +1915,12 @@
             );
         }
 
-        // Main App Component
         function App() {
             const [currentView, setCurrentView] = useState('dashboard');
-            const [selectedTier, setSelectedTier] = useState('top10');
             const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
             
             const { progress, updateQuestionConfidence, toggleFavorite } = useProgress();
+            const { questionSets, currentSet, currentQuestions, loading, switchQuestionSet } = useQuestions();
 
             useEffect(() => {
                 document.documentElement.setAttribute('data-theme', theme);
@@ -1826,11 +1933,13 @@
 
             const handleNavigate = (view, tier) => {
                 setCurrentView(view);
-                if (tier) setSelectedTier(tier);
+                if (tier) {
+                    switchQuestionSet(tier);
+                }
             };
 
             const handleSelectTier = (tierId) => {
-                setSelectedTier(tierId);
+                switchQuestionSet(tierId);
                 setCurrentView('questions');
             };
 
@@ -1847,16 +1956,23 @@
                 }),
                 
                 React.createElement('main', { className: 'main-content' },
+                    loading ? React.createElement('div', { className: 'loading-screen', style: { display: 'flex' } },
+                        React.createElement('div', { className: 'loading-spinner' })
+                    ) :
                     currentView === 'dashboard' && React.createElement(Dashboard, {
                         onSelectTier: handleSelectTier,
-                        progress: progress
+                        progress: progress,
+                        questionSets: questionSets
                     }),
                     
                     currentView === 'questions' && React.createElement(QuestionsList, {
-                        tier: selectedTier,
+                        questions: currentQuestions,
+                        tier: currentSet,
                         progress: progress,
                         onConfidenceChange: handleConfidenceChange,
-                        onToggleFavorite: toggleFavorite
+                        onToggleFavorite: toggleFavorite,
+                        switchQuestionSet: switchQuestionSet,
+                        questionSets: questionSets
                     }),
                     
                     currentView === 'roadmap' && React.createElement('div', {

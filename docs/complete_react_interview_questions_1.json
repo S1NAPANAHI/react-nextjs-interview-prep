@@ -1,0 +1,1327 @@
+{
+  "top_10": [
+    {
+      "rank": 1,
+      "question": "What is React and why would you use it?",
+      "answer": "React is a JavaScript library developed by Facebook for building user interfaces, particularly single-page applications. It uses a component-based architecture, Virtual DOM for efficient updates, and follows a declarative programming paradigm. Key benefits include reusable components, better performance through Virtual DOM, strong community support, and excellent developer tools.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 2,
+      "question": "What is JSX and how does it work?",
+      "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. It makes React components more readable and easier to write. JSX gets transpiled by tools like Babel into React.createElement() calls. Example: <div>Hello World</div> becomes React.createElement('div', null, 'Hello World').",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 3,
+      "question": "What is the Virtual DOM?",
+      "answer": "The Virtual DOM is a lightweight JavaScript representation of the actual DOM. React creates a virtual copy, compares it with the previous version when changes occur (diffing), and updates only the changed parts in the real DOM (reconciliation). This makes updates much faster than manipulating the DOM directly.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 4,
+      "question": "What's the difference between props and state?",
+      "answer": "Props (properties) are immutable data passed from parent to child components - they're read-only. State is mutable data owned by a component that can change over time, typically in response to user actions or network responses. Props enable data flow down the component tree, while state manages local component data.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 5,
+      "question": "What are React components? Functional vs Class components?",
+      "answer": "Components are reusable, self-contained pieces of UI. Functional components are JavaScript functions that return JSX and use hooks for state/lifecycle. Class components extend React.Component and use lifecycle methods and this.state. Functional components are now preferred due to hooks, cleaner syntax, and better performance.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 6,
+      "question": "Why are keys important in React lists?",
+      "answer": "Keys help React identify which items have changed, been added, or removed in lists. They provide stable identity for each element, enabling efficient updates and preventing rendering bugs. Keys should be unique and stable - avoid using array indexes when list items can change order.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 7,
+      "question": "What is useEffect and when do you use it?",
+      "answer": "useEffect is a Hook that lets you perform side effects in functional components (data fetching, subscriptions, DOM manipulation). It runs after render and can optionally clean up. The dependency array controls when it runs: [] runs once, [value] runs when value changes, no array runs every render.",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 8,
+      "question": "What are controlled vs uncontrolled components?",
+      "answer": "Controlled components have their value controlled by React state - the component's value comes from state and updates through event handlers. Uncontrolled components manage their own state internally and are accessed via refs. Controlled components are recommended for predictable data flow and easier validation.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 9,
+      "question": "What are React Hooks and name the common ones?",
+      "answer": "Hooks are functions that let you use state and other React features in functional components. Common hooks include: useState (state management), useEffect (side effects), useContext (context consumption), useRef (DOM access), useMemo (memoization), useCallback (function memoization), useReducer (complex state logic).",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 10,
+      "question": "How do you handle events in React?",
+      "answer": "React uses SyntheticEvents, which are wrappers around native DOM events providing consistent behavior across browsers. Event handlers are named using camelCase (onClick, not onclick) and are passed as functions. Events are automatically bound in functional components, but need binding in class components.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    }
+  ],
+  "top_20": [
+    {
+      "rank": 1,
+      "question": "What is React and why would you use it?",
+      "answer": "React is a JavaScript library developed by Facebook for building user interfaces, particularly single-page applications. It uses a component-based architecture, Virtual DOM for efficient updates, and follows a declarative programming paradigm. Key benefits include reusable components, better performance through Virtual DOM, strong community support, and excellent developer tools.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 2,
+      "question": "What is JSX and how does it work?",
+      "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. It makes React components more readable and easier to write. JSX gets transpiled by tools like Babel into React.createElement() calls. Example: <div>Hello World</div> becomes React.createElement('div', null, 'Hello World').",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 3,
+      "question": "What is the Virtual DOM?",
+      "answer": "The Virtual DOM is a lightweight JavaScript representation of the actual DOM. React creates a virtual copy, compares it with the previous version when changes occur (diffing), and updates only the changed parts in the real DOM (reconciliation). This makes updates much faster than manipulating the DOM directly.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 4,
+      "question": "What's the difference between props and state?",
+      "answer": "Props (properties) are immutable data passed from parent to child components - they're read-only. State is mutable data owned by a component that can change over time, typically in response to user actions or network responses. Props enable data flow down the component tree, while state manages local component data.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 5,
+      "question": "What are React components? Functional vs Class components?",
+      "answer": "Components are reusable, self-contained pieces of UI. Functional components are JavaScript functions that return JSX and use hooks for state/lifecycle. Class components extend React.Component and use lifecycle methods and this.state. Functional components are now preferred due to hooks, cleaner syntax, and better performance.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 6,
+      "question": "Why are keys important in React lists?",
+      "answer": "Keys help React identify which items have changed, been added, or removed in lists. They provide stable identity for each element, enabling efficient updates and preventing rendering bugs. Keys should be unique and stable - avoid using array indexes when list items can change order.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 7,
+      "question": "What is useEffect and when do you use it?",
+      "answer": "useEffect is a Hook that lets you perform side effects in functional components (data fetching, subscriptions, DOM manipulation). It runs after render and can optionally clean up. The dependency array controls when it runs: [] runs once, [value] runs when value changes, no array runs every render.",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 8,
+      "question": "What are controlled vs uncontrolled components?",
+      "answer": "Controlled components have their value controlled by React state - the component's value comes from state and updates through event handlers. Uncontrolled components manage their own state internally and are accessed via refs. Controlled components are recommended for predictable data flow and easier validation.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 9,
+      "question": "What are React Hooks and name the common ones?",
+      "answer": "Hooks are functions that let you use state and other React features in functional components. Common hooks include: useState (state management), useEffect (side effects), useContext (context consumption), useRef (DOM access), useMemo (memoization), useCallback (function memoization), useReducer (complex state logic).",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 10,
+      "question": "How do you handle events in React?",
+      "answer": "React uses SyntheticEvents, which are wrappers around native DOM events providing consistent behavior across browsers. Event handlers are named using camelCase (onClick, not onclick) and are passed as functions. Events are automatically bound in functional components, but need binding in class components.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 11,
+      "question": "What is the Context API and when should you use it?",
+      "answer": "Context API provides a way to pass data through the component tree without prop drilling. Create a context with React.createContext(), provide values with Provider, and consume with useContext hook or Consumer. Use for truly global data like themes, authentication, or language settings - avoid overuse as it can make components harder to test.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 12,
+      "question": "What is prop drilling and how can you avoid it?",
+      "answer": "Prop drilling is passing props through multiple component levels just to reach a deeply nested child. It makes code harder to maintain. Avoid it using: Context API for global state, custom hooks for shared logic, state management libraries like Redux, or component composition patterns.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 13,
+      "question": "Explain useState hook with examples",
+      "answer": "useState adds state to functional components. Returns an array: [currentValue, setterFunction]. Example: const [count, setCount] = useState(0). State updates are asynchronous and merge (objects) or replace (primitives). For state dependent on previous value, use functional updates: setCount(prev => prev + 1).",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 14,
+      "question": "What is useRef and when do you use it?",
+      "answer": "useRef returns a mutable ref object whose .current property persists across renders without causing re-renders. Used for: accessing DOM elements directly, storing mutable values that don't trigger re-renders, keeping references to timers/intervals, or storing previous state/props values.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 15,
+      "question": "How do you optimize React component performance?",
+      "answer": "Use React.memo for functional components to prevent unnecessary re-renders, implement useMemo for expensive calculations, useCallback for stable function references, lazy loading with React.lazy and Suspense, proper key props in lists, avoid inline objects/functions as props, and use React DevTools Profiler to identify bottlenecks.",
+      "difficulty": "Intermediate",
+      "category": "Performance"
+    },
+    {
+      "rank": 16,
+      "question": "What are React Fragments and why use them?",
+      "answer": "Fragments let you group multiple children without adding extra DOM nodes. Use <React.Fragment> or shorthand <> </>. Helpful when a component needs to return multiple elements but you don't want wrapper divs cluttering the DOM structure or affecting CSS styling.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 17,
+      "question": "How do you handle forms in React?",
+      "answer": "Use controlled components where form data is handled by React state. Each input has a value prop from state and onChange handler to update state. For complex forms, consider useReducer or libraries like Formik/React Hook Form. Always validate input and handle submission properly with preventDefault().",
+      "difficulty": "Intermediate",
+      "category": "Forms"
+    },
+    {
+      "rank": 18,
+      "question": "What is lifting state up?",
+      "answer": "Moving state from child components to their closest common ancestor so multiple components can share the same state. The parent manages state and passes it down as props along with update functions. This ensures single source of truth and synchronized data across components.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 19,
+      "question": "How do you implement conditional rendering?",
+      "answer": "Use JavaScript expressions within JSX: ternary operator {condition ? <ComponentA /> : <ComponentB />}, logical AND {condition && <Component />}, if-else statements before return, or early returns. Choose based on readability and complexity of conditions.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 20,
+      "question": "What are the rules of hooks?",
+      "answer": "1. Only call hooks at the top level of React functions, never inside loops, conditions, or nested functions. 2. Only call hooks from React function components or custom hooks. 3. Always call hooks in the same order. These rules ensure hooks work correctly with React's internal state management.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    }
+  ],
+  "top_50": [
+    {
+      "rank": 1,
+      "question": "What is React and why would you use it?",
+      "answer": "React is a JavaScript library developed by Facebook for building user interfaces, particularly single-page applications. It uses a component-based architecture, Virtual DOM for efficient updates, and follows a declarative programming paradigm. Key benefits include reusable components, better performance through Virtual DOM, strong community support, and excellent developer tools.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 2,
+      "question": "What is JSX and how does it work?",
+      "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. It makes React components more readable and easier to write. JSX gets transpiled by tools like Babel into React.createElement() calls. Example: <div>Hello World</div> becomes React.createElement('div', null, 'Hello World').",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 3,
+      "question": "What is the Virtual DOM?",
+      "answer": "The Virtual DOM is a lightweight JavaScript representation of the actual DOM. React creates a virtual copy, compares it with the previous version when changes occur (diffing), and updates only the changed parts in the real DOM (reconciliation). This makes updates much faster than manipulating the DOM directly.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 4,
+      "question": "What's the difference between props and state?",
+      "answer": "Props (properties) are immutable data passed from parent to child components - they're read-only. State is mutable data owned by a component that can change over time, typically in response to user actions or network responses. Props enable data flow down the component tree, while state manages local component data.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 5,
+      "question": "What are React components? Functional vs Class components?",
+      "answer": "Components are reusable, self-contained pieces of UI. Functional components are JavaScript functions that return JSX and use hooks for state/lifecycle. Class components extend React.Component and use lifecycle methods and this.state. Functional components are now preferred due to hooks, cleaner syntax, and better performance.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 6,
+      "question": "Why are keys important in React lists?",
+      "answer": "Keys help React identify which items have changed, been added, or removed in lists. They provide stable identity for each element, enabling efficient updates and preventing rendering bugs. Keys should be unique and stable - avoid using array indexes when list items can change order.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 7,
+      "question": "What is useEffect and when do you use it?",
+      "answer": "useEffect is a Hook that lets you perform side effects in functional components (data fetching, subscriptions, DOM manipulation). It runs after render and can optionally clean up. The dependency array controls when it runs: [] runs once, [value] runs when value changes, no array runs every render.",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 8,
+      "question": "What are controlled vs uncontrolled components?",
+      "answer": "Controlled components have their value controlled by React state - the component's value comes from state and updates through event handlers. Uncontrolled components manage their own state internally and are accessed via refs. Controlled components are recommended for predictable data flow and easier validation.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 9,
+      "question": "What are React Hooks and name the common ones?",
+      "answer": "Hooks are functions that let you use state and other React features in functional components. Common hooks include: useState (state management), useEffect (side effects), useContext (context consumption), useRef (DOM access), useMemo (memoization), useCallback (function memoization), useReducer (complex state logic).",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 10,
+      "question": "How do you handle events in React?",
+      "answer": "React uses SyntheticEvents, which are wrappers around native DOM events providing consistent behavior across browsers. Event handlers are named using camelCase (onClick, not onclick) and are passed as functions. Events are automatically bound in functional components, but need binding in class components.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 11,
+      "question": "What is the Context API and when should you use it?",
+      "answer": "Context API provides a way to pass data through the component tree without prop drilling. Create a context with React.createContext(), provide values with Provider, and consume with useContext hook or Consumer. Use for truly global data like themes, authentication, or language settings - avoid overuse as it can make components harder to test.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 12,
+      "question": "What is prop drilling and how can you avoid it?",
+      "answer": "Prop drilling is passing props through multiple component levels just to reach a deeply nested child. It makes code harder to maintain. Avoid it using: Context API for global state, custom hooks for shared logic, state management libraries like Redux, or component composition patterns.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 13,
+      "question": "Explain useState hook with examples",
+      "answer": "useState adds state to functional components. Returns an array: [currentValue, setterFunction]. Example: const [count, setCount] = useState(0). State updates are asynchronous and merge (objects) or replace (primitives). For state dependent on previous value, use functional updates: setCount(prev => prev + 1).",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 14,
+      "question": "What is useRef and when do you use it?",
+      "answer": "useRef returns a mutable ref object whose .current property persists across renders without causing re-renders. Used for: accessing DOM elements directly, storing mutable values that don't trigger re-renders, keeping references to timers/intervals, or storing previous state/props values.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 15,
+      "question": "How do you optimize React component performance?",
+      "answer": "Use React.memo for functional components to prevent unnecessary re-renders, implement useMemo for expensive calculations, useCallback for stable function references, lazy loading with React.lazy and Suspense, proper key props in lists, avoid inline objects/functions as props, and use React DevTools Profiler to identify bottlenecks.",
+      "difficulty": "Intermediate",
+      "category": "Performance"
+    },
+    {
+      "rank": 16,
+      "question": "What are React Fragments and why use them?",
+      "answer": "Fragments let you group multiple children without adding extra DOM nodes. Use <React.Fragment> or shorthand <> </>. Helpful when a component needs to return multiple elements but you don't want wrapper divs cluttering the DOM structure or affecting CSS styling.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 17,
+      "question": "How do you handle forms in React?",
+      "answer": "Use controlled components where form data is handled by React state. Each input has a value prop from state and onChange handler to update state. For complex forms, consider useReducer or libraries like Formik/React Hook Form. Always validate input and handle submission properly with preventDefault().",
+      "difficulty": "Intermediate",
+      "category": "Forms"
+    },
+    {
+      "rank": 18,
+      "question": "What is lifting state up?",
+      "answer": "Moving state from child components to their closest common ancestor so multiple components can share the same state. The parent manages state and passes it down as props along with update functions. This ensures single source of truth and synchronized data across components.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 19,
+      "question": "How do you implement conditional rendering?",
+      "answer": "Use JavaScript expressions within JSX: ternary operator {condition ? <ComponentA /> : <ComponentB />}, logical AND {condition && <Component />}, if-else statements before return, or early returns. Choose based on readability and complexity of conditions.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 20,
+      "question": "What are the rules of hooks?",
+      "answer": "1. Only call hooks at the top level of React functions, never inside loops, conditions, or nested functions. 2. Only call hooks from React function components or custom hooks. 3. Always call hooks in the same order. These rules ensure hooks work correctly with React's internal state management.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 21,
+      "question": "What is useMemo and when should you use it?",
+      "answer": "useMemo memoizes expensive calculations, recomputing only when dependencies change. Use for computationally intensive operations that don't need to run on every render. Example: const expensiveValue = useMemo(() => computeExpensiveValue(a, b), [a, b]). Don't overuse - memoization has overhead.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 22,
+      "question": "What is useCallback and when should you use it?",
+      "answer": "useCallback memoizes functions to prevent recreation on every render. Useful when passing callbacks to optimized child components that depend on reference equality. Example: const memoizedCallback = useCallback(() => doSomething(a, b), [a, b]). Helps prevent unnecessary child re-renders.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 23,
+      "question": "What is useReducer and when would you use it over useState?",
+      "answer": "useReducer manages complex state logic through actions and reducers, similar to Redux. Use when: state has multiple sub-values, next state depends on previous one, complex state transitions, or when you need more predictable state updates. Better than useState for complex state logic.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 24,
+      "question": "How do you create custom hooks?",
+      "answer": "Custom hooks are JavaScript functions starting with 'use' that can call other hooks. They extract component logic into reusable functions. Example: function useCounter(initialValue) { const [count, setCount] = useState(initialValue); const increment = () => setCount(count + 1); return { count, increment }; }",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 25,
+      "question": "What are Higher-Order Components (HOCs)?",
+      "answer": "HOCs are functions that take a component and return a new component with additional props or behavior. Used for cross-cutting concerns like authentication, logging, or data fetching. Example: const withAuth = (WrappedComponent) => (props) => isAuthenticated ? <WrappedComponent {...props} /> : <Login />",
+      "difficulty": "Advanced",
+      "category": "Advanced Patterns"
+    },
+    {
+      "rank": 26,
+      "question": "What are render props?",
+      "answer": "A technique for sharing code between components using a prop whose value is a function. The component calls this function instead of implementing its own render logic. Example: <DataProvider render={(data) => <DisplayComponent data={data} />} />. Provides flexibility in what gets rendered.",
+      "difficulty": "Advanced",
+      "category": "Advanced Patterns"
+    },
+    {
+      "rank": 27,
+      "question": "What are error boundaries?",
+      "answer": "Error boundaries are React components that catch JavaScript errors in their child component tree, log errors, and display fallback UI. Implemented using componentDidCatch and static getDerivedStateFromError in class components. They don't catch errors in event handlers, async code, or during SSR.",
+      "difficulty": "Advanced",
+      "category": "Error Handling"
+    },
+    {
+      "rank": 28,
+      "question": "What is React.lazy and Suspense?",
+      "answer": "React.lazy enables dynamic imports for code splitting. Suspense provides fallback UI while lazy components load. Example: const LazyComponent = React.lazy(() => import('./LazyComponent')); <Suspense fallback={<Loading />}><LazyComponent /></Suspense>. Improves initial load performance.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 29,
+      "question": "What are React Portals?",
+      "answer": "Portals render children into a DOM node outside the parent component's hierarchy. Useful for modals, tooltips, dropdowns that need to escape parent overflow/z-index constraints. Example: ReactDOM.createPortal(child, document.getElementById('modal-root'))",
+      "difficulty": "Advanced",
+      "category": "Advanced Concepts"
+    },
+    {
+      "rank": 30,
+      "question": "What is forwardRef and when do you use it?",
+      "answer": "forwardRef allows passing refs through components to child elements. Useful for library components that need to expose DOM elements to parent components. Example: const MyInput = forwardRef((props, ref) => <input {...props} ref={ref} />)",
+      "difficulty": "Advanced",
+      "category": "Advanced Concepts"
+    },
+    {
+      "rank": 31,
+      "question": "Explain React's reconciliation process",
+      "answer": "Reconciliation is React's algorithm to determine what changes need to be made to the DOM. It compares (diffs) the new virtual DOM tree with the previous one, identifies minimal changes needed, and efficiently updates the real DOM. Uses heuristics like component type and keys for optimization.",
+      "difficulty": "Advanced",
+      "category": "React Internals"
+    },
+    {
+      "rank": 32,
+      "question": "What is React Fiber?",
+      "answer": "React Fiber is a complete rewrite of React's core algorithm for better performance and new features. It enables incremental rendering, pause/abort/resume work, priority-based updates, and time-slicing. Allows React to break rendering work into chunks and spread it over multiple frames.",
+      "difficulty": "Advanced",
+      "category": "React Internals"
+    },
+    {
+      "rank": 33,
+      "question": "What are synthetic events in React?",
+      "answer": "SyntheticEvents are React's wrapper around native DOM events, providing consistent API across different browsers. They have the same interface as native events but work identically across all browsers. Events are pooled for performance - use event.persist() if accessing asynchronously.",
+      "difficulty": "Intermediate",
+      "category": "Events"
+    },
+    {
+      "rank": 34,
+      "question": "How do you handle asynchronous data fetching in React?",
+      "answer": "Use useEffect for side effects, manage loading/error states with useState, handle cleanup to prevent memory leaks. Consider custom hooks for reusable logic, libraries like SWR/React Query for caching, and proper error boundaries. Example pattern: loading -> success/error states.",
+      "difficulty": "Intermediate",
+      "category": "Data Fetching"
+    },
+    {
+      "rank": 35,
+      "question": "What is React.memo and when should you use it?",
+      "answer": "React.memo is a higher-order component that memoizes functional components, preventing re-renders when props haven't changed (shallow comparison). Use when component renders often with same props or parent re-renders frequently. Can provide custom comparison function as second argument.",
+      "difficulty": "Intermediate",
+      "category": "Performance"
+    },
+    {
+      "rank": 36,
+      "question": "How do you test React components?",
+      "answer": "Use React Testing Library for user-centric testing, Jest for test runner, render components and interact with them as users would. Test behavior, not implementation. Mock external dependencies, use screen queries (getByRole, getByText), simulate user interactions with userEvent.",
+      "difficulty": "Intermediate",
+      "category": "Testing"
+    },
+    {
+      "rank": 37,
+      "question": "What is the difference between controlled and uncontrolled components?",
+      "answer": "Controlled: React controls the input value via state, value prop, and onChange handler. Single source of truth, predictable, easier to validate. Uncontrolled: DOM controls the value, accessed via refs, form data handled at submission. Less code but harder to validate dynamically.",
+      "difficulty": "Beginner",
+      "category": "Forms"
+    },
+    {
+      "rank": 38,
+      "question": "How do you optimize performance in large React applications?",
+      "answer": "Use code splitting (React.lazy), memoization (React.memo, useMemo, useCallback), virtualization for large lists, optimize bundle size, implement proper state management, avoid unnecessary re-renders, use production builds, monitor with React DevTools Profiler, consider SSR/SSG.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 39,
+      "question": "What is the component lifecycle in class components?",
+      "answer": "Mounting: constructor, componentDidMount. Updating: shouldComponentUpdate, componentDidUpdate. Unmounting: componentWillUnmount. Error: componentDidCatch. Each phase allows different operations - setup, cleanup, optimization, error handling. Hooks replace these in functional components.",
+      "difficulty": "Intermediate",
+      "category": "Lifecycle"
+    },
+    {
+      "rank": 40,
+      "question": "How do you handle state management in large applications?",
+      "answer": "For local state use useState/useReducer. For global state consider Context API, Redux (predictable state updates), Zustand (lightweight), or Jotai (atomic state). Choose based on complexity: Context for simple global state, Redux for complex state logic, newer libraries for modern alternatives.",
+      "difficulty": "Advanced",
+      "category": "State Management"
+    },
+    {
+      "rank": 41,
+      "question": "What is Server-Side Rendering (SSR) in React?",
+      "answer": "SSR renders React components on the server and sends HTML to the browser. Benefits: better SEO, faster initial page load, improved performance on slow devices. Implemented with frameworks like Next.js. Challenges: complexity, server resources, hydration mismatches.",
+      "difficulty": "Advanced",
+      "category": "SSR/SSG"
+    },
+    {
+      "rank": 42,
+      "question": "What is Static Site Generation (SSG)?",
+      "answer": "SSG pre-renders pages at build time, generating static HTML files. Faster than SSR, better for SEO than CSR, great for content that doesn't change often. Can combine with incremental regeneration for dynamic content. Implemented with Next.js getStaticProps/getStaticPaths.",
+      "difficulty": "Advanced",
+      "category": "SSR/SSG"
+    },
+    {
+      "rank": 43,
+      "question": "How do you implement routing in React?",
+      "answer": "Use React Router for client-side routing. BrowserRouter for history API, Routes/Route for path matching, Link/NavLink for navigation, useNavigate for programmatic navigation, useParams for route parameters. Handle nested routes, protected routes, and 404 pages.",
+      "difficulty": "Intermediate",
+      "category": "Routing"
+    },
+    {
+      "rank": 44,
+      "question": "What are React Design Patterns?",
+      "answer": "Common patterns: Presentational/Container (separate logic from UI), Render Props (share code via function props), HOCs (enhance components), Custom Hooks (reusable stateful logic), Compound Components (components working together), Provider Pattern (context-based state).",
+      "difficulty": "Advanced",
+      "category": "Advanced Patterns"
+    },
+    {
+      "rank": 45,
+      "question": "How do you handle environment variables in React?",
+      "answer": "Use REACT_APP_ prefix for custom environment variables in Create React App. Access via process.env.REACT_APP_VARIABLE_NAME. Store in .env files (.env, .env.local, .env.production). Never store secrets in React apps - they're visible to users.",
+      "difficulty": "Intermediate",
+      "category": "Build & Deploy"
+    },
+    {
+      "rank": 46,
+      "question": "What is the difference between React and other frameworks like Angular/Vue?",
+      "answer": "React: Library focused on UI, flexible, large ecosystem, JSX, unidirectional data flow. Angular: Full framework, TypeScript-first, dependency injection, two-way binding. Vue: Progressive framework, template syntax, easier learning curve, composition API. Choose based on project needs and team expertise.",
+      "difficulty": "Intermediate",
+      "category": "Comparison"
+    },
+    {
+      "rank": 47,
+      "question": "How do you implement authentication in React?",
+      "answer": "Store auth tokens securely (httpOnly cookies preferred), implement protected routes, use Context/Redux for auth state, handle token refresh, implement login/logout flows, validate on server, use libraries like Auth0 or implement JWT-based auth with proper security practices.",
+      "difficulty": "Advanced",
+      "category": "Security"
+    },
+    {
+      "rank": 48,
+      "question": "What are React development tools and debugging techniques?",
+      "answer": "React DevTools browser extension for component inspection, Profiler for performance analysis, console.log and debugger statements, React strict mode for development checks, Error boundaries for error handling, source maps for debugging bundled code.",
+      "difficulty": "Intermediate",
+      "category": "Development Tools"
+    },
+    {
+      "rank": 49,
+      "question": "How do you handle CSS in React applications?",
+      "answer": "Options include: CSS Modules (scoped styles), Styled Components (CSS-in-JS), CSS frameworks (Tailwind), Sass/Less preprocessors, inline styles (limited use), CSS custom properties. Choose based on team preferences, scalability needs, and design system requirements.",
+      "difficulty": "Intermediate",
+      "category": "Styling"
+    },
+    {
+      "rank": 50,
+      "question": "What are the best practices for React development?",
+      "answer": "Use functional components with hooks, follow naming conventions, keep components small and focused, use TypeScript for type safety, implement proper error handling, optimize performance, write tests, use linting/formatting tools, avoid prop drilling, maintain consistent code structure.",
+      "difficulty": "Intermediate",
+      "category": "Best Practices"
+    }
+  ],
+  "top_100": [
+    {
+      "rank": 1,
+      "question": "What is React and why would you use it?",
+      "answer": "React is a JavaScript library developed by Facebook for building user interfaces, particularly single-page applications. It uses a component-based architecture, Virtual DOM for efficient updates, and follows a declarative programming paradigm. Key benefits include reusable components, better performance through Virtual DOM, strong community support, and excellent developer tools.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 2,
+      "question": "What is JSX and how does it work?",
+      "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. It makes React components more readable and easier to write. JSX gets transpiled by tools like Babel into React.createElement() calls. Example: <div>Hello World</div> becomes React.createElement('div', null, 'Hello World').",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 3,
+      "question": "What is the Virtual DOM?",
+      "answer": "The Virtual DOM is a lightweight JavaScript representation of the actual DOM. React creates a virtual copy, compares it with the previous version when changes occur (diffing), and updates only the changed parts in the real DOM (reconciliation). This makes updates much faster than manipulating the DOM directly.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 4,
+      "question": "What's the difference between props and state?",
+      "answer": "Props (properties) are immutable data passed from parent to child components - they're read-only. State is mutable data owned by a component that can change over time, typically in response to user actions or network responses. Props enable data flow down the component tree, while state manages local component data.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 5,
+      "question": "What are React components? Functional vs Class components?",
+      "answer": "Components are reusable, self-contained pieces of UI. Functional components are JavaScript functions that return JSX and use hooks for state/lifecycle. Class components extend React.Component and use lifecycle methods and this.state. Functional components are now preferred due to hooks, cleaner syntax, and better performance.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 6,
+      "question": "Why are keys important in React lists?",
+      "answer": "Keys help React identify which items have changed, been added, or removed in lists. They provide stable identity for each element, enabling efficient updates and preventing rendering bugs. Keys should be unique and stable - avoid using array indexes when list items can change order.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 7,
+      "question": "What is useEffect and when do you use it?",
+      "answer": "useEffect is a Hook that lets you perform side effects in functional components (data fetching, subscriptions, DOM manipulation). It runs after render and can optionally clean up. The dependency array controls when it runs: [] runs once, [value] runs when value changes, no array runs every render.",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 8,
+      "question": "What are controlled vs uncontrolled components?",
+      "answer": "Controlled components have their value controlled by React state - the component's value comes from state and updates through event handlers. Uncontrolled components manage their own state internally and are accessed via refs. Controlled components are recommended for predictable data flow and easier validation.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 9,
+      "question": "What are React Hooks and name the common ones?",
+      "answer": "Hooks are functions that let you use state and other React features in functional components. Common hooks include: useState (state management), useEffect (side effects), useContext (context consumption), useRef (DOM access), useMemo (memoization), useCallback (function memoization), useReducer (complex state logic).",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 10,
+      "question": "How do you handle events in React?",
+      "answer": "React uses SyntheticEvents, which are wrappers around native DOM events providing consistent behavior across browsers. Event handlers are named using camelCase (onClick, not onclick) and are passed as functions. Events are automatically bound in functional components, but need binding in class components.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 11,
+      "question": "What is the Context API and when should you use it?",
+      "answer": "Context API provides a way to pass data through the component tree without prop drilling. Create a context with React.createContext(), provide values with Provider, and consume with useContext hook or Consumer. Use for truly global data like themes, authentication, or language settings - avoid overuse as it can make components harder to test.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 12,
+      "question": "What is prop drilling and how can you avoid it?",
+      "answer": "Prop drilling is passing props through multiple component levels just to reach a deeply nested child. It makes code harder to maintain. Avoid it using: Context API for global state, custom hooks for shared logic, state management libraries like Redux, or component composition patterns.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 13,
+      "question": "Explain useState hook with examples",
+      "answer": "useState adds state to functional components. Returns an array: [currentValue, setterFunction]. Example: const [count, setCount] = useState(0). State updates are asynchronous and merge (objects) or replace (primitives). For state dependent on previous value, use functional updates: setCount(prev => prev + 1).",
+      "difficulty": "Beginner",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 14,
+      "question": "What is useRef and when do you use it?",
+      "answer": "useRef returns a mutable ref object whose .current property persists across renders without causing re-renders. Used for: accessing DOM elements directly, storing mutable values that don't trigger re-renders, keeping references to timers/intervals, or storing previous state/props values.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 15,
+      "question": "How do you optimize React component performance?",
+      "answer": "Use React.memo for functional components to prevent unnecessary re-renders, implement useMemo for expensive calculations, useCallback for stable function references, lazy loading with React.lazy and Suspense, proper key props in lists, avoid inline objects/functions as props, and use React DevTools Profiler to identify bottlenecks.",
+      "difficulty": "Intermediate",
+      "category": "Performance"
+    },
+    {
+      "rank": 16,
+      "question": "What are React Fragments and why use them?",
+      "answer": "Fragments let you group multiple children without adding extra DOM nodes. Use <React.Fragment> or shorthand <> </>. Helpful when a component needs to return multiple elements but you don't want wrapper divs cluttering the DOM structure or affecting CSS styling.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 17,
+      "question": "How do you handle forms in React?",
+      "answer": "Use controlled components where form data is handled by React state. Each input has a value prop from state and onChange handler to update state. For complex forms, consider useReducer or libraries like Formik/React Hook Form. Always validate input and handle submission properly with preventDefault().",
+      "difficulty": "Intermediate",
+      "category": "Forms"
+    },
+    {
+      "rank": 18,
+      "question": "What is lifting state up?",
+      "answer": "Moving state from child components to their closest common ancestor so multiple components can share the same state. The parent manages state and passes it down as props along with update functions. This ensures single source of truth and synchronized data across components.",
+      "difficulty": "Intermediate",
+      "category": "State Management"
+    },
+    {
+      "rank": 19,
+      "question": "How do you implement conditional rendering?",
+      "answer": "Use JavaScript expressions within JSX: ternary operator {condition ? <ComponentA /> : <ComponentB />}, logical AND {condition && <Component />}, if-else statements before return, or early returns. Choose based on readability and complexity of conditions.",
+      "difficulty": "Beginner",
+      "category": "React Fundamentals"
+    },
+    {
+      "rank": 20,
+      "question": "What are the rules of hooks?",
+      "answer": "1. Only call hooks at the top level of React functions, never inside loops, conditions, or nested functions. 2. Only call hooks from React function components or custom hooks. 3. Always call hooks in the same order. These rules ensure hooks work correctly with React's internal state management.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 21,
+      "question": "What is useMemo and when should you use it?",
+      "answer": "useMemo memoizes expensive calculations, recomputing only when dependencies change. Use for computationally intensive operations that don't need to run on every render. Example: const expensiveValue = useMemo(() => computeExpensiveValue(a, b), [a, b]). Don't overuse - memoization has overhead.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 22,
+      "question": "What is useCallback and when should you use it?",
+      "answer": "useCallback memoizes functions to prevent recreation on every render. Useful when passing callbacks to optimized child components that depend on reference equality. Example: const memoizedCallback = useCallback(() => doSomething(a, b), [a, b]). Helps prevent unnecessary child re-renders.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 23,
+      "question": "What is useReducer and when would you use it over useState?",
+      "answer": "useReducer manages complex state logic through actions and reducers, similar to Redux. Use when: state has multiple sub-values, next state depends on previous one, complex state transitions, or when you need more predictable state updates. Better than useState for complex state logic.",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 24,
+      "question": "How do you create custom hooks?",
+      "answer": "Custom hooks are JavaScript functions starting with 'use' that can call other hooks. They extract component logic into reusable functions. Example: function useCounter(initialValue) { const [count, setCount] = useState(initialValue); const increment = () => setCount(count + 1); return { count, increment }; }",
+      "difficulty": "Intermediate",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 25,
+      "question": "What are Higher-Order Components (HOCs)?",
+      "answer": "HOCs are functions that take a component and return a new component with additional props or behavior. Used for cross-cutting concerns like authentication, logging, or data fetching. Example: const withAuth = (WrappedComponent) => (props) => isAuthenticated ? <WrappedComponent {...props} /> : <Login />",
+      "difficulty": "Advanced",
+      "category": "Advanced Patterns"
+    },
+    {
+      "rank": 26,
+      "question": "What are render props?",
+      "answer": "A technique for sharing code between components using a prop whose value is a function. The component calls this function instead of implementing its own render logic. Example: <DataProvider render={(data) => <DisplayComponent data={data} />} />. Provides flexibility in what gets rendered.",
+      "difficulty": "Advanced",
+      "category": "Advanced Patterns"
+    },
+    {
+      "rank": 27,
+      "question": "What are error boundaries?",
+      "answer": "Error boundaries are React components that catch JavaScript errors in their child component tree, log errors, and display fallback UI. Implemented using componentDidCatch and static getDerivedStateFromError in class components. They don't catch errors in event handlers, async code, or during SSR.",
+      "difficulty": "Advanced",
+      "category": "Error Handling"
+    },
+    {
+      "rank": 28,
+      "question": "What is React.lazy and Suspense?",
+      "answer": "React.lazy enables dynamic imports for code splitting. Suspense provides fallback UI while lazy components load. Example: const LazyComponent = React.lazy(() => import('./LazyComponent')); <Suspense fallback={<Loading />}><LazyComponent /></Suspense>. Improves initial load performance.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 29,
+      "question": "What are React Portals?",
+      "answer": "Portals render children into a DOM node outside the parent component's hierarchy. Useful for modals, tooltips, dropdowns that need to escape parent overflow/z-index constraints. Example: ReactDOM.createPortal(child, document.getElementById('modal-root'))",
+      "difficulty": "Advanced",
+      "category": "Advanced Concepts"
+    },
+    {
+      "rank": 30,
+      "question": "What is forwardRef and when do you use it?",
+      "answer": "forwardRef allows passing refs through components to child elements. Useful for library components that need to expose DOM elements to parent components. Example: const MyInput = forwardRef((props, ref) => <input {...props} ref={ref} />)",
+      "difficulty": "Advanced",
+      "category": "Advanced Concepts"
+    },
+    {
+      "rank": 31,
+      "question": "Explain React's reconciliation process",
+      "answer": "Reconciliation is React's algorithm to determine what changes need to be made to the DOM. It compares (diffs) the new virtual DOM tree with the previous one, identifies minimal changes needed, and efficiently updates the real DOM. Uses heuristics like component type and keys for optimization.",
+      "difficulty": "Advanced",
+      "category": "React Internals"
+    },
+    {
+      "rank": 32,
+      "question": "What is React Fiber?",
+      "answer": "React Fiber is a complete rewrite of React's core algorithm for better performance and new features. It enables incremental rendering, pause/abort/resume work, priority-based updates, and time-slicing. Allows React to break rendering work into chunks and spread it over multiple frames.",
+      "difficulty": "Advanced",
+      "category": "React Internals"
+    },
+    {
+      "rank": 33,
+      "question": "What are synthetic events in React?",
+      "answer": "SyntheticEvents are React's wrapper around native DOM events, providing consistent API across different browsers. They have the same interface as native events but work identically across all browsers. Events are pooled for performance - use event.persist() if accessing asynchronously.",
+      "difficulty": "Intermediate",
+      "category": "Events"
+    },
+    {
+      "rank": 34,
+      "question": "How do you handle asynchronous data fetching in React?",
+      "answer": "Use useEffect for side effects, manage loading/error states with useState, handle cleanup to prevent memory leaks. Consider custom hooks for reusable logic, libraries like SWR/React Query for caching, and proper error boundaries. Example pattern: loading -> success/error states.",
+      "difficulty": "Intermediate",
+      "category": "Data Fetching"
+    },
+    {
+      "rank": 35,
+      "question": "What is React.memo and when should you use it?",
+      "answer": "React.memo is a higher-order component that memoizes functional components, preventing re-renders when props haven't changed (shallow comparison). Use when component renders often with same props or parent re-renders frequently. Can provide custom comparison function as second argument.",
+      "difficulty": "Intermediate",
+      "category": "Performance"
+    },
+    {
+      "rank": 36,
+      "question": "How do you test React components?",
+      "answer": "Use React Testing Library for user-centric testing, Jest for test runner, render components and interact with them as users would. Test behavior, not implementation. Mock external dependencies, use screen queries (getByRole, getByText), simulate user interactions with userEvent.",
+      "difficulty": "Intermediate",
+      "category": "Testing"
+    },
+    {
+      "rank": 37,
+      "question": "What is the difference between controlled and uncontrolled components?",
+      "answer": "Controlled: React controls the input value via state, value prop, and onChange handler. Single source of truth, predictable, easier to validate. Uncontrolled: DOM controls the value, accessed via refs, form data handled at submission. Less code but harder to validate dynamically.",
+      "difficulty": "Beginner",
+      "category": "Forms"
+    },
+    {
+      "rank": 38,
+      "question": "How do you optimize performance in large React applications?",
+      "answer": "Use code splitting (React.lazy), memoization (React.memo, useMemo, useCallback), virtualization for large lists, optimize bundle size, implement proper state management, avoid unnecessary re-renders, use production builds, monitor with React DevTools Profiler, consider SSR/SSG.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 39,
+      "question": "What is the component lifecycle in class components?",
+      "answer": "Mounting: constructor, componentDidMount. Updating: shouldComponentUpdate, componentDidUpdate. Unmounting: componentWillUnmount. Error: componentDidCatch. Each phase allows different operations - setup, cleanup, optimization, error handling. Hooks replace these in functional components.",
+      "difficulty": "Intermediate",
+      "category": "Lifecycle"
+    },
+    {
+      "rank": 40,
+      "question": "How do you handle state management in large applications?",
+      "answer": "For local state use useState/useReducer. For global state consider Context API, Redux (predictable state updates), Zustand (lightweight), or Jotai (atomic state). Choose based on complexity: Context for simple global state, Redux for complex state logic, newer libraries for modern alternatives.",
+      "difficulty": "Advanced",
+      "category": "State Management"
+    },
+    {
+      "rank": 41,
+      "question": "What is Server-Side Rendering (SSR) in React?",
+      "answer": "SSR renders React components on the server and sends HTML to the browser. Benefits: better SEO, faster initial page load, improved performance on slow devices. Implemented with frameworks like Next.js. Challenges: complexity, server resources, hydration mismatches.",
+      "difficulty": "Advanced",
+      "category": "SSR/SSG"
+    },
+    {
+      "rank": 42,
+      "question": "What is Static Site Generation (SSG)?",
+      "answer": "SSG pre-renders pages at build time, generating static HTML files. Faster than SSR, better for SEO than CSR, great for content that doesn't change often. Can combine with incremental regeneration for dynamic content. Implemented with Next.js getStaticProps/getStaticPaths.",
+      "difficulty": "Advanced",
+      "category": "SSR/SSG"
+    },
+    {
+      "rank": 43,
+      "question": "How do you implement routing in React?",
+      "answer": "Use React Router for client-side routing. BrowserRouter for history API, Routes/Route for path matching, Link/NavLink for navigation, useNavigate for programmatic navigation, useParams for route parameters. Handle nested routes, protected routes, and 404 pages.",
+      "difficulty": "Intermediate",
+      "category": "Routing"
+    },
+    {
+      "rank": 44,
+      "question": "What are React Design Patterns?",
+      "answer": "Common patterns: Presentational/Container (separate logic from UI), Render Props (share code via function props), HOCs (enhance components), Custom Hooks (reusable stateful logic), Compound Components (components working together), Provider Pattern (context-based state).",
+      "difficulty": "Advanced",
+      "category": "Advanced Patterns"
+    },
+    {
+      "rank": 45,
+      "question": "How do you handle environment variables in React?",
+      "answer": "Use REACT_APP_ prefix for custom environment variables in Create React App. Access via process.env.REACT_APP_VARIABLE_NAME. Store in .env files (.env, .env.local, .env.production). Never store secrets in React apps - they're visible to users.",
+      "difficulty": "Intermediate",
+      "category": "Build & Deploy"
+    },
+    {
+      "rank": 46,
+      "question": "What is the difference between React and other frameworks like Angular/Vue?",
+      "answer": "React: Library focused on UI, flexible, large ecosystem, JSX, unidirectional data flow. Angular: Full framework, TypeScript-first, dependency injection, two-way binding. Vue: Progressive framework, template syntax, easier learning curve, composition API. Choose based on project needs and team expertise.",
+      "difficulty": "Intermediate",
+      "category": "Comparison"
+    },
+    {
+      "rank": 47,
+      "question": "How do you implement authentication in React?",
+      "answer": "Store auth tokens securely (httpOnly cookies preferred), implement protected routes, use Context/Redux for auth state, handle token refresh, implement login/logout flows, validate on server, use libraries like Auth0 or implement JWT-based auth with proper security practices.",
+      "difficulty": "Advanced",
+      "category": "Security"
+    },
+    {
+      "rank": 48,
+      "question": "What are React development tools and debugging techniques?",
+      "answer": "React DevTools browser extension for component inspection, Profiler for performance analysis, console.log and debugger statements, React strict mode for development checks, Error boundaries for error handling, source maps for debugging bundled code.",
+      "difficulty": "Intermediate",
+      "category": "Development Tools"
+    },
+    {
+      "rank": 49,
+      "question": "How do you handle CSS in React applications?",
+      "answer": "Options include: CSS Modules (scoped styles), Styled Components (CSS-in-JS), CSS frameworks (Tailwind), Sass/Less preprocessors, inline styles (limited use), CSS custom properties. Choose based on team preferences, scalability needs, and design system requirements.",
+      "difficulty": "Intermediate",
+      "category": "Styling"
+    },
+    {
+      "rank": 50,
+      "question": "What are the best practices for React development?",
+      "answer": "Use functional components with hooks, follow naming conventions, keep components small and focused, use TypeScript for type safety, implement proper error handling, optimize performance, write tests, use linting/formatting tools, avoid prop drilling, maintain consistent code structure.",
+      "difficulty": "Intermediate",
+      "category": "Best Practices"
+    },
+    {
+      "rank": 51,
+      "question": "What is Concurrent Mode in React?",
+      "answer": "Concurrent Mode enables React to interrupt rendering to handle high-priority updates, making apps more responsive. Features include time slicing, suspense for data fetching, and priority-based rendering. Helps prevent UI blocking during heavy computations. Still experimental in React 18.",
+      "difficulty": "Advanced",
+      "category": "React Internals"
+    },
+    {
+      "rank": 52,
+      "question": "How do you implement virtualization in React?",
+      "answer": "Use libraries like react-window or react-virtualized to render only visible items in large lists, improving performance. Calculates which items are in viewport and renders only those, dramatically reducing DOM nodes for lists with thousands of items.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 53,
+      "question": "What is the useImperativeHandle hook?",
+      "answer": "useImperativeHandle customizes the instance value exposed to parent components when using ref. Used with forwardRef to expose specific methods/properties instead of the entire DOM element. Rare use cases where declarative approach isn't sufficient.",
+      "difficulty": "Advanced",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 54,
+      "question": "How do you handle memory leaks in React?",
+      "answer": "Cancel API requests in useEffect cleanup, clear timeouts/intervals, unsubscribe from observables, remove event listeners, avoid closures that retain references. Use AbortController for fetch cancellation, weak references where appropriate, and monitor with dev tools.",
+      "difficulty": "Advanced",
+      "category": "Memory Management"
+    },
+    {
+      "rank": 55,
+      "question": "What are React 18's new features?",
+      "answer": "Automatic batching, concurrent rendering, Suspense improvements, startTransition API, useDeferredValue hook, useId hook, strict mode enhancements, new root API (createRoot), improved hydration, and selective hydration for SSR.",
+      "difficulty": "Advanced",
+      "category": "React 18"
+    },
+    {
+      "rank": 56,
+      "question": "How do you implement drag and drop in React?",
+      "answer": "Use HTML5 drag and drop API or libraries like react-dnd, react-beautiful-dnd. Handle dragStart, dragOver, drop events, manage drag state, provide visual feedback. Consider accessibility, touch devices, and keyboard navigation for comprehensive implementation.",
+      "difficulty": "Advanced",
+      "category": "UI Interactions"
+    },
+    {
+      "rank": 57,
+      "question": "What is the useSyncExternalStore hook?",
+      "answer": "useSyncExternalStore subscribes to external data sources that aren't managed by React state. Ensures consistent reads during concurrent rendering. Used for integration with external state management libraries or browser APIs that don't use React state.",
+      "difficulty": "Advanced",
+      "category": "React 18"
+    },
+    {
+      "rank": 58,
+      "question": "How do you implement infinite scrolling in React?",
+      "answer": "Use Intersection Observer API to detect when user reaches bottom, fetch more data, manage loading states, handle errors. Libraries like react-infinite-scroll-component simplify implementation. Consider performance with virtualization for very long lists.",
+      "difficulty": "Advanced",
+      "category": "UI Patterns"
+    },
+    {
+      "rank": 59,
+      "question": "What are React Server Components?",
+      "answer": "Server Components run on the server and can directly access databases/APIs without client-server waterfalls. They don't hydrate on client, reducing bundle size. Work alongside traditional components, enabling new patterns for performance optimization in frameworks like Next.js.",
+      "difficulty": "Advanced",
+      "category": "Server Components"
+    },
+    {
+      "rank": 60,
+      "question": "How do you implement real-time features in React?",
+      "answer": "Use WebSockets, Server-Sent Events, or libraries like Socket.io for real-time communication. Manage connection state, handle reconnection, implement message queuing, consider optimistic updates. Libraries like SWR support real-time features with built-in caching.",
+      "difficulty": "Advanced",
+      "category": "Real-time"
+    },
+    {
+      "rank": 61,
+      "question": "What is the difference between useLayoutEffect and useEffect?",
+      "answer": "useEffect runs asynchronously after DOM mutations, good for data fetching, subscriptions. useLayoutEffect runs synchronously before browser paint, useful for DOM measurements, preventing flicker. Use useLayoutEffect sparingly as it can block visual updates.",
+      "difficulty": "Advanced",
+      "category": "React Hooks"
+    },
+    {
+      "rank": 62,
+      "question": "How do you implement a11y (accessibility) in React?",
+      "answer": "Use semantic HTML, proper ARIA attributes, focus management, keyboard navigation, screen reader support. Tools: eslint-plugin-jsx-a11y, react-axe for testing. Ensure proper heading hierarchy, alt text for images, form labels, and color contrast.",
+      "difficulty": "Advanced",
+      "category": "Accessibility"
+    },
+    {
+      "rank": 63,
+      "question": "What are React patterns for data fetching?",
+      "answer": "Patterns include: Fetch-on-render (useEffect), Fetch-then-render (start fetch before component), Render-as-you-fetch (with Suspense). Libraries like SWR, React Query provide caching, revalidation, error handling. Consider loading states and error boundaries.",
+      "difficulty": "Advanced",
+      "category": "Data Fetching"
+    },
+    {
+      "rank": 64,
+      "question": "How do you implement internationalization (i18n) in React?",
+      "answer": "Use libraries like react-i18next, react-intl. Organize translations by feature/page, handle pluralization, number/date formatting, RTL languages. Consider lazy loading translations, fallback languages, and SEO for different locales with proper lang attributes.",
+      "difficulty": "Advanced",
+      "category": "Internationalization"
+    },
+    {
+      "rank": 65,
+      "question": "What is the React Context performance issue and how to solve it?",
+      "answer": "Context triggers re-renders in all consumers when value changes. Solutions: split contexts by update frequency, memoize context values with useMemo, use state managers for frequent updates, implement selectors with additional libraries like use-context-selector.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 66,
+      "question": "How do you implement search functionality in React?",
+      "answer": "Implement debounced search with setTimeout, manage search state, handle loading/empty states, implement filters/sorting. Consider client-side search for small datasets, server-side for large ones. Use libraries like fuse.js for fuzzy search, highlight matches in results.",
+      "difficulty": "Intermediate",
+      "category": "UI Features"
+    },
+    {
+      "rank": 67,
+      "question": "What are React anti-patterns to avoid?",
+      "answer": "Avoid: mutating state directly, using array index as keys for dynamic lists, props drilling extensively, mixing side effects in render, not cleaning up effects, overusing refs, inline object/function props, ignoring warnings, not handling errors properly.",
+      "difficulty": "Intermediate",
+      "category": "Best Practices"
+    },
+    {
+      "rank": 68,
+      "question": "How do you implement modal dialogs in React?",
+      "answer": "Use React Portals to render outside component tree, manage focus trapping, handle escape key, prevent background scroll, implement proper ARIA attributes. Libraries like react-modal provide accessibility features. Consider animation and mobile responsiveness.",
+      "difficulty": "Intermediate",
+      "category": "UI Components"
+    },
+    {
+      "rank": 69,
+      "question": "What is the useDeferredValue hook?",
+      "answer": "useDeferredValue defers updates to a value during urgent updates, helping keep UI responsive. Useful for expensive operations that can be delayed. Works with Concurrent Features to prioritize user interactions over less critical updates like search results.",
+      "difficulty": "Advanced",
+      "category": "React 18"
+    },
+    {
+      "rank": 70,
+      "question": "How do you implement form validation in React?",
+      "answer": "Implement client-side validation with custom logic or libraries like Yup, Joi. Show errors inline, validate on blur/submit, handle server validation, provide clear error messages. Consider accessibility for screen readers and proper ARIA attributes for errors.",
+      "difficulty": "Intermediate",
+      "category": "Forms"
+    },
+    {
+      "rank": 71,
+      "question": "What is the startTransition API?",
+      "answer": "startTransition marks updates as non-urgent, allowing React to prioritize more important updates like user input. Helps keep UI responsive during expensive operations. Used with isPending for loading indicators during transitions.",
+      "difficulty": "Advanced",
+      "category": "React 18"
+    },
+    {
+      "rank": 72,
+      "question": "How do you implement progressive web app features in React?",
+      "answer": "Add service worker for caching, web app manifest for installability, implement offline functionality, push notifications, background sync. Tools like Workbox simplify service worker implementation. Consider performance metrics and app-like experience.",
+      "difficulty": "Advanced",
+      "category": "PWA"
+    },
+    {
+      "rank": 73,
+      "question": "What are React patterns for component composition?",
+      "answer": "Patterns include: children props for generic containers, render props for behavior sharing, compound components for related UI pieces, provider pattern for context, HOCs for cross-cutting concerns, custom hooks for stateful logic reuse.",
+      "difficulty": "Advanced",
+      "category": "Component Composition"
+    },
+    {
+      "rank": 74,
+      "question": "How do you implement theme switching in React?",
+      "answer": "Use Context API for theme state, CSS custom properties for dynamic values, localStorage for persistence, system preference detection. Consider reducing motion preferences, high contrast mode, and smooth transitions between themes.",
+      "difficulty": "Intermediate",
+      "category": "Theming"
+    },
+    {
+      "rank": 75,
+      "question": "What is the useInsertionEffect hook?",
+      "answer": "useInsertionEffect runs before all other effects, useful for CSS-in-JS libraries to insert styles before layout effects. Has same signature as useEffect but fires before DOM mutations. Very specific use case for library authors.",
+      "difficulty": "Advanced",
+      "category": "React 18"
+    },
+    {
+      "rank": 76,
+      "question": "How do you implement file upload in React?",
+      "answer": "Use HTML file input, handle file selection, validate file types/sizes, implement progress indicators, preview images, handle multiple files, error states. Consider drag-and-drop, chunked uploads for large files, and security concerns.",
+      "difficulty": "Intermediate",
+      "category": "File Handling"
+    },
+    {
+      "rank": 77,
+      "question": "What are React development vs production differences?",
+      "answer": "Development: detailed error messages, additional warnings, unminified code, React DevTools support, strict mode checks. Production: minified code, removed warnings, optimized performance, no development-only features. Use NODE_ENV to distinguish environments.",
+      "difficulty": "Intermediate",
+      "category": "Build & Deploy"
+    },
+    {
+      "rank": 78,
+      "question": "How do you implement code splitting by route in React?",
+      "answer": "Use React.lazy with dynamic imports for route components, wrap in Suspense with loading fallback, implement error boundaries for chunk loading failures. Consider preloading routes on user interaction to improve perceived performance.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 79,
+      "question": "What is the React Profiler API?",
+      "answer": "React Profiler measures rendering performance programmatically. Wrap components with <Profiler>, provide onRender callback to collect timing data. Useful for performance monitoring in production, identifying slow components, and optimization tracking.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 80,
+      "question": "How do you implement undo/redo functionality in React?",
+      "answer": "Maintain history stack of states, implement commands pattern, manage current position in history, provide undo/redo actions. Consider memory usage for large states, serialization for persistence, and keyboard shortcuts for user experience.",
+      "difficulty": "Advanced",
+      "category": "UI Features"
+    },
+    {
+      "rank": 81,
+      "question": "What are React 18 automatic batching improvements?",
+      "answer": "React 18 automatically batches multiple state updates even in promises, timeouts, native event handlers. Previously only batched in React event handlers. Use flushSync to opt out of batching when immediate updates are needed.",
+      "difficulty": "Advanced",
+      "category": "React 18"
+    },
+    {
+      "rank": 82,
+      "question": "How do you implement optimistic updates in React?",
+      "answer": "Update UI immediately with expected result, then sync with server. Revert if server request fails, show loading states for confirmation, handle conflicts. Useful for better perceived performance in actions like likes, comments, form submissions.",
+      "difficulty": "Advanced",
+      "category": "UX Patterns"
+    },
+    {
+      "rank": 83,
+      "question": "What is React's strict mode and what does it do?",
+      "answer": "Strict mode enables additional development checks: detects side effects in render, warns about deprecated APIs, double-invokes functions to catch side effects, helps identify unsafe lifecycles. Only runs in development, helps prepare for future React versions.",
+      "difficulty": "Intermediate",
+      "category": "Development Tools"
+    },
+    {
+      "rank": 84,
+      "question": "How do you implement skeleton loading screens in React?",
+      "answer": "Create placeholder components mimicking final content structure, use CSS animations for shimmer effect, replace with actual content when loaded. Consider accessibility with proper loading announcements and provide option to disable animations.",
+      "difficulty": "Intermediate",
+      "category": "UI Components"
+    },
+    {
+      "rank": 85,
+      "question": "What are React testing strategies and best practices?",
+      "answer": "Test behavior not implementation, use React Testing Library, write integration tests, mock external dependencies, test error scenarios, use MSW for API mocking, follow testing pyramid (unit > integration > e2e), test accessibility.",
+      "difficulty": "Advanced",
+      "category": "Testing"
+    },
+    {
+      "rank": 86,
+      "question": "How do you implement data persistence in React apps?",
+      "answer": "Use localStorage/sessionStorage for small data, IndexedDB for large amounts, server-side databases for shared data. Handle serialization, storage limits, privacy modes. Consider state synchronization across tabs and offline scenarios.",
+      "difficulty": "Intermediate",
+      "category": "Data Management"
+    },
+    {
+      "rank": 87,
+      "question": "What is React's scheduler and how does it work?",
+      "answer": "Scheduler is React's internal priority-based task scheduling system. Assigns priorities to different types of work, yields control to browser for urgent tasks, enables time slicing and concurrent features. Part of React's concurrent architecture.",
+      "difficulty": "Advanced",
+      "category": "React Internals"
+    },
+    {
+      "rank": 88,
+      "question": "How do you implement responsive design in React?",
+      "answer": "Use CSS media queries, CSS Grid/Flexbox, responsive units (rem, vh, vw), React hooks for window size detection, conditional rendering based on screen size. Consider mobile-first approach and touch interactions.",
+      "difficulty": "Intermediate",
+      "category": "Responsive Design"
+    },
+    {
+      "rank": 89,
+      "question": "What are React micro-frontend patterns?",
+      "answer": "Patterns for splitting large apps: module federation (Webpack 5), iframe isolation, build-time integration, runtime composition with single-spa. Consider shared dependencies, routing coordination, and communication between micro-frontends.",
+      "difficulty": "Advanced",
+      "category": "Architecture"
+    },
+    {
+      "rank": 90,
+      "question": "How do you implement keyboard navigation in React?",
+      "answer": "Handle keyDown events, manage focus programmatically, implement proper tab order, support arrow keys for grids/lists, provide skip links, announce changes to screen readers. Follow WCAG guidelines for keyboard accessibility.",
+      "difficulty": "Advanced",
+      "category": "Accessibility"
+    },
+    {
+      "rank": 91,
+      "question": "What are React performance monitoring techniques?",
+      "answer": "Use React DevTools Profiler, Web Vitals metrics, User Timing API, React Profiler component, performance.mark/measure, lighthouse auditing. Monitor bundle sizes, rendering times, memory usage, and user interaction metrics.",
+      "difficulty": "Advanced",
+      "category": "Performance"
+    },
+    {
+      "rank": 92,
+      "question": "How do you implement data visualization in React?",
+      "answer": "Use libraries like D3.js (with React integration patterns), Recharts, Victory, Chart.js. Handle data transformation, responsiveness, accessibility (alt text, data tables), animations, and interactive features like tooltips and zooming.",
+      "difficulty": "Advanced",
+      "category": "Data Visualization"
+    },
+    {
+      "rank": 93,
+      "question": "What are React hydration issues and solutions?",
+      "answer": "Hydration mismatches occur when server and client render differently. Solutions: ensure consistent data, handle client-only content with effects, use suppressHydrationWarning sparingly, implement proper loading states, consider selective hydration in React 18.",
+      "difficulty": "Advanced",
+      "category": "SSR/Hydration"
+    },
+    {
+      "rank": 94,
+      "question": "How do you implement state machines in React?",
+      "answer": "Use libraries like XState for complex state logic, implement finite state machines with useReducer for simpler cases, manage state transitions explicitly, handle side effects in state transitions. Useful for complex UI workflows and form wizards.",
+      "difficulty": "Advanced",
+      "category": "State Management"
+    },
+    {
+      "rank": 95,
+      "question": "What are React concurrent features and how to use them?",
+      "answer": "Features include: Suspense for data fetching, startTransition for non-urgent updates, useDeferredValue for delayed updates, concurrent rendering for better UX. Enable with concurrent mode, handle loading states, prioritize user interactions.",
+      "difficulty": "Advanced",
+      "category": "Concurrent React"
+    },
+    {
+      "rank": 96,
+      "question": "How do you implement canvas integration in React?",
+      "answer": "Use useRef for canvas element access, useEffect for drawing operations, handle canvas cleanup, implement drawing functions, manage canvas state, handle events (mouse, touch), consider performance for animations and complex graphics.",
+      "difficulty": "Advanced",
+      "category": "Canvas Integration"
+    },
+    {
+      "rank": 97,
+      "question": "What are React security best practices?",
+      "answer": "Sanitize user input, avoid dangerouslySetInnerHTML, validate props with PropTypes/TypeScript, secure API communication, implement CSP headers, handle authentication properly, avoid XSS vulnerabilities, keep dependencies updated.",
+      "difficulty": "Advanced",
+      "category": "Security"
+    },
+    {
+      "rank": 98,
+      "question": "How do you implement WebGL in React applications?",
+      "answer": "Use libraries like Three.js with react-three-fiber, handle WebGL context, manage 3D scenes, implement shaders, handle performance optimization, provide fallbacks for unsupported browsers, manage memory with proper cleanup.",
+      "difficulty": "Advanced",
+      "category": "WebGL/3D"
+    },
+    {
+      "rank": 99,
+      "question": "What are React native bridge concepts for web developers?",
+      "answer": "Understand native module communication, platform-specific code, bridge architecture, JavaScript thread vs UI thread, performance implications, native component integration, and differences from React web development patterns.",
+      "difficulty": "Advanced",
+      "category": "React Native"
+    },
+    {
+      "rank": 100,
+      "question": "How do you architect large-scale React applications?",
+      "answer": "Implement feature-based folder structure, establish component hierarchies, choose appropriate state management, implement design systems, set up build optimization, establish testing strategies, handle deployment, monitor performance, and plan for scalability.",
+      "difficulty": "Advanced",
+      "category": "Architecture"
+    }
+  ],
+  "metadata": {
+    "total_questions": 100,
+    "difficulty_distribution": {
+      "Beginner": 13,
+      "Intermediate": 34,
+      "Advanced": 53
+    },
+    "category_distribution": {
+      "React Fundamentals": 10,
+      "React Hooks": 11,
+      "State Management": 5,
+      "Performance": 9,
+      "Forms": 3,
+      "Advanced Patterns": 3,
+      "Error Handling": 1,
+      "Advanced Concepts": 2,
+      "React Internals": 4,
+      "Events": 1,
+      "Data Fetching": 2,
+      "Testing": 2,
+      "Lifecycle": 1,
+      "SSR/SSG": 2,
+      "Routing": 1,
+      "Build & Deploy": 2,
+      "Comparison": 1,
+      "Security": 2,
+      "Development Tools": 2,
+      "Styling": 1,
+      "Best Practices": 2,
+      "Memory Management": 1,
+      "React 18": 6,
+      "UI Interactions": 1,
+      "UI Patterns": 1,
+      "Server Components": 1,
+      "Real-time": 1,
+      "Accessibility": 2,
+      "Internationalization": 1,
+      "UI Features": 2,
+      "UI Components": 2,
+      "PWA": 1,
+      "Component Composition": 1,
+      "Theming": 1,
+      "File Handling": 1,
+      "UX Patterns": 1,
+      "Data Management": 1,
+      "Responsive Design": 1,
+      "Architecture": 2,
+      "Data Visualization": 1,
+      "SSR/Hydration": 1,
+      "Concurrent React": 1,
+      "Canvas Integration": 1,
+      "WebGL/3D": 1,
+      "React Native": 1
+    },
+    "created_date": "2025-09-24",
+    "description": "Comprehensive React.js interview questions organized in tiers"
+  }
+}
