@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Interview Prep - 24-Hour Crash Course</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav__container">
+            <h1 class="nav__title">⚛️ React Interview Prep</h1>
+            <div class="nav__controls">
+                <div class="countdown" id="countdown">
+                    <span class="countdown__label">Interview in:</span>
+                    <span class="countdown__time" id="countdownTime">24:00:00</span>
+                </div>
+                <button class="btn btn--secondary btn--sm" id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Application -->
+    <main class="main">
+        <!-- Dashboard -->
+        <section class="dashboard" id="dashboard">
+            <div class="container">
+                <div class="dashboard__header">
+                    <h2>Dashboard</h2>
+                    <div class="progress-summary">
+                        <div class="progress-card">
+                            <h3>Overall Progress</h3>
+                            <div class="progress-bar">
+                                <div class="progress-bar__fill" id="overallProgress"></div>
+                            </div>
+                            <span class="progress-text" id="overallProgressText">0% Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="study-modes">
+                    <div class="study-mode-card" data-mode="flashcards">
+                        <div class="study-mode-card__icon">🎯</div>
+                        <h3>Flashcards</h3>
+                        <p>Interactive cards with spaced repetition</p>
+                        <div class="stats">
+                            <span class="stat">
+                                <span class="stat-number" id="flashcardProgress">0</span>
+                                <span class="stat-label">Cards Studied</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="study-mode-card" data-mode="challenges">
+                        <div class="study-mode-card__icon">💻</div>
+                        <h3>Coding Challenges</h3>
+                        <p>Practice problems with solutions</p>
+                        <div class="stats">
+                            <span class="stat">
+                                <span class="stat-number" id="challengeProgress">0</span>
+                                <span class="stat-label">Challenges Solved</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="study-mode-card" data-mode="roadmap">
+                        <div class="study-mode-card__icon">🗺️</div>
+                        <h3>Study Roadmap</h3>
+                        <p>4-week structured learning path</p>
+                        <div class="stats">
+                            <span class="stat">
+                                <span class="stat-number" id="roadmapProgress">0</span>
+                                <span class="stat-label">Days Complete</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Study View -->
+        <section class="study-view hidden" id="study-view">
+            <div class="study-header">
+                <button class="btn btn--secondary" id="backToDashboard">← Back to Dashboard</button>
+                <div class="study-info">
+                    <h2 id="categoryTitle">Category Name</h2>
+                    <div class="progress-info">
+                        <span id="cardProgress">1 / 5</span>
+                        <div class="progress-bar">
+                            <div class="progress-bar__fill" id="studyProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="study-actions">
+                    <button class="btn btn--secondary btn--sm" id="shuffleCards">🔀</button>
+                    <button class="btn btn--secondary btn--sm" id="resetProgress">🔄</button>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div class="card-type-indicator">Question</div>
+                            <div class="card-content" id="card-front-content">
+                                Click on a category to start studying!
+                            </div>
+                            <div class="flip-hint">Click to reveal answer</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="card-type-indicator">Answer</div>
+                            <div class="card-content" id="card-back-content">
+                                Answer will appear here
+                            </div>
+                            <div class="flip-hint">Click to see question</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="study-controls">
+                <div class="navigation-buttons">
+                    <button class="btn btn--secondary" id="prevCard">← Previous</button>
+                    <button class="btn btn--primary" id="nextCard">Next →</button>
+                </div>
+                
+                <div class="knowledge-buttons">
+                    <button class="btn btn--warning knowledge-btn" id="reviewAgain">📝 Review Again</button>
+                    <button class="btn btn--success knowledge-btn" id="knowIt">✓ Know It</button>
+                </div>
+                
+                <div class="keyboard-hints">
+                    <span>Spacebar: Flip card</span>
+                    <span>← →: Navigate</span>
+                    <span>1: Review Again</span>
+                    <span>2: Know It</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Completion Modal -->
+        <div class="modal hidden" id="completionModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🎉 Great job!</h3>
+                    <button class="btn btn--secondary btn--sm" id="closeModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>You've completed this category!</p>
+                    <div class="modal-stats">
+                        <div class="modal-stat">
+                            <span class="modal-stat-number" id="knownCount">0</span>
+                            <span class="modal-stat-label">Known</span>
+                        </div>
+                        <div class="modal-stat">
+                            <span class="modal-stat-number" id="reviewCount">0</span>
+                            <span class="modal-stat-label">Review</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn--warning" id="studyReviewCards">Study Review Cards</button>
+                    <button class="btn btn--secondary" id="restartCategory">Restart Category</button>
+                    <button class="btn btn--primary" id="backToDashboardFromModal">Back to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
