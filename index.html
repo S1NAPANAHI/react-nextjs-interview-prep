@@ -3,25 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 React & Next.js Interview Prep - Interactive Learning Platform</title>
+    <title>🚀 React Interview Mastery - Complete Prep Platform</title>
     
     <!-- Meta Tags -->
-    <meta name="description" content="Master React and Next.js interviews with our interactive learning platform featuring hands-on lessons, coding challenges, and structured roadmaps.">
-    <meta name="keywords" content="React, Next.js, JavaScript, Interview Preparation, Coding Challenges, Web Development">
+    <meta name="description" content="Master React interviews with tiered questions, confidence tracking, and comprehensive preparation platform.">
+    <meta name="keywords" content="React, Interview, Questions, Confidence Tracking, Study Platform">
     
-    <!-- React CDN -->
+    <!-- External Libraries -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- Fonts -->
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
-    
+
     <style>
+        /* Modern Design System */
+        :root {
+            /* Color Palette */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --danger-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --primary-light: #805ad5;
+            --secondary: #f093fb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-overlay: rgba(255, 255, 255, 0.95);
+            
+            /* Text Colors */
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --text-inverse: #ffffff;
+            
+            /* UI Elements */
+            --border: #e2e8f0;
+            --border-light: #f7fafc;
+            --border-dark: #cbd5e0;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-card: #1e293b;
+            --bg-overlay: rgba(15, 23, 42, 0.95);
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --border-light: #475569;
+            --border-dark: #1e293b;
+        }
+
         /* Global Styles */
         * {
             margin: 0;
@@ -29,38 +102,12 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-color: #3b82f6;
-            --primary-hover: #2563eb;
-            --secondary-color: #64748b;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --error-color: #ef4444;
-            --background: #ffffff;
-            --surface: #f8fafc;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --radius: 8px;
-            --transition: all 0.2s ease;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #60a5fa;
-            --primary-hover: #3b82f6;
-            --background: #0f172a;
-            --surface: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border: #334155;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background-color: var(--background);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
             transition: var(--transition);
         }
 
@@ -75,9 +122,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 100vw;
+            height: 100vh;
+            background: var(--primary-gradient);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -87,13 +134,13 @@
         }
         
         .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            width: 64px;
+            height: 64px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
             border-top: 4px solid white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         
         @keyframes spin {
@@ -101,276 +148,441 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Header Styles */
-        .app-header {
-            background: var(--surface);
+        /* Modern Header */
+        .modern-header {
+            background: var(--bg-overlay);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: var(--shadow);
         }
 
         .header-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 2rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
             gap: 1rem;
         }
 
-        .header-left {
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius);
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
         }
 
-        .app-title {
+        .brand-text h1 {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 0;
         }
 
-        .back-btn {
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--transition);
+        .brand-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
             font-weight: 500;
+            margin: 0;
         }
 
-        .back-btn:hover {
-            background: #475569;
-            transform: translateX(-2px);
-        }
-
-        .header-right {
+        /* Navigation */
+        .main-nav {
             display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--border);
-            padding: 0.5rem;
-            border-radius: var(--radius);
-            cursor: pointer;
-            font-size: 1.25rem;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            background: var(--surface);
-            transform: scale(1.1);
-        }
-
-        /* Main Content */
-        .app-main {
-            flex: 1;
-            padding: 2rem 0;
-            background: var(--background);
-        }
-
-        /* Roadmap Navigation Styles */
-        .roadmap-nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .roadmap-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            color: white;
-        }
-        
-        .roadmap-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-        
-        .roadmap-header p {
-            font-size: 1.125rem;
-            opacity: 0.95;
-        }
-
-        .weeks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .week-card {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .week-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow);
-            border-color: var(--primary-color);
-        }
-
-        .week-number {
-            background: var(--primary-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .week-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .week-description {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .day-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .day-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .day-number {
-            background: var(--primary-color);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .day-title {
-            flex: 1;
-            margin: 0 1rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .day-summary {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .day-actions {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.875rem;
-            text-decoration: none;
-            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-hover);
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
             transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            background: var(--warning-color);
+        .nav-link i {
+            font-size: 1.1rem;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 320px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-10px);
+            transition: var(--transition);
+            z-index: 1000;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            text-align: center;
+        }
+
+        .dropdown-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .dropdown-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .dropdown-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
             color: white;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
         }
 
-        .btn-secondary:hover {
-            background: #d97706;
+        .tier-icon-10 { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .tier-icon-20 { background: linear-gradient(135deg, #feca57, #ff9ff3); }
+        .tier-icon-50 { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+        .tier-icon-100 { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+
+        .dropdown-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
         }
 
-        /* Top Questions Viewer Styles */
-        .top-questions-viewer {
+        .dropdown-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .dropdown-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* Header Actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-btn, .theme-toggle, .profile-btn {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .search-btn:hover, .theme-toggle:hover, .profile-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background: var(--bg-primary);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .dashboard-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Question Tiers Grid */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .tier-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .tier-card-header {
+            padding: 2.5rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tier-card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"white\" opacity=\"0.1\"/></svg>');
+        }
+
+        .tier-number {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tier-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-description {
+            opacity: 0.95;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .tier-card-body {
+            padding: 2rem;
+        }
+
+        .tier-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .tier-progress {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .tier-progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+        }
+
+        /* Tier Colors */
+        .tier-10 .tier-card-header { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .tier-20 .tier-card-header { background: linear-gradient(135deg, #feca57, #ff9ff3); }
+        .tier-50 .tier-card-header { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+        .tier-100 .tier-card-header { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+
+        /* Question List */
+        .questions-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 2rem;
         }
 
         .questions-header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            color: white;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
         }
 
-        .questions-header h1 {
+        .questions-title {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .questions-header p {
+        .questions-subtitle {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
         }
 
-        .questions-filters {
-            background: var(--surface);
-            padding: 1.5rem;
-            border-radius: 12px;
+        /* Filters */
+        .filters-section {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
             margin-bottom: 2rem;
             border: 1px solid var(--border);
         }
@@ -378,1352 +590,724 @@
         .filter-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 1.5rem;
+            align-items: center;
         }
 
-        .search-input, .filter-select {
-            padding: 0.75rem;
+        .search-input {
+            padding: 1rem 1.25rem;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            background: var(--background);
+            background: var(--bg-secondary);
             color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-
-        .filter-stats {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        .questions-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .question-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
+            font-size: 1rem;
+            font-weight: 500;
             transition: var(--transition);
         }
 
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-select {
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Question Cards */
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
         .question-card:hover {
-            box-shadow: var(--shadow);
-            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
         .question-card.expanded {
-            border-color: var(--primary-color);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
         }
 
         .question-header {
-            padding: 1.5rem;
+            padding: 1.5rem 2rem;
             cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 1.5rem;
+            background: var(--bg-secondary);
         }
 
         .question-meta {
             display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 0.5rem;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-width: 120px;
         }
 
         .question-number {
-            background: var(--primary-color);
+            background: var(--primary);
             color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-align: center;
         }
 
         .difficulty-badge {
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
+            text-align: center;
+            color: white;
         }
 
+        .difficulty-beginner { background: var(--success); }
+        .difficulty-intermediate { background: var(--warning); }
+        .difficulty-advanced { background: var(--danger); }
+
         .category-badge {
-            background: var(--secondary-color);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .question-content-area {
+            flex: 1;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .question-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .favorite-btn {
             background: none;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             cursor: pointer;
             transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: var(--radius);
         }
 
         .favorite-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .question-title {
-            flex: 1;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            line-height: 1.4;
-            margin: 0;
+            background: var(--bg-secondary);
+            transform: scale(1.1);
         }
 
         .expand-btn {
-            background: none;
+            background: var(--primary);
+            color: white;
             border: none;
-            font-size: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
             cursor: pointer;
-            color: var(--primary-color);
-            padding: 0.5rem;
+            font-weight: 600;
             transition: var(--transition);
+            font-size: 0.9rem;
         }
 
         .expand-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            border-radius: 4px;
+            background: var(--primary-dark);
+            transform: translateY(-1px);
         }
 
+        /* Question Content */
         .question-content {
-            padding: 0 1.5rem 1.5rem 1.5rem;
+            padding: 2rem;
             border-top: 1px solid var(--border);
-            background: var(--background);
+            background: var(--bg-primary);
         }
 
-        .answer-section, .code-section, .key-points {
-            margin: 1.5rem 0;
+        .confidence-section {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
-        .answer-section h4, .code-section h4, .key-points h4 {
-            color: var(--primary-color);
-            margin-bottom: 0.75rem;
-            font-size: 1rem;
+        .confidence-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .confidence-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .confidence-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Confidence Tracker */
+        .confidence-tracker {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .confidence-circles {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .confidence-circle {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: var(--bg-primary);
+        }
+
+        .confidence-circle:hover {
+            transform: scale(1.1);
+            border-color: var(--primary);
+        }
+
+        .confidence-circle.filled {
+            background: var(--primary-gradient);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .confidence-circle.filled::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .confidence-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-left: 1rem;
+            min-width: 150px;
+        }
+
+        .confidence-percentage {
+            margin-left: auto;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Answer Content */
+        .answer-section {
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
         }
 
         .answer-text {
-            line-height: 1.6;
-            color: var(--text-primary);
-        }
-
-        .key-points ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .key-points li {
-            padding: 0.5rem 0;
-            border-left: 3px solid var(--primary-color);
-            padding-left: 1rem;
-            margin: 0.5rem 0;
-            background: var(--surface);
-            border-radius: 0 4px 4px 0;
-        }
-
-        .question-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .progress-summary {
-            margin-top: 3rem;
-            text-align: center;
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .progress-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 1rem;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-        }
-
-        /* Lesson Viewer Styles */
-        .lesson-viewer {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: var(--surface);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        .lesson-header {
-            padding: 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .lesson-meta {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .lesson-content {
-            padding: 2rem;
             line-height: 1.7;
-        }
-
-        .lesson-content h1 {
-            margin-bottom: 1rem;
             color: var(--text-primary);
+            font-size: 1rem;
         }
 
-        .lesson-content p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
+        .code-example {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .code-header {
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .code-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
         }
 
         .code-block {
-            background: #f8f9fa;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1rem;
-            margin: 1rem 0;
+            padding: 1.5rem;
+            background: #1e293b;
+            color: #f1f5f9;
+            font-family: 'Fira Code', 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
             overflow-x: auto;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
         }
 
-        /* Footer */
-        .app-footer {
-            background: var(--surface);
+        .key-points {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .key-points ul {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .key-points li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .key-point-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Action Buttons */
+        .question-bottom-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
             border-top: 1px solid var(--border);
-            padding: 2rem 0;
-            text-align: center;
-            margin-top: auto;
         }
 
-        .footer-info {
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: var(--bg-secondary);
             color: var(--text-secondary);
+            border: 1px solid var(--border);
         }
 
-        /* Responsive Design */
+        .btn-ghost:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .roadmap-header h1, .questions-header h1 {
-                font-size: 2rem;
+            .header-container {
+                padding: 0 1rem;
+                height: 70px;
             }
             
-            .weeks-grid {
-                grid-template-columns: 1fr;
+            .main-nav {
+                display: none;
             }
             
-            .days-grid {
+            .dashboard-title {
+                font-size: 2.5rem;
+            }
+            
+            .dashboard-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .tiers-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             
             .filter-row {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
             .question-header {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            
-            .progress-stats {
-                flex-direction: column;
                 gap: 1rem;
             }
             
-            .header-container {
+            .tier-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .question-bottom-actions {
                 flex-direction: column;
-                text-align: center;
             }
         }
 
-        /* Notification Styles */
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Notification */
         .notification {
             position: fixed;
-            top: 20px;
+            top: 100px;
             right: 20px;
-            background: var(--success-color);
+            background: var(--success);
             color: white;
             padding: 1rem 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
             transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
             max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .notification.show {
             transform: translateX(0);
         }
+
+        .notification-icon {
+            font-size: 1.2rem;
+        }
     </style>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-spinner"></div>
-        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Loading Interactive Learning Platform</div>
-        <div style="font-size: 14px; opacity: 0.8;">Preparing your React & Next.js journey...</div>
+        <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Loading Interview Mastery</div>
+        <div style="font-size: 16px; opacity: 0.9;">Preparing your personalized learning experience...</div>
     </div>
     
     <!-- Main App -->
     <div id="root"></div>
     
     <script>
-        // React hooks and components - NO ES6 IMPORTS
-        const { useState, useEffect } = React;
+        // React hooks
+        const { useState, useEffect, useCallback } = React;
         const { createRoot } = ReactDOM;
-        
-        // Content Structure - Embedded Data
-        const contentStructure = {
-            weeks: {
-                1: {
-                    title: 'React Fundamentals',
-                    description: 'Master the core concepts of React including components, JSX, state, and hooks',
-                    days: [
-                        {
-                            id: 'day1',
-                            title: 'React Fundamentals & JSX',
-                            theory: `# React Fundamentals & JSX
 
-React is a JavaScript library for building user interfaces, particularly web applications. It was created by Facebook and is now maintained by Facebook and the community.
-
-## What is React?
-
-React allows you to build complex UIs from small, isolated pieces of code called "components". Components are like JavaScript functions that return HTML elements (via JSX).
-
-## Key Concepts:
-
-### 1. Components
-Components are the building blocks of React applications. They can be functions or classes that return JSX.
-
-### 2. JSX
-JSX is a syntax extension for JavaScript that looks like HTML but is actually JavaScript.
-
-### 3. Virtual DOM
-React uses a Virtual DOM to efficiently update the real DOM only when necessary.
-
-## Your First Component
-
-\`\`\`jsx
-function Welcome() {
-  return <h1>Hello, React!</h1>;
+        // Question Data - Embedded for immediate functionality
+        const questionTiers = {
+            top10: {
+                id: 'top10',
+                title: 'Top 10 Essential',
+                description: 'Must-know questions that appear in 90% of React interviews',
+                gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+                questions: [
+                    {
+                        id: 'q1',
+                        question: 'What is React and why is it popular?',
+                        difficulty: 'Beginner',
+                        category: 'Fundamentals',
+                        answer: 'React is a JavaScript library for building user interfaces, created by Facebook. It\\'s popular because of its **component-based architecture**, **Virtual DOM** for performance, **unidirectional data flow** for predictability, and **strong ecosystem** with extensive community support.',
+                        codeExample: {
+                            title: 'Basic React Component',
+                            code: `function Welcome({ name }) {
+  return <h1>Hello, {name}!</h1>;
 }
-\`\`\`
 
-This is a simple functional component that returns JSX.`,
-                            codeExamples: [
-                                { 
-                                    label: 'Basic Component', 
-                                    code: `function MyComponent() {
-  return (
-    <div className="greeting">
-      <h1>Hello React!</h1>
-      <p>This is my first component</p>
-    </div>
-  );
-}`, 
-                                    lang: 'jsx' 
-                                }
-                            ],
-                            quizzes: [
-                                { 
-                                    question: 'What is JSX?', 
-                                    options: [
-                                        'A new programming language',
-                                        'A syntax extension for JavaScript',
-                                        'A CSS framework',
-                                        'A database query language'
-                                    ],
-                                    correct: 1,
-                                    explanation: 'JSX is a syntax extension for JavaScript that allows you to write HTML-like code in JavaScript files.'
-                                }
-                            ],
-                            checklist: [
-                                'Understand what React is and why it\'s used',
-                                'Create your first React component',
-                                'Learn JSX syntax and rules',
-                                'Understand the Virtual DOM concept'
-                            ],
-                            challenges: [{
-                                id: 'challenge1',
-                                title: 'Build a Welcome Component',
-                                description: 'Create a Welcome component that displays a personalized greeting.',
-                                requirements: [
-                                    'Create a functional component named Welcome',
-                                    'Accept a name prop',
-                                    'Display "Hello, {name}!" message',
-                                    'Add some basic styling'
-                                ],
-                                starterCode: `function Welcome({ name }) {
-  // TODO: Implement component
-  return (
-    <div>
-      {/* Your code here */}
-    </div>
-  );
-}`,
-                                hints: [
-                                    'Use JSX to return HTML-like elements',
-                                    'Access props using the name parameter',
-                                    'Remember to use className instead of class'
-                                ]
-                            }]
+// Usage
+<Welcome name="React Developer" />`
                         },
-                        {
-                            id: 'day2',
-                            title: 'State Management with useState',
-                            theory: `# State Management with useState
-
-State is one of the most important concepts in React. It allows components to remember values and re-render when those values change.
-
-## What is State?
-
-State is data that can change over time. When state changes, React automatically re-renders the component to reflect the new state.
-
-## useState Hook
-
-The useState hook is the most common way to add state to functional components.
-
-\`\`\`jsx
-const [count, setCount] = useState(0);
-\`\`\`
-
-This creates a state variable \`count\` with initial value 0, and a setter function \`setCount\`.`,
-                            codeExamples: [
-                                {
-                                    label: 'Counter Component',
-                                    code: `function Counter() {
-  const [count, setCount] = useState(0);
-  
+                        keyPoints: [
+                            'Component-based architecture',
+                            'Virtual DOM for performance',
+                            'Strong ecosystem and community',
+                            'Backed by Meta (Facebook)'
+                        ]
+                    },
+                    {
+                        id: 'q2',
+                        question: 'What is JSX and how does it differ from HTML?',
+                        difficulty: 'Beginner',
+                        category: 'JSX',
+                        answer: 'JSX (JavaScript XML) is a syntax extension that allows writing HTML-like code in JavaScript. Key differences: **className** instead of class, **self-closing tags** must be closed, **JavaScript expressions** with {}, **camelCase** properties, and **style objects** instead of strings.',
+                        codeExample: {
+                            title: 'JSX vs HTML',
+                            code: `// JSX
+function Button({ onClick, children }) {
   return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-    </div>
+    <button 
+      className="btn-primary" 
+      onClick={onClick}
+      style={{ backgroundColor: 'blue' }}
+    >
+      {children}
+    </button>
   );
-}`,
-                                    lang: 'jsx'
-                                }
-                            ],
-                            quizzes: [
-                                {
-                                    question: 'When does a component re-render?',
-                                    options: [
-                                        'Only when props change',
-                                        'When state or props change',
-                                        'Every second automatically',
-                                        'Only when explicitly called'
-                                    ],
-                                    correct: 1,
-                                    explanation: 'Components re-render when their state or props change, or when their parent component re-renders.'
-                                }
-                            ],
-                            checklist: [
-                                'Understand the useState hook',
-                                'Create stateful components',
-                                'Handle state updates correctly',
-                                'Know when components re-render'
-                            ],
-                            challenges: [{
-                                id: 'challenge2',
-                                title: 'Interactive Counter',
-                                description: 'Build a counter with increment, decrement, and reset functionality.',
-                                requirements: [
-                                    'Use useState to manage count state',
-                                    'Add increment and decrement buttons',
-                                    'Add a reset button',
-                                    'Display the current count'
-                                ]
-                            }]
-                        }
-                    ]
-                },
-                2: {
-                    title: 'Advanced React Patterns',
-                    description: 'Explore advanced React patterns including custom hooks and context API',
-                    days: [
-                        {
-                            id: 'day3',
-                            title: 'Side Effects with useEffect',
-                            theory: `# Side Effects with useEffect
-
-The useEffect hook lets you perform side effects in functional components. Side effects include data fetching, subscriptions, or manually changing the DOM.
-
-## Basic useEffect
-
-\`\`\`jsx
-useEffect(() => {
-  // Side effect code here
-});
-\`\`\`
-
-## Dependencies
-
-You can control when the effect runs by providing a dependency array:
-
-\`\`\`jsx
-useEffect(() => {
-  // This runs when 'count' changes
-}, [count]);
-\`\`\``,
-                            checklist: [
-                                'Understand useEffect lifecycle',
-                                'Use dependency arrays correctly',
-                                'Implement cleanup functions',
-                                'Handle async operations in effects'
-                            ]
-                        }
-                    ]
-                },
-                3: {
-                    title: 'Next.js Fundamentals',
-                    description: 'Learn Next.js framework including SSR, SSG, and API routes',
-                    days: [
-                        {
-                            id: 'day4',
-                            title: 'Next.js Introduction',
-                            theory: `# Next.js Fundamentals
-
-Next.js is a React framework that provides additional features like server-side rendering, static site generation, and API routes.
-
-## Key Features:
-- File-based routing
-- Server-side rendering (SSR)
-- Static site generation (SSG)
-- API routes
-- Built-in CSS support`,
-                            checklist: [
-                                'Set up a Next.js project',
-                                'Understand file-based routing',
-                                'Learn about SSR vs SSG',
-                                'Create API routes'
-                            ]
-                        }
-                    ]
-                },
-                4: {
-                    title: 'Interview Preparation',
-                    description: 'Practice with real interview questions and build projects',
-                    days: [
-                        {
-                            id: 'day5',
-                            title: 'Common Interview Questions',
-                            theory: `# React Interview Questions
-
-Here are some common React interview questions you should be prepared for:
-
-## Technical Questions:
-1. What is the Virtual DOM?
-2. Explain the component lifecycle
-3. What are React Hooks?
-4. Difference between state and props
-5. How does React handle events?
-
-## Coding Challenges:
-- Build a todo list
-- Create a weather app
-- Implement a search feature
-- Handle form validation`,
-                            checklist: [
-                                'Practice coding challenges',
-                                'Review core React concepts',
-                                'Prepare project explanations',
-                                'Practice whiteboard coding'
-                            ]
-                        }
-                    ]
-                }
+}`
+                        },
+                        keyPoints: [
+                            'HTML-like syntax in JavaScript',
+                            'Must use className instead of class',
+                            'Self-closing tags must be closed',
+                            'Supports JavaScript expressions with {}'
+                        ]
+                    }
+                    // Add more top 10 questions as needed
+                ]
+            },
+            top20: {
+                id: 'top20',
+                title: 'Top 20 Core',
+                description: 'Core concepts every React developer should master',
+                gradient: 'linear-gradient(135deg, #feca57, #ff9ff3)',
+                questions: [] // Will be loaded from existing data
+            },
+            top50: {
+                id: 'top50',
+                title: 'Top 50 Advanced',
+                description: 'Deep dive into advanced React patterns and best practices',
+                gradient: 'linear-gradient(135deg, #48dbfb, #0abde3)',
+                questions: [] // Will be populated
+            },
+            top100: {
+                id: 'top100',
+                title: 'Top 100 Complete',
+                description: 'Comprehensive coverage including edge cases and expert topics',
+                gradient: 'linear-gradient(135deg, #1dd1a1, #10ac84)',
+                questions: [] // Will be populated
             }
         };
 
-        // Progress management
+        // Supabase Configuration (Replace with your actual credentials)
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        // Uncomment when Supabase is configured:
+        // const supabase = window.supabase?.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Progress Management Hook
         function useProgress() {
             const [progress, setProgress] = useState(() => {
                 try {
-                    const saved = localStorage.getItem('learning-progress');
+                    const saved = localStorage.getItem('interview-progress');
                     return saved ? JSON.parse(saved) : {
-                        completedLessons: [],
-                        completedChallenges: [],
-                        overallProgress: 0
+                        questionProgress: {},
+                        favorites: [],
+                        completedTiers: {},
+                        studySessions: [],
+                        overallStats: { questionsStudied: 0, averageConfidence: 0 }
                     };
                 } catch {
                     return {
-                        completedLessons: [],
-                        completedChallenges: [],
-                        overallProgress: 0
+                        questionProgress: {},
+                        favorites: [],
+                        completedTiers: {},
+                        studySessions: [],
+                        overallStats: { questionsStudied: 0, averageConfidence: 0 }
                     };
                 }
             });
 
             const saveProgress = (newProgress) => {
                 setProgress(newProgress);
-                localStorage.setItem('learning-progress', JSON.stringify(newProgress));
+                localStorage.setItem('interview-progress', JSON.stringify(newProgress));
             };
 
-            const markLessonComplete = (lessonId) => {
+            const updateQuestionConfidence = (questionId, confidence) => {
                 const newProgress = {
                     ...progress,
-                    completedLessons: [...new Set([...progress.completedLessons, lessonId])]
+                    questionProgress: {
+                        ...progress.questionProgress,
+                        [questionId]: {
+                            ...progress.questionProgress[questionId],
+                            confidence,
+                            lastReviewed: new Date().toISOString(),
+                            timesReviewed: (progress.questionProgress[questionId]?.timesReviewed || 0) + 1
+                        }
+                    }
                 };
                 
-                // Calculate overall progress
-                const totalLessons = Object.values(contentStructure.weeks).reduce((sum, week) => sum + week.days.length, 0);
-                newProgress.overallProgress = Math.round((newProgress.completedLessons.length / totalLessons) * 100);
+                // Update overall stats
+                const confidenceLevels = Object.values(newProgress.questionProgress).map(p => p.confidence || 0);
+                newProgress.overallStats = {
+                    questionsStudied: confidenceLevels.filter(c => c > 0).length,
+                    averageConfidence: confidenceLevels.length > 0 ? 
+                        Math.round(confidenceLevels.reduce((a, b) => a + b, 0) / confidenceLevels.length) : 0
+                };
                 
                 saveProgress(newProgress);
             };
 
-            const markChallengeComplete = (challengeId) => {
-                const newProgress = {
+            const toggleFavorite = (questionId) => {
+                const newFavorites = progress.favorites.includes(questionId)
+                    ? progress.favorites.filter(id => id !== questionId)
+                    : [...progress.favorites, questionId];
+                    
+                saveProgress({
                     ...progress,
-                    completedChallenges: [...new Set([...progress.completedChallenges, challengeId])]
-                };
-                saveProgress(newProgress);
+                    favorites: newFavorites
+                });
             };
 
             return {
                 progress,
-                markLessonComplete,
-                markChallengeComplete
+                updateQuestionConfidence,
+                toggleFavorite,
+                saveProgress
             };
         }
 
-        // Notification system
-        function showNotification(message, type = 'success') {
+        // Notification System
+        function showNotification(message, type = 'success', icon = 'check') {
             const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
+            notification.className = `notification show`;
+            notification.innerHTML = `
+                <i class="fas fa-${icon} notification-icon"></i>
+                <span>${message}</span>
+            `;
             document.body.appendChild(notification);
             
-            setTimeout(() => notification.classList.add('show'), 100);
             setTimeout(() => {
                 notification.classList.remove('show');
-                setTimeout(() => document.body.removeChild(notification), 300);
+                setTimeout(() => document.body.removeChild(notification), 400);
             }, 3000);
         }
 
-        // Top Questions Data - Embedded from the JSON file
-        const topQuestionsData = {
-            "title": "Top 20 React Interview Questions",
-            "description": "Master the most frequently asked React interview questions with detailed explanations and examples",
-            "questions": [
-                {
-                    "id": "q1",
-                    "question": "What is React and why is it popular?",
-                    "difficulty": "Beginner",
-                    "category": "Fundamentals",
-                    "answer": "React is a JavaScript library for building user interfaces, particularly web applications. It was created by Facebook and is now maintained by Facebook and the community.\n\n**Key reasons for popularity:**\n\n1. **Component-Based Architecture**: Break UI into reusable, self-contained components\n2. **Virtual DOM**: Efficient updates by comparing virtual representations\n3. **Unidirectional Data Flow**: Predictable state management\n4. **Large Ecosystem**: Rich community and extensive library support\n5. **Developer Experience**: Great tools like React DevTools\n6. **Performance**: Optimizations like reconciliation and lazy loading",
-                    "codeExample": {
-                        "title": "Basic React Component",
-                        "code": "function Welcome({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Usage\n<Welcome name=\"React Developer\" />"
-                    },
-                    "keyPoints": [
-                        "Component-based architecture",
-                        "Virtual DOM for performance",
-                        "Strong ecosystem and community",
-                        "Backed by Meta (Facebook)"
-                    ]
-                },
-                {
-                    "id": "q2",
-                    "question": "What is a Single Page Application (SPA)?",
-                    "difficulty": "Beginner",
-                    "category": "Architecture",
-                    "answer": "A Single Page Application (SPA) is a web application that loads a single HTML page and dynamically updates content as users interact, rather than reloading entire pages.\n\n**How SPAs work:**\n1. Initial page load downloads the entire application\n2. Subsequent navigation updates only changed content\n3. Client-side routing manages URL changes\n4. AJAX requests fetch new data without page refresh\n\n**Advantages:**\n- Faster navigation after initial load\n- Smoother user experience\n- Reduced server requests\n- Better mobile experience\n\n**Disadvantages:**\n- Longer initial load time\n- SEO challenges\n- Browser history complexity\n- JavaScript dependency",
-                    "codeExample": {
-                        "title": "React Router SPA Example",
-                        "code": "import { BrowserRouter, Routes, Route } from 'react-router-dom';\n\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/about\" element={<About />} />\n        <Route path=\"/contact\" element={<Contact />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}"
-                    },
-                    "keyPoints": [
-                        "Single HTML page with dynamic updates",
-                        "Client-side routing",
-                        "Better UX after initial load",
-                        "SEO considerations needed"
-                    ]
-                },
-                {
-                    "id": "q3",
-                    "question": "What is JSX and how does it differ from HTML?",
-                    "difficulty": "Beginner",
-                    "category": "JSX",
-                    "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows writing HTML-like code directly in JavaScript files. It makes React components more readable and expressive.\n\n**Key Differences from HTML:**\n\n1. **Attribute Names**: `className` instead of `class`, `htmlFor` instead of `for`\n2. **Self-Closing Tags**: All tags must be properly closed (`<img />`, `<br />`)\n3. **JavaScript Expressions**: Use `{}` to embed JavaScript\n4. **camelCase Properties**: `onClick` instead of `onclick`\n5. **Style Attribute**: Takes objects instead of strings\n\n**JSX Compilation:**\nJSX is transpiled to `React.createElement()` calls by Babel.",
-                    "codeExample": {
-                        "title": "JSX vs HTML Comparison",
-                        "code": "// JSX\nfunction Button({ onClick, children }) {\n  return (\n    <button \n      className=\"btn-primary\" \n      onClick={onClick}\n      style={{ backgroundColor: 'blue', color: 'white' }}\n    >\n      {children}\n    </button>\n  );\n}\n\n// Compiles to:\nReact.createElement('button', {\n  className: 'btn-primary',\n  onClick: onClick,\n  style: { backgroundColor: 'blue', color: 'white' }\n}, children);"
-                    },
-                    "keyPoints": [
-                        "Syntax extension for JavaScript",
-                        "HTML-like syntax in JS",
-                        "Transpiled to React.createElement",
-                        "Supports JavaScript expressions"
-                    ]
-                },
-                {
-                    "id": "q4",
-                    "question": "Explain the difference between functional and class components",
-                    "difficulty": "Beginner",
-                    "category": "Components",
-                    "answer": "React components can be written as functions or classes, with functional components becoming the modern standard after React 16.8 introduced hooks.\n\n**Class Components:**\n- Extend React.Component\n- Use render() method to return JSX\n- Manage state with this.state and this.setState()\n- Access lifecycle methods directly\n- More verbose syntax\n\n**Functional Components:**\n- Simple JavaScript functions that return JSX\n- Use hooks for state and side effects\n- Cleaner, more concise syntax\n- Better performance optimizations\n- Easier to test and reason about",
-                    "codeExample": {
-                        "title": "Class vs Functional Component",
-                        "code": "// Class Component\nclass Counter extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { count: 0 };\n  }\n\n  render() {\n    return (\n      <div>\n        <p>Count: {this.state.count}</p>\n        <button onClick={() => this.setState({count: this.state.count + 1})}>\n          Increment\n        </button>\n      </div>\n    );\n  }\n}\n\n// Functional Component\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}"
-                    },
-                    "keyPoints": [
-                        "Functional components are modern standard",
-                        "Hooks enable state and effects in functions",
-                        "Class components use this.state",
-                        "Functional components are more concise"
-                    ]
-                },
-                {
-                    "id": "q5",
-                    "question": "What is the difference between stateless and stateful components in React?",
-                    "difficulty": "Beginner",
-                    "category": "State",
-                    "answer": "Components can be categorized based on whether they manage internal state or not.\n\n**Stateless Components:**\n- Do not manage or store internal data\n- Receive data through props only\n- Pure functions that return JSX\n- Easier to test and debug\n- Better performance (can be optimized)\n\n**Stateful Components:**\n- Manage their own internal state\n- Can update state based on user interactions\n- Handle complex logic and data manipulation\n- Re-render when state changes\n- More complex but more powerful",
-                    "codeExample": {
-                        "title": "Stateless vs Stateful Examples",
-                        "code": "// Stateless Component\nfunction Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Stateful Component\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}"
-                    },
-                    "keyPoints": [
-                        "Stateless components are pure functions",
-                        "Stateful components manage internal data",
-                        "Use stateless for presentation",
-                        "Use stateful for interactivity"
-                    ]
-                }
-                // Additional 15 questions would continue here...
-            ]
-        };
-
-        // Top Questions Viewer Component
-        function TopQuestionsViewer({ onBack }) {
-            const [searchTerm, setSearchTerm] = useState('');
-            const [selectedDifficulty, setSelectedDifficulty] = useState('All');
-            const [selectedCategory, setSelectedCategory] = useState('All');
-            const [expandedQuestions, setExpandedQuestions] = useState({});
-            const [favoriteQuestions, setFavoriteQuestions] = useState(() => {
-                try {
-                    return JSON.parse(localStorage.getItem('favoriteQuestions')) || [];
-                } catch {
-                    return [];
-                }
-            });
-
-            // Filter questions
-            const filteredQuestions = topQuestionsData.questions.filter(q => {
-                const matchesSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                    q.answer.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesDifficulty = selectedDifficulty === 'All' || q.difficulty === selectedDifficulty;
-                const matchesCategory = selectedCategory === 'All' || q.category === selectedCategory;
-                
-                return matchesSearch && matchesDifficulty && matchesCategory;
-            });
-
-            const toggleQuestion = (questionId) => {
-                setExpandedQuestions(prev => ({
-                    ...prev,
-                    [questionId]: !prev[questionId]
-                }));
-            };
-
-            const toggleFavorite = (questionId) => {
-                const newFavorites = favoriteQuestions.includes(questionId)
-                    ? favoriteQuestions.filter(id => id !== questionId)
-                    : [...favoriteQuestions, questionId];
-                    
-                setFavoriteQuestions(newFavorites);
-                localStorage.setItem('favoriteQuestions', JSON.stringify(newFavorites));
-                
-                showNotification(
-                    favoriteQuestions.includes(questionId) 
-                        ? 'Question removed from favorites' 
-                        : 'Question added to favorites'
-                );
-            };
-
-            const getDifficultyColor = (difficulty) => {
-                switch(difficulty) {
-                    case 'Beginner': return '#10b981';
-                    case 'Intermediate': return '#f59e0b';  
-                    case 'Advanced': return '#ef4444';
-                    default: return '#64748b';
-                }
-            };
-
-            const categories = [...new Set(topQuestionsData.questions.map(q => q.category))];
-            const difficulties = [...new Set(topQuestionsData.questions.map(q => q.difficulty))];
-
-            return React.createElement('div', { className: 'top-questions-viewer' },
-                // Header
-                React.createElement('div', { className: 'questions-header' },
-                    React.createElement('div', { className: 'header-content' },
-                        React.createElement('button', {
-                            className: 'btn btn-secondary',
-                            onClick: onBack,
-                            style: { marginBottom: '1rem' }
-                        }, '← Back to Roadmap'),
-                        React.createElement('h1', {}, '🎯 Top 20 React Interview Questions'),
-                        React.createElement('p', {}, 'Master the most frequently asked React interview questions with detailed explanations and examples')
-                    )
-                ),
-
-                // Filters and Search
-                React.createElement('div', { className: 'questions-filters' },
-                    React.createElement('div', { className: 'filter-row' },
-                        React.createElement('input', {
-                            type: 'text',
-                            placeholder: 'Search questions...',
-                            value: searchTerm,
-                            onChange: (e) => setSearchTerm(e.target.value),
-                            className: 'search-input'
-                        }),
-                        React.createElement('select', {
-                            value: selectedDifficulty,
-                            onChange: (e) => setSelectedDifficulty(e.target.value),
-                            className: 'filter-select'
-                        },
-                            React.createElement('option', { value: 'All' }, 'All Difficulties'),
-                            difficulties.map(diff =>
-                                React.createElement('option', { key: diff, value: diff }, diff)
-                            )
-                        ),
-                        React.createElement('select', {
-                            value: selectedCategory,
-                            onChange: (e) => setSelectedCategory(e.target.value),
-                            className: 'filter-select'
-                        },
-                            React.createElement('option', { value: 'All' }, 'All Categories'),
-                            categories.map(cat =>
-                                React.createElement('option', { key: cat, value: cat }, cat)
-                            )
-                        )
-                    ),
-                    React.createElement('div', { className: 'filter-stats' },
-                        React.createElement('span', {}, `Showing ${filteredQuestions.length} of ${topQuestionsData.questions.length} questions`)
-                    )
-                ),
-
-                // Questions List
-                React.createElement('div', { className: 'questions-list' },
-                    filteredQuestions.map((question, index) =>
-                        React.createElement('div', { 
-                            key: question.id, 
-                            className: `question-card ${expandedQuestions[question.id] ? 'expanded' : ''}` 
-                        },
-                            React.createElement('div', { className: 'question-header' },
-                                React.createElement('div', { className: 'question-meta' },
-                                    React.createElement('span', { className: 'question-number' }, `Q${index + 1}`),
-                                    React.createElement('span', { 
-                                        className: 'difficulty-badge',
-                                        style: { backgroundColor: getDifficultyColor(question.difficulty) }
-                                    }, question.difficulty),
-                                    React.createElement('span', { className: 'category-badge' }, question.category),
-                                    React.createElement('button', {
-                                        className: `favorite-btn ${favoriteQuestions.includes(question.id) ? 'favorited' : ''}`,
-                                        onClick: (e) => {
-                                            e.stopPropagation();
-                                            toggleFavorite(question.id);
-                                        }
-                                    }, favoriteQuestions.includes(question.id) ? '❤️' : '🤍')
-                                ),
-                                React.createElement('h3', { 
-                                    className: 'question-title',
-                                    onClick: () => toggleQuestion(question.id)
-                                }, question.question),
-                                React.createElement('button', {
-                                    className: 'expand-btn',
-                                    onClick: () => toggleQuestion(question.id)
-                                }, expandedQuestions[question.id] ? '▼' : '▶')
-                            ),
-                            
-                            expandedQuestions[question.id] && React.createElement('div', { className: 'question-content' },
-                                React.createElement('div', { className: 'answer-section' },
-                                    React.createElement('h4', {}, '📝 Answer'),
-                                    React.createElement('div', { 
-                                        className: 'answer-text',
-                                        dangerouslySetInnerHTML: {
-                                            __html: question.answer
-                                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                                .replace(/\n/g, '<br>')
-                                                .replace(/(\d+\.\s)/g, '<br>$1')
-                                        }
-                                    })
-                                ),
-                                
-                                question.codeExample && React.createElement('div', { className: 'code-section' },
-                                    React.createElement('h4', {}, '💻 Code Example'),
-                                    React.createElement('h5', {}, question.codeExample.title),
-                                    React.createElement('pre', { className: 'code-block' },
-                                        React.createElement('code', {}, question.codeExample.code)
-                                    )
-                                ),
-                                
-                                question.keyPoints && React.createElement('div', { className: 'key-points' },
-                                    React.createElement('h4', {}, '🔑 Key Points'),
-                                    React.createElement('ul', {},
-                                        question.keyPoints.map((point, i) =>
-                                            React.createElement('li', { key: i }, point)
-                                        )
-                                    )
-                                ),
-                                
-                                React.createElement('div', { className: 'question-actions' },
-                                    React.createElement('button', {
-                                        className: 'btn btn-primary',
-                                        onClick: () => {
-                                            // Copy question to clipboard
-                                            navigator.clipboard.writeText(`${question.question}\n\n${question.answer}`);
-                                            showNotification('Question copied to clipboard!');
-                                        }
-                                    }, '📋 Copy Question'),
-                                    React.createElement('button', {
-                                        className: 'btn btn-secondary',
-                                        onClick: () => toggleQuestion(question.id)
-                                    }, '🔽 Collapse')
-                                )
-                            )
-                        )
-                    )
-                ),
-
-                // Progress Summary
-                React.createElement('div', { className: 'progress-summary' },
-                    React.createElement('h3', {}, '📊 Your Progress'),
-                    React.createElement('div', { className: 'progress-stats' },
-                        React.createElement('div', { className: 'stat-item' },
-                            React.createElement('span', { className: 'stat-number' }, favoriteQuestions.length),
-                            React.createElement('span', { className: 'stat-label' }, 'Favorite Questions')
-                        ),
-                        React.createElement('div', { className: 'stat-item' },
-                            React.createElement('span', { className: 'stat-number' }, Object.keys(expandedQuestions).length),
-                            React.createElement('span', { className: 'stat-label' }, 'Questions Explored')
-                        )
-                    )
-                )
-            );
-        }
-
-        // RoadmapNavigation Component
-        function RoadmapNavigation({ onSelectLesson, onShowTopQuestions, progress }) {
-            const [selectedWeek, setSelectedWeek] = useState(1);
-            
-            return React.createElement('div', { className: 'roadmap-nav' },
-                React.createElement('div', { className: 'roadmap-header' },
-                    React.createElement('h1', {}, '🚀 React & Next.js Interview Prep'),
-                    React.createElement('p', {}, 'Your structured learning journey to master React and Next.js interviews'),
-                    React.createElement('div', { style: { marginTop: '1rem', fontSize: '1.1rem' } },
-                        `Progress: ${progress.completedLessons.length} lessons completed (${progress.overallProgress}%)`
-                    ),
-                    React.createElement('div', { style: { marginTop: '1rem' } },
-                        React.createElement('button', {
-                            className: 'btn btn-primary',
-                            onClick: onShowTopQuestions,
-                            style: { padding: '1rem 2rem', fontSize: '1rem' }
-                        }, '🎯 Top 20 Interview Questions')
-                    )
-                ),
-                
-                React.createElement('div', { className: 'weeks-grid' },
-                    Object.entries(contentStructure.weeks).map(([weekNum, weekData]) =>
-                        React.createElement('div', {
-                            key: weekNum,
-                            className: `week-card ${selectedWeek == weekNum ? 'selected' : ''}`,
-                            onClick: () => setSelectedWeek(parseInt(weekNum))
-                        },
-                            React.createElement('div', { className: 'week-number' }, `Week ${weekNum}`),
-                            React.createElement('h3', { className: 'week-title' }, weekData.title),
-                            React.createElement('p', { className: 'week-description' }, weekData.description)
-                        )
-                    )
-                ),
-                
-                React.createElement('div', { className: 'days-grid' },
-                    contentStructure.weeks[selectedWeek]?.days.map((day, index) =>
-                        React.createElement('div', { key: day.id, className: 'day-card' },
-                            React.createElement('div', { className: 'day-header' },
-                                React.createElement('div', { className: 'day-number' }, `Day ${index + 1}`),
-                                React.createElement('h4', { className: 'day-title' }, day.title),
-                                progress.completedLessons.includes(day.id) && 
-                                React.createElement('span', { style: { color: 'var(--success-color)' } }, '✅')
-                            ),
-                            React.createElement('p', { className: 'day-summary' }, 
-                                day.theory ? day.theory.slice(0, 120) + '...' : 'Interactive lesson content'
-                            ),
-                            React.createElement('div', { className: 'day-actions' },
-                                React.createElement('button', {
-                                    className: 'btn btn-primary',
-                                    onClick: () => onSelectLesson(day)
-                                }, progress.completedLessons.includes(day.id) ? '📖 Review Lesson' : '📚 Start Lesson'),
-                                
-                                day.challenges && day.challenges.map(challenge =>
-                                    React.createElement('button', {
-                                        key: challenge.id,
-                                        className: 'btn btn-secondary',
-                                        onClick: () => onSelectLesson({...day, activeTab: 'challenge'})
-                                    }, '🔥 ' + challenge.title)
-                                )
-                            )
-                        )
-                    ) || []
-                )
-            );
-        }
-
-        // LessonViewer Component
-        function LessonViewer({ lesson, onComplete, onBack }) {
-            const [activeTab, setActiveTab] = useState('theory');
-            const [quizAnswers, setQuizAnswers] = useState({});
-            const [checklistProgress, setChecklistProgress] = useState({});
-            
-            const tabs = [
-                { id: 'theory', label: 'Theory', icon: '📖' },
-                { id: 'examples', label: 'Code', icon: '💻' },
-                { id: 'quiz', label: 'Quiz', icon: '❓' },
-                { id: 'checklist', label: 'Tasks', icon: '✅' }
-            ];
-            
-            const renderTheory = () => {
-                const content = lesson.theory || 'No theory content available.';
-                const htmlContent = content
-                    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-                    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/`(.*?)`/g, '<code style="background: #f1f5f9; padding: 2px 4px; border-radius: 4px;">$1</code>')
-                    .replace(/```jsx([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
-                    .replace(/\n/g, '<br>');
-                    
-                return React.createElement('div', {
-                    className: 'lesson-content',
-                    dangerouslySetInnerHTML: { __html: htmlContent }
-                });
-            };
-            
-            const renderExamples = () => {
-                if (!lesson.codeExamples || lesson.codeExamples.length === 0) {
-                    return React.createElement('div', { className: 'lesson-content' },
-                        React.createElement('p', {}, 'No code examples available for this lesson.')
-                    );
-                }
-                
-                return React.createElement('div', { className: 'lesson-content' },
-                    lesson.codeExamples.map((example, index) =>
-                        React.createElement('div', { key: index, style: { marginBottom: '2rem' } },
-                            React.createElement('h3', {}, example.label),
-                            React.createElement('pre', { className: 'code-block' },
-                                React.createElement('code', {}, example.code)
-                            )
-                        )
-                    )
-                );
-            };
-            
-            const renderQuiz = () => {
-                if (!lesson.quizzes || lesson.quizzes.length === 0) {
-                    return React.createElement('div', { className: 'lesson-content' },
-                        React.createElement('p', {}, 'No quiz available for this lesson.')
-                    );
-                }
-                
-                return React.createElement('div', { className: 'lesson-content' },
-                    lesson.quizzes.map((quiz, index) =>
-                        React.createElement('div', { key: index, style: { marginBottom: '2rem' } },
-                            React.createElement('h3', {}, `Question ${index + 1}`),
-                            React.createElement('p', {}, quiz.question),
-                            React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: '0.5rem' } },
-                                quiz.options.map((option, optIndex) =>
-                                    React.createElement('label', {
-                                        key: optIndex,
-                                        style: { 
-                                            padding: '0.5rem',
-                                            border: '1px solid var(--border)',
-                                            borderRadius: '4px',
-                                            cursor: 'pointer',
-                                            backgroundColor: quizAnswers[index] === optIndex ? 
-                                                (optIndex === quiz.correct ? '#d4edda' : '#f8d7da') : 'transparent'
-                                        }
-                                    },
-                                        React.createElement('input', {
-                                            type: 'radio',
-                                            name: `question-${index}`,
-                                            value: optIndex,
-                                            onChange: () => setQuizAnswers(prev => ({...prev, [index]: optIndex})),
-                                            style: { marginRight: '0.5rem' }
-                                        }),
-                                        option
-                                    )
-                                )
-                            ),
-                            quizAnswers[index] !== undefined && quiz.explanation &&
-                            React.createElement('div', { 
-                                style: { 
-                                    marginTop: '1rem', 
-                                    padding: '1rem', 
-                                    backgroundColor: '#e3f2fd', 
-                                    borderRadius: '4px' 
-                                }
-                            },
-                                React.createElement('strong', {}, 'Explanation: '),
-                                quiz.explanation
-                            )
-                        )
-                    )
-                );
-            };
-            
-            const renderChecklist = () => {
-                if (!lesson.checklist || lesson.checklist.length === 0) {
-                    return React.createElement('div', { className: 'lesson-content' },
-                        React.createElement('p', {}, 'No checklist available for this lesson.')
-                    );
-                }
-                
-                return React.createElement('div', { className: 'lesson-content' },
-                    lesson.checklist.map((item, index) =>
-                        React.createElement('div', {
-                            key: index,
-                            style: { 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                gap: '0.5rem', 
-                                marginBottom: '1rem',
-                                padding: '0.75rem',
-                                border: '1px solid var(--border)',
-                                borderRadius: '4px'
-                            }
-                        },
-                            React.createElement('input', {
-                                type: 'checkbox',
-                                checked: checklistProgress[index] || false,
-                                onChange: (e) => setChecklistProgress(prev => ({...prev, [index]: e.target.checked}))
-                            }),
-                            React.createElement('span', {}, item)
-                        )
-                    )
-                );
-            };
-            
-            const renderContent = () => {
-                switch (activeTab) {
-                    case 'theory': return renderTheory();
-                    case 'examples': return renderExamples();
-                    case 'quiz': return renderQuiz();
-                    case 'checklist': return renderChecklist();
-                    default: return renderTheory();
-                }
-            };
-            
-            const isLessonComplete = () => {
-                const quizComplete = !lesson.quizzes || Object.keys(quizAnswers).length === lesson.quizzes.length;
-                const checklistComplete = !lesson.checklist || Object.values(checklistProgress).filter(Boolean).length === lesson.checklist.length;
-                return quizComplete && checklistComplete;
-            };
-            
-            return React.createElement('div', { className: 'lesson-viewer' },
-                React.createElement('div', { className: 'lesson-header' },
-                    React.createElement('div', { className: 'lesson-meta' },
-                        React.createElement('span', { className: 'difficulty-badge' }, 'Beginner'),
-                        React.createElement('button', { 
-                            className: 'btn btn-secondary',
-                            onClick: onBack,
-                            style: { marginLeft: 'auto' }
-                        }, '← Back to Roadmap')
-                    ),
-                    React.createElement('h1', {}, lesson.title)
-                ),
-                
-                React.createElement('div', { 
-                    style: { 
-                        display: 'flex', 
-                        borderBottom: '1px solid var(--border)',
-                        backgroundColor: 'var(--surface)'
-                    } 
-                },
-                    tabs.map(tab =>
-                        React.createElement('button', {
-                            key: tab.id,
-                            onClick: () => setActiveTab(tab.id),
-                            style: {
-                                padding: '1rem 1.5rem',
-                                border: 'none',
-                                backgroundColor: activeTab === tab.id ? 'white' : 'transparent',
-                                borderBottom: activeTab === tab.id ? '3px solid var(--primary-color)' : 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }
-                        }, `${tab.icon} ${tab.label}`)
-                    )
-                ),
-                
-                renderContent(),
-                
-                isLessonComplete() && React.createElement('div', { 
-                    style: { 
-                        padding: '2rem', 
-                        textAlign: 'center', 
-                        borderTop: '1px solid var(--border)' 
-                    } 
-                },
-                    React.createElement('button', {
-                        className: 'btn btn-primary',
-                        style: { padding: '1rem 2rem', fontSize: '1rem' },
-                        onClick: () => {
-                            onComplete(lesson.id);
-                            showNotification('🎉 Lesson completed! Great work!');
-                        }
-                    }, '✅ Complete Lesson')
-                )
-            );
-        }
-
-        // Main App Component
-        function App() {
-            const [currentView, setCurrentView] = useState('roadmap');
-            const [selectedLesson, setSelectedLesson] = useState(null);
-            const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-            
-            const { progress, markLessonComplete, markChallengeComplete } = useProgress();
-
-            useEffect(() => {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-            }, [theme]);
-
-            const toggleTheme = () => {
-                setTheme(prev => prev === 'light' ? 'dark' : 'light');
-            };
-
-            const handleSelectLesson = (lesson) => {
-                setSelectedLesson(lesson);
-                setCurrentView('lesson');
-            };
-
-            const handleShowTopQuestions = () => {
-                setCurrentView('topQuestions');
-            };
-
-            const handleLessonComplete = (lessonId) => {
-                markLessonComplete(lessonId);
-                setTimeout(() => setCurrentView('roadmap'), 1000);
-            };
-
-            const handleBackToRoadmap = () => {
-                setCurrentView('roadmap');
-                setSelectedLesson(null);
-            };
-
-            return React.createElement('div', { className: 'app', 'data-theme': theme },
-                React.createElement('header', { className: 'app-header' },
-                    React.createElement('div', { className: 'header-container' },
-                        React.createElement('div', { className: 'header-left' },
-                            React.createElement('h1', { className: 'app-title' }, '⚛️ React Interview Prep'),
-                            currentView !== 'roadmap' && React.createElement('button', {
-                                className: 'back-btn',
-                                onClick: handleBackToRoadmap
-                            }, '← Back to Roadmap')
-                        ),
-                        React.createElement('div', { className: 'header-right' },
-                            currentView === 'roadmap' && React.createElement('button', {
-                                className: 'btn btn-primary',
-                                onClick: handleShowTopQuestions,
-                                style: { marginRight: '1rem' }
-                            }, '🎯 Top 20 Questions'),
-                            React.createElement('button', {
-                                className: 'theme-toggle',
-                                onClick: toggleTheme,
-                                'aria-label': 'Toggle theme'
-                            }, theme === 'light' ? '🌙' : '☀️')
-                        )
-                    )
-                ),
-                
-                React.createElement('main', { className: 'app-main' },
-                    currentView === 'roadmap' && React.createElement(RoadmapNavigation, {
-                        onSelectLesson: handleSelectLesson,
-                        onShowTopQuestions: handleShowTopQuestions,
-                        progress: progress
-                    }),
-                    
-                    currentView === 'lesson' && selectedLesson && React.createElement(LessonViewer, {
-                        lesson: selectedLesson,
-                        onComplete: handleLessonComplete,
-                        onBack: handleBackToRoadmap
-                    }),
-                    
-                    currentView === 'topQuestions' && React.createElement(TopQuestionsViewer, {
-                        onBack: handleBackToRoadmap
-                    })
-                ),
-                
-                React.createElement('footer', { className: 'app-footer' },
-                    React.createElement('div', { className: 'footer-info' },
-                        React.createElement('p', {}, '🚀 Interactive React & Next.js Interview Preparation Platform'),
-                        React.createElement('p', {}, 'Build your skills with hands-on lessons and coding challenges')
-                    )
-                )
-            );
-        }
-
-        // Initialize the app
-        function initializeApp() {
-            const loadingScreen = document.getElementById('loading-screen');
-            const root = createRoot(document.getElementById('root'));
-            
-            // Render the app
-            root.render(React.createElement(App));
-            
-            // Hide loading screen
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 1000);
-        }
-
-        // Start the app when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeApp);
-        } else {
-            initializeApp();
-        }
-    </script>
-</body>
-</html>
+        // Modern Header Component
+        function ModernHeader({ currentView, onNavigate, theme, toggleTheme }) {
+            return React.createElement('header', { className: 'modern-header' },
+                React.createElement('div', { className: 'header-container' },
+                    React.createElement('div', { className: 'logo-section' },
+                        React.createElement('div', { className: 'logo' },
+                            React.createElement('i', { className: 'fab fa-react' })\n                        ),\n                        React.createElement('div', { className: 'brand-text' },\n                            React.createElement('h1', {}, 'Interview Mastery'),\n                            React.createElement('p', {}, 'React & Next.js Prep Platform')\n                        )\n                    ),\n\n                    React.createElement('nav', { className: 'main-nav' },\n                        React.createElement('ul', { className: 'nav-links' },\n                            React.createElement('li', { className: 'nav-item' },\n                                React.createElement('a', {\n                                    href: '#',\n                                    className: `nav-link ${currentView === 'dashboard' ? 'active' : ''}`,\n                                    onClick: (e) => { e.preventDefault(); onNavigate('dashboard'); }\n                                },\n                                    React.createElement('i', { className: 'fas fa-home' }),\n                                    React.createElement('span', {}, 'Dashboard')\n                                )\n                            ),\n                            \n                            React.createElement('li', { className: 'nav-item dropdown' },\n                                React.createElement('a', { href: '#', className: 'nav-link' },\n                                    React.createElement('i', { className: 'fas fa-question-circle' }),\n                                    React.createElement('span', {}, 'Interview Questions'),\n                                    React.createElement('i', { \n                                        className: 'fas fa-chevron-down', \n                                        style: { fontSize: '0.8rem', marginLeft: '0.25rem' } \n                                    })\n                                ),\n                                React.createElement('div', { className: 'dropdown-menu' },\n                                    React.createElement('div', { className: 'dropdown-header' },\n                                        React.createElement('h3', {}, 'Question Tiers'),\n                                        React.createElement('p', {}, 'Choose your preparation level')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top10'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-10' },\n                                            React.createElement('i', { className: 'fas fa-fire' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 10 Essential'),\n                                            React.createElement('p', {}, 'Must-know questions for any React interview')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '90%')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top20'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-20' },\n                                            React.createElement('i', { className: 'fas fa-star' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 20 Core'),\n                                            React.createElement('p', {}, 'Core concepts every developer should master')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '75%')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top50'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-50' },\n                                            React.createElement('i', { className: 'fas fa-chart-line' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 50 Advanced'),\n                                            React.createElement('p', {}, 'Deep dive into advanced patterns')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '50%')\n                                    ),\n                                    React.createElement('a', {\n                                        href: '#',\n                                        className: 'dropdown-item',\n                                        onClick: (e) => { e.preventDefault(); onNavigate('questions', 'top100'); }\n                                    },\n                                        React.createElement('div', { className: 'dropdown-icon tier-icon-100' },\n                                            React.createElement('i', { className: 'fas fa-trophy' })\n                                        ),\n                                        React.createElement('div', { className: 'dropdown-content' },\n                                            React.createElement('h4', {}, 'Top 100 Complete'),\n                                            React.createElement('p', {}, 'Comprehensive coverage of all topics')\n                                        ),\n                                        React.createElement('span', { className: 'dropdown-badge' }, '25%')\n                                    )\n                                )\n                            ),\n\n                            React.createElement('li', { className: 'nav-item' },\n                                React.createElement('a', {\n                                    href: '#',\n                                    className: `nav-link ${currentView === 'roadmap' ? 'active' : ''}`,\n                                    onClick: (e) => { e.preventDefault(); onNavigate('roadmap'); }\n                                },\n                                    React.createElement('i', { className: 'fas fa-map-marked-alt' }),\n                                    React.createElement('span', {}, 'Learning Path')\n                                )\n                            ),\n\n                            React.createElement('li', { className: 'nav-item' },\n                                React.createElement('a', {\n                                    href: '#',\n                                    className: `nav-link ${currentView === 'analytics' ? 'active' : ''}`,\n                                    onClick: (e) => { e.preventDefault(); onNavigate('analytics'); }\n                                },\n                                    React.createElement('i', { className: 'fas fa-chart-bar' }),\n                                    React.createElement('span', {}, 'Progress')\n                                )\n                            )\n                        )\n                    ),\n\n                    React.createElement('div', { className: 'header-actions' },\n                        React.createElement('button', {\n                            className: 'search-btn',\n                            title: 'Search',\n                            onClick: () => showNotification('Search feature coming soon!', 'info', 'info')\n                        },\n                            React.createElement('i', { className: 'fas fa-search' })\n                        ),\n                        React.createElement('button', {\n                            className: 'theme-toggle',\n                            onClick: toggleTheme,\n                            title: 'Toggle Theme'\n                        },\n                            React.createElement('i', { className: theme === 'light' ? 'fas fa-moon' : 'fas fa-sun' })\n                        ),\n                        React.createElement('button', {\n                            className: 'profile-btn',\n                            title: 'Profile',\n                            onClick: () => showNotification('Profile features coming soon!', 'info', 'user')\n                        },\n                            React.createElement('i', { className: 'fas fa-user' })\n                        )\n                    )\n                )\n            );\n        }\n\n        // Dashboard Component\n        function Dashboard({ onSelectTier, progress }) {\n            const tiers = [\n                {\n                    id: 'top10',\n                    number: '10',\n                    title: 'Essential Questions',\n                    description: 'Must-know questions that appear in 90% of React interviews',\n                    gradient: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',\n                    icon: 'fas fa-fire',\n                    frequency: '90%'\n                },\n                {\n                    id: 'top20',\n                    number: '20',\n                    title: 'Core Concepts',\n                    description: 'Fundamental React concepts every developer should master',\n                    gradient: 'linear-gradient(135deg, #feca57, #ff9ff3)',\n                    icon: 'fas fa-star',\n                    frequency: '75%'\n                },\n                {\n                    id: 'top50',\n                    number: '50',\n                    title: 'Advanced Topics',\n                    description: 'Deep dive into advanced patterns and best practices',\n                    gradient: 'linear-gradient(135deg, #48dbfb, #0abde3)',\n                    icon: 'fas fa-chart-line',\n                    frequency: '50%'\n                },\n                {\n                    id: 'top100',\n                    number: '100',\n                    title: 'Complete Mastery',\n                    description: 'Comprehensive coverage including edge cases and expert topics',\n                    gradient: 'linear-gradient(135deg, #1dd1a1, #10ac84)',\n                    icon: 'fas fa-trophy',\n                    frequency: '25%'\n                }\n            ];\n\n            const getProgressStats = (tierId) => {\n                const tierQuestions = questionTiers[tierId]?.questions || [];\n                const completed = tierQuestions.filter(q => \n                    progress.questionProgress[q.id]?.confidence >= 3\n                ).length;\n                const avgConfidence = tierQuestions.length > 0 ? \n                    Math.round(tierQuestions.reduce((sum, q) => \n                        sum + (progress.questionProgress[q.id]?.confidence || 0), 0\n                    ) / tierQuestions.length * 20) : 0;\n                \n                return {\n                    total: tierQuestions.length,\n                    completed,\n                    confidence: avgConfidence,\n                    completionRate: tierQuestions.length > 0 ? Math.round((completed / tierQuestions.length) * 100) : 0\n                };\n            };\n\n            return React.createElement('div', { className: 'dashboard fade-in-up' },\n                React.createElement('div', { className: 'dashboard-header' },\n                    React.createElement('h1', { className: 'dashboard-title' }, 'Choose Your Challenge Level'),\n                    React.createElement('p', { className: 'dashboard-subtitle' }, \n                        'Select the tier that matches your preparation goals and current skill level. Track your confidence with our unique 5-circle system.'\n                    )\n                ),\n\n                React.createElement('div', { className: 'tiers-grid' },\n                    tiers.map(tier => {\n                        const stats = getProgressStats(tier.id);\n                        return React.createElement('div', {\n                            key: tier.id,\n                            className: `tier-card tier-${tier.id}`,\n                            onClick: () => onSelectTier(tier.id)\n                        },\n                            React.createElement('div', { \n                                className: 'tier-card-header',\n                                style: { background: tier.gradient }\n                            },\n                                React.createElement('div', { className: 'tier-number' }, tier.number),\n                                React.createElement('h2', { className: 'tier-title' }, tier.title),\n                                React.createElement('p', { className: 'tier-description' }, tier.description)\n                            ),\n                            React.createElement('div', { className: 'tier-card-body' },\n                                React.createElement('div', { className: 'tier-stats' },\n                                    React.createElement('div', { className: 'stat-item' },\n                                        React.createElement('span', { className: 'stat-number' }, stats.total || tier.number),\n                                        React.createElement('span', { className: 'stat-label' }, 'Questions')\n                                    ),\n                                    React.createElement('div', { className: 'stat-item' },\n                                        React.createElement('span', { className: 'stat-number' }, `${stats.completionRate}%`),\n                                        React.createElement('span', { className: 'stat-label' }, 'Complete')\n                                    ),\n                                    React.createElement('div', { className: 'stat-item' },\n                                        React.createElement('span', { className: 'stat-number' }, `${stats.confidence}%`),\n                                        React.createElement('span', { className: 'stat-label' }, 'Confidence')\n                                    )\n                                ),\n                                React.createElement('div', { className: 'tier-progress' },\n                                    React.createElement('div', { \n                                        className: 'tier-progress-fill',\n                                        style: { width: `${stats.completionRate}%` }\n                                    })\n                                ),\n                                React.createElement('button', {\n                                    className: 'btn btn-primary',\n                                    style: { width: '100%', justifyContent: 'center' }\n                                },\n                                    React.createElement('i', { className: tier.icon }),\n                                    React.createElement('span', {}, 'Start Preparation'),\n                                    React.createElement('span', { \n                                        style: { \n                                            marginLeft: 'auto', \n                                            opacity: 0.8,\n                                            fontSize: '0.8rem'\n                                        } \n                                    }, tier.frequency)\n                                )\n                            )\n                        );\n                    })\n                )\n            );\n        }\n\n        // Confidence Tracker Component\n        function ConfidenceTracker({ questionId, initialConfidence = 0, onChange }) {\n            const [confidence, setConfidence] = useState(initialConfidence);\n            const [hoveredLevel, setHoveredLevel] = useState(0);\n\n            const handleCircleClick = (level) => {\n                const newConfidence = confidence === level ? 0 : level;\n                setConfidence(newConfidence);\n                onChange(questionId, newConfidence);\n                \n                const messages = [\n                    'Question reset', 'Just getting started!', 'Making progress!', \n                    'Getting confident!', 'Almost there!', 'Mastered! 🎉'\n                ];\n                showNotification(messages[newConfidence], 'success', 'check-circle');\n            };\n\n            const getConfidenceText = (level) => {\n                const texts = {\n                    0: \"Not familiar yet\",\n                    1: \"Just heard of it\",\n                    2: \"Basic understanding\", \n                    3: \"Can explain it well\",\n                    4: \"Very confident\",\n                    5: \"Expert level mastery\"\n                };\n                return texts[level] || texts[0];\n            };\n\n            const displayLevel = hoveredLevel || confidence;\n\n            return React.createElement('div', { className: 'confidence-section' },\n                React.createElement('div', { className: 'confidence-header' },\n                    React.createElement('div', { className: 'confidence-icon' },\n                        React.createElement('i', { className: 'fas fa-bullseye' })\n                    ),\n                    React.createElement('div', {},\n                        React.createElement('h4', { className: 'confidence-title' }, 'Confidence Level'),\n                        React.createElement('p', { \n                            style: { \n                                margin: 0, \n                                color: 'var(--text-muted)', \n                                fontSize: '0.9rem' \n                            } \n                        }, 'Rate your understanding (inspired by the pencil circle method)')\n                    )\n                ),\n                React.createElement('div', { className: 'confidence-tracker' },\n                    React.createElement('div', { className: 'confidence-circles' },\n                        [1, 2, 3, 4, 5].map(level =>\n                            React.createElement('div', {\n                                key: level,\n                                className: `confidence-circle ${confidence >= level ? 'filled' : ''}`,\n                                onClick: () => handleCircleClick(level),\n                                onMouseEnter: () => setHoveredLevel(level),\n                                onMouseLeave: () => setHoveredLevel(0),\n                                title: `Level ${level}`\n                            })\n                        )\n                    ),\n                    React.createElement('span', { className: 'confidence-label' },\n                        getConfidenceText(displayLevel)\n                    ),\n                    React.createElement('div', { className: 'confidence-percentage' },\n                        `${confidence * 20}%`\n                    )\n                )\n            );\n        }\n\n        // Questions List Component\n        function QuestionsList({ tier, progress, onConfidenceChange, onToggleFavorite }) {\n            const [searchTerm, setSearchTerm] = useState('');\n            const [selectedDifficulty, setSelectedDifficulty] = useState('All');\n            const [selectedCategory, setSelectedCategory] = useState('All');\n            const [expandedQuestions, setExpandedQuestions] = useState({});\n\n            const tierData = questionTiers[tier];\n            const questions = tierData?.questions || [];\n\n            const filteredQuestions = questions.filter(q => {\n                const matchesSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||\n                                    q.answer.toLowerCase().includes(searchTerm.toLowerCase());\n                const matchesDifficulty = selectedDifficulty === 'All' || q.difficulty === selectedDifficulty;\n                const matchesCategory = selectedCategory === 'All' || q.category === selectedCategory;\n                \n                return matchesSearch && matchesDifficulty && matchesCategory;\n            });\n\n            const toggleQuestion = (questionId) => {\n                setExpandedQuestions(prev => ({\n                    ...prev,\n                    [questionId]: !prev[questionId]\n                }));\n            };\n\n            const getDifficultyColor = (difficulty) => {\n                switch(difficulty) {\n                    case 'Beginner': return 'difficulty-beginner';\n                    case 'Intermediate': return 'difficulty-intermediate';\n                    case 'Advanced': return 'difficulty-advanced';\n                    default: return 'difficulty-beginner';\n                }\n            };\n\n            const categories = [...new Set(questions.map(q => q.category))];\n            const difficulties = [...new Set(questions.map(q => q.difficulty))];\n\n            return React.createElement('div', { className: 'questions-container fade-in-up' },\n                React.createElement('div', { className: 'questions-header' },\n                    React.createElement('h1', { className: 'questions-title' }, \n                        `🎯 ${tierData?.title || 'Questions'}`\n                    ),\n                    React.createElement('p', { className: 'questions-subtitle' }, \n                        tierData?.description || 'Comprehensive interview preparation questions'\n                    )\n                ),\n\n                React.createElement('div', { className: 'filters-section' },\n                    React.createElement('div', { className: 'filter-row' },\n                        React.createElement('input', {\n                            type: 'text',\n                            placeholder: '🔍 Search questions and answers...',\n                            value: searchTerm,\n                            onChange: (e) => setSearchTerm(e.target.value),\n                            className: 'search-input'\n                        }),\n                        React.createElement('select', {\n                            value: selectedDifficulty,\n                            onChange: (e) => setSelectedDifficulty(e.target.value),\n                            className: 'filter-select'\n                        },\n                            React.createElement('option', { value: 'All' }, 'All Difficulties'),\n                            difficulties.map(diff =>\n                                React.createElement('option', { key: diff, value: diff }, diff)\n                            )\n                        ),\n                        React.createElement('select', {\n                            value: selectedCategory,\n                            onChange: (e) => setSelectedCategory(e.target.value),\n                            className: 'filter-select'\n                        },\n                            React.createElement('option', { value: 'All' }, 'All Categories'),\n                            categories.map(cat =>\n                                React.createElement('option', { key: cat, value: cat }, cat)\n                            )\n                        )\n                    )\n                ),\n\n                React.createElement('div', { className: 'questions-list' },\n                    filteredQuestions.map((question, index) =>\n                        React.createElement('div', { \n                            key: question.id, \n                            className: `question-card ${expandedQuestions[question.id] ? 'expanded' : ''}` \n                        },\n                            React.createElement('div', { className: 'question-header' },\n                                React.createElement('div', { className: 'question-meta' },\n                                    React.createElement('div', { className: 'question-number' }, `Q${index + 1}`),\n                                    React.createElement('div', { \n                                        className: `difficulty-badge ${getDifficultyColor(question.difficulty)}`\n                                    }, question.difficulty),\n                                    React.createElement('div', { className: 'category-badge' }, question.category)\n                                ),\n                                React.createElement('div', { className: 'question-content-area' },\n                                    React.createElement('h3', { className: 'question-title' }, question.question),\n                                    React.createElement('div', { className: 'question-actions' },\n                                        React.createElement('button', {\n                                            className: 'favorite-btn',\n                                            onClick: (e) => {\n                                                e.stopPropagation();\n                                                onToggleFavorite(question.id);\n                                            }\n                                        }, progress.favorites.includes(question.id) ? '❤️' : '🤍'),\n                                        React.createElement('button', {\n                                            className: 'expand-btn',\n                                            onClick: () => toggleQuestion(question.id)\n                                        }, expandedQuestions[question.id] ? \n                                            React.createElement('span', {}, React.createElement('i', { className: 'fas fa-chevron-up' }), ' Collapse') :\n                                            React.createElement('span', {}, React.createElement('i', { className: 'fas fa-chevron-down' }), ' Expand')\n                                        )\n                                    )\n                                )\n                            ),\n                            \n                            expandedQuestions[question.id] && React.createElement('div', { className: 'question-content' },\n                                React.createElement(ConfidenceTracker, {\n                                    questionId: question.id,\n                                    initialConfidence: progress.questionProgress[question.id]?.confidence || 0,\n                                    onChange: onConfidenceChange\n                                }),\n                                \n                                React.createElement('div', { className: 'answer-section' },\n                                    React.createElement('div', { className: 'section-title' },\n                                        React.createElement('div', { className: 'section-icon' },\n                                            React.createElement('i', { className: 'fas fa-lightbulb' })\n                                        ),\n                                        React.createElement('span', {}, 'Detailed Answer')\n                                    ),\n                                    React.createElement('div', {\n                                        className: 'answer-text',\n                                        dangerouslySetInnerHTML: {\n                                            __html: question.answer\n                                                .replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')\n                                                .replace(/\\n/g, '<br>')\n                                        }\n                                    })\n                                ),\n                                \n                                question.codeExample && React.createElement('div', { className: 'code-example' },\n                                    React.createElement('div', { className: 'code-header' },\n                                        React.createElement('i', { className: 'fas fa-code' }),\n                                        React.createElement('span', { className: 'code-title' }, question.codeExample.title)\n                                    ),\n                                    React.createElement('pre', { className: 'code-block' },\n                                        React.createElement('code', {}, question.codeExample.code)\n                                    )\n                                ),\n                                \n                                question.keyPoints && React.createElement('div', { className: 'key-points' },\n                                    React.createElement('div', { className: 'section-title' },\n                                        React.createElement('div', { className: 'section-icon' },\n                                            React.createElement('i', { className: 'fas fa-key' })\n                                        ),\n                                        React.createElement('span', {}, 'Key Takeaways')\n                                    ),\n                                    React.createElement('ul', {},\n                                        question.keyPoints.map((point, i) =>\n                                            React.createElement('li', { key: i },\n                                                React.createElement('div', { className: 'key-point-icon' }, '✓'),\n                                                React.createElement('span', {}, point)\n                                            )\n                                        )\n                                    )\n                                ),\n                                \n                                React.createElement('div', { className: 'question-bottom-actions' },\n                                    React.createElement('button', {\n                                        className: 'btn btn-outline',\n                                        onClick: () => {\n                                            navigator.clipboard.writeText(`${question.question}\\n\\n${question.answer}`);\n                                            showNotification('Question copied to clipboard!', 'success', 'copy');\n                                        }\n                                    },\n                                        React.createElement('i', { className: 'fas fa-copy' }),\n                                        React.createElement('span', {}, 'Copy Question')\n                                    ),\n                                    React.createElement('button', {\n                                        className: 'btn btn-ghost',\n                                        onClick: () => toggleQuestion(question.id)\n                                    },\n                                        React.createElement('i', { className: 'fas fa-minus' }),\n                                        React.createElement('span', {}, 'Collapse')\n                                    )\n                                )\n                            )\n                        )\n                    )\n                )\n            );\n        }\n\n        // Main App Component\n        function App() {\n            const [currentView, setCurrentView] = useState('dashboard');\n            const [selectedTier, setSelectedTier] = useState('top10');\n            const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');\n            \n            const { progress, updateQuestionConfidence, toggleFavorite } = useProgress();\n\n            useEffect(() => {\n                document.documentElement.setAttribute('data-theme', theme);\n                localStorage.setItem('theme', theme);\n            }, [theme]);\n\n            const toggleTheme = () => {\n                setTheme(theme === 'light' ? 'dark' : 'light');\n            };\n\n            const handleNavigate = (view, tier = null) => {\n                setCurrentView(view);\n                if (tier) setSelectedTier(tier);\n            };\n\n            const handleSelectTier = (tierId) => {\n                setSelectedTier(tierId);\n                setCurrentView('questions');\n            };\n\n            const handleConfidenceChange = (questionId, confidence) => {\n                updateQuestionConfidence(questionId, confidence);\n                // Future: Save to Supabase\n                /*\n                if (supabase) {\n                    supabase.from('user_progress').upsert({\n                        question_id: questionId,\n                        confidence_level: confidence,\n                        updated_at: new Date().toISOString()\n                    });\n                }\n                */\n            };\n\n            return React.createElement('div', { className: 'app', 'data-theme': theme },\n                React.createElement(ModernHeader, {\n                    currentView,\n                    onNavigate: handleNavigate,\n                    theme,\n                    toggleTheme\n                }),\n                \n                React.createElement('main', { className: 'main-content' },\n                    currentView === 'dashboard' && React.createElement(Dashboard, {\n                        onSelectTier: handleSelectTier,\n                        progress\n                    }),\n                    \n                    currentView === 'questions' && React.createElement(QuestionsList, {\n                        tier: selectedTier,\n                        progress,\n                        onConfidenceChange: handleConfidenceChange,\n                        onToggleFavorite: toggleFavorite\n                    }),\n                    \n                    currentView === 'roadmap' && React.createElement('div', {\n                        style: { \n                            padding: '4rem 2rem', \n                            textAlign: 'center',\n                            maxWidth: '800px',\n                            margin: '0 auto'\n                        }\n                    },\n                        React.createElement('h1', { \n                            style: { \n                                fontSize: '3rem', \n                                background: 'var(--primary-gradient)',\n                                WebkitBackgroundClip: 'text',\n                                WebkitTextFillColor: 'transparent',\n                                marginBottom: '2rem'\n                            } \n                        }, '🗺️ Learning Roadmap'),\n                        React.createElement('p', { \n                            style: { \n                                fontSize: '1.2rem', \n                                color: 'var(--text-muted)',\n                                marginBottom: '2rem'\n                            } \n                        }, 'Coming soon! A structured 4-week learning path with daily goals and milestones.'),\n                        React.createElement('button', {\n                            className: 'btn btn-primary',\n                            onClick: () => handleNavigate('dashboard')\n                        }, 'Back to Dashboard')\n                    ),\n                    \n                    currentView === 'analytics' && React.createElement('div', {\n                        style: { \n                            padding: '4rem 2rem', \n                            textAlign: 'center',\n                            maxWidth: '800px',\n                            margin: '0 auto'\n                        }\n                    },\n                        React.createElement('h1', { \n                            style: { \n                                fontSize: '3rem', \n                                background: 'var(--primary-gradient)',\n                                WebkitBackgroundClip: 'text',\n                                WebkitTextFillColor: 'transparent',\n                                marginBottom: '2rem'\n                            } \n                        }, '📊 Progress Analytics'),\n                        React.createElement('div', {\n                            style: {\n                                display: 'grid',\n                                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',\n                                gap: '2rem',\n                                margin: '2rem 0'\n                            }\n                        },\n                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },\n                                React.createElement('span', { className: 'stat-number' }, progress.overallStats.questionsStudied),\n                                React.createElement('span', { className: 'stat-label' }, 'Questions Studied')\n                            ),\n                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },\n                                React.createElement('span', { className: 'stat-number' }, progress.favorites.length),\n                                React.createElement('span', { className: 'stat-label' }, 'Favorites Saved')\n                            ),\n                            React.createElement('div', { className: 'stat-item', style: { padding: '2rem' } },\n                                React.createElement('span', { className: 'stat-number' }, `${progress.overallStats.averageConfidence * 20}%`),\n                                React.createElement('span', { className: 'stat-label' }, 'Avg Confidence')\n                            )\n                        ),\n                        React.createElement('button', {\n                            className: 'btn btn-primary',\n                            onClick: () => handleNavigate('dashboard')\n                        }, 'Back to Dashboard')\n                    )\n                )\n            );\n        }\n\n        // Initialize App\n        function initializeApp() {\n            const loadingScreen = document.getElementById('loading-screen');\n            const root = createRoot(document.getElementById('root'));\n            \n            root.render(React.createElement(App));\n            \n            setTimeout(() => {\n                loadingScreen.style.display = 'none';\n            }, 1200);\n        }\n\n        // Start the app\n        if (document.readyState === 'loading') {\n            document.addEventListener('DOMContentLoaded', initializeApp);\n        } else {\n            initializeApp();\n        }\n    </script>\n</body>\n</html>
