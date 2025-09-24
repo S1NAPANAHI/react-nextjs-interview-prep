@@ -1,0 +1,198 @@
+{
+  "react_challenges": {
+    "beginner_challenges": [
+      {
+        "title": "Counter Component with Hooks",
+        "difficulty": "Easy",
+        "description": "Build a counter that increments/decrements and resets to zero",
+        "requirements": [
+          "Use useState hook",
+          "Three buttons: increment, decrement, reset",
+          "Display current count",
+          "Handle negative numbers"
+        ],
+        "solution_approach": [
+          "Initialize state with useState(0)",
+          "Create handler functions for each action",
+          "Use functional updates for state",
+          "Add conditional styling for negative numbers"
+        ],
+        "code_skeleton": "import React, { useState } from 'react';\n\nconst Counter = () => {\n  // TODO: Initialize count state\n\n  // TODO: Create increment handler\n\n  // TODO: Create decrement handler\n\n  // TODO: Create reset handler\n\n  return (\n    <div>\n      {/* TODO: Display count with conditional styling */}\n      {/* TODO: Add three buttons */}\n    </div>\n  );\n};\n\nexport default Counter;",
+        "expected_questions": [
+          "Why use functional updates in setState?",
+          "How would you add animation to the counter?",
+          "What if we need to persist the count across page reloads?"
+        ]
+      },
+      {
+        "title": "Todo List Application",
+        "difficulty": "Medium",
+        "description": "Create a todo list with add, delete, and toggle functionality",
+        "requirements": [
+          "Add new todos with input field",
+          "Mark todos as complete/incomplete",
+          "Delete individual todos",
+          "Filter todos (all, active, completed)",
+          "Show todo count"
+        ],
+        "solution_approach": [
+          "Use array of objects for todos state",
+          "Each todo has: id, text, completed",
+          "Use filter for different views",
+          "Generate unique IDs (Date.now() or uuid)"
+        ],
+        "code_skeleton": "import React, { useState } from 'react';\n\nconst TodoApp = () => {\n  const [todos, setTodos] = useState([]);\n  const [filter, setFilter] = useState('all');\n  const [inputValue, setInputValue] = useState('');\n\n  const addTodo = () => {\n    // TODO: Implement\n  };\n\n  const toggleTodo = (id) => {\n    // TODO: Implement\n  };\n\n  const deleteTodo = (id) => {\n    // TODO: Implement\n  };\n\n  return (\n    <div>\n      {/* TODO: Input and Add button */}\n      {/* TODO: Filter buttons */}\n      {/* TODO: Todo list display */}\n    </div>\n  );\n};",
+        "expected_questions": [
+          "How would you optimize re-renders?",
+          "What if we need to persist todos to localStorage?",
+          "How would you implement drag-and-drop reordering?"
+        ]
+      }
+    ],
+    "intermediate_challenges": [
+      {
+        "title": "Custom Hook for API Data Fetching",
+        "difficulty": "Medium",
+        "description": "Create a reusable hook for fetching data from APIs",
+        "requirements": [
+          "Handle loading states",
+          "Handle error states",
+          "Support refetch functionality",
+          "Handle cleanup on unmount",
+          "Cache results"
+        ],
+        "solution_approach": [
+          "Use useState for data, loading, error",
+          "Use useEffect for side effects",
+          "Use useCallback for refetch",
+          "Use useRef for cleanup",
+          "Consider using AbortController"
+        ],
+        "code_skeleton": "import { useState, useEffect, useCallback, useRef } from 'react';\n\nconst useApi = (url, options = {}) => {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(false);\n  const [error, setError] = useState(null);\n\n  // TODO: Create abort controller ref\n  // TODO: Fetch function with error handling\n  // TODO: Effect for initial fetch\n  // TODO: Cleanup function\n\n  return { data, loading, error, refetch: fetchData };\n};",
+        "expected_questions": [
+          "How would you handle race conditions?",
+          "What about caching strategies?",
+          "How would you implement request deduplication?"
+        ]
+      },
+      {
+        "title": "Debounced Search Component",
+        "difficulty": "Medium",
+        "description": "Build a search input that debounces API calls",
+        "requirements": [
+          "Debounce user input",
+          "Make API calls only after user stops typing",
+          "Show loading state",
+          "Handle empty results",
+          "Cancel previous requests"
+        ],
+        "solution_approach": [
+          "Use useDebounce custom hook",
+          "Use useEffect to trigger search",
+          "Use AbortController for cancellation",
+          "Show loading and empty states"
+        ],
+        "code_skeleton": "import React, { useState, useEffect, useCallback } from 'react';\n\nconst SearchComponent = () => {\n  const [query, setQuery] = useState('');\n  const [results, setResults] = useState([]);\n  const [loading, setLoading] = useState(false);\n\n  // TODO: Implement debounce logic\n  // TODO: Search function with cancellation\n  // TODO: Effect for triggering search\n\n  return (\n    <div>\n      {/* TODO: Search input */}\n      {/* TODO: Loading state */}\n      {/* TODO: Results display */}\n    </div>\n  );\n};",
+        "expected_questions": [
+          "How would you implement the debounce functionality?",
+          "What about handling rapid user input?",
+          "How would you add keyboard navigation to results?"
+        ]
+      }
+    ],
+    "advanced_challenges": [
+      {
+        "title": "Virtualized List Component",
+        "difficulty": "Hard",
+        "description": "Build a virtualized list for rendering large datasets efficiently",
+        "requirements": [
+          "Only render visible items",
+          "Handle dynamic item heights",
+          "Smooth scrolling experience",
+          "Support for different item types",
+          "Memory efficient"
+        ],
+        "solution_approach": [
+          "Calculate visible range based on scroll position",
+          "Use absolute positioning for items",
+          "Implement height caching",
+          "Use intersection observer for optimization"
+        ],
+        "code_skeleton": "import React, { useState, useEffect, useRef, useMemo } from 'react';\n\nconst VirtualizedList = ({ items, itemHeight, containerHeight }) => {\n  const [scrollTop, setScrollTop] = useState(0);\n  const containerRef = useRef();\n\n  // TODO: Calculate visible range\n  // TODO: Handle scroll events\n  // TODO: Render only visible items\n  // TODO: Add proper positioning\n\n  return (\n    <div ref={containerRef} style={{ height: containerHeight, overflow: 'auto' }}>\n      {/* TODO: Implement virtualized rendering */}\n    </div>\n  );\n};",
+        "expected_questions": [
+          "How would you handle variable item heights?",
+          "What about horizontal virtualization?",
+          "How would you implement infinite scrolling with this?"
+        ]
+      },
+      {
+        "title": "Real-time Chat Component",
+        "difficulty": "Hard",
+        "description": "Build a real-time chat interface with WebSocket integration",
+        "requirements": [
+          "Real-time message updates",
+          "Send and receive messages",
+          "Handle connection status",
+          "Auto-scroll to latest messages",
+          "Typing indicators"
+        ],
+        "solution_approach": [
+          "Use WebSocket or Socket.io",
+          "Manage connection state",
+          "Handle message history",
+          "Implement auto-scroll logic",
+          "Add typing detection"
+        ],
+        "code_skeleton": "import React, { useState, useEffect, useRef } from 'react';\n\nconst ChatComponent = ({ userId, roomId }) => {\n  const [messages, setMessages] = useState([]);\n  const [newMessage, setNewMessage] = useState('');\n  const [connected, setConnected] = useState(false);\n  const socketRef = useRef();\n  const messagesEndRef = useRef();\n\n  // TODO: Initialize WebSocket connection\n  // TODO: Handle incoming messages\n  // TODO: Send message function\n  // TODO: Auto-scroll to bottom\n\n  return (\n    <div className=\"chat-container\">\n      {/* TODO: Connection status */}\n      {/* TODO: Messages list */}\n      {/* TODO: Input form */}\n    </div>\n  );\n};",
+        "expected_questions": [
+          "How would you handle reconnection logic?",
+          "What about message delivery guarantees?",
+          "How would you implement file sharing?"
+        ]
+      }
+    ]
+  },
+  "nextjs_challenges": {
+    "routing_challenges": [
+      {
+        "title": "Dynamic Blog with ISR",
+        "difficulty": "Medium",
+        "description": "Build a blog with dynamic routing and incremental static regeneration",
+        "requirements": [
+          "Dynamic routes for blog posts",
+          "Static generation with ISR",
+          "SEO optimization",
+          "Blog post listing",
+          "Search functionality"
+        ],
+        "solution_approach": [
+          "Use [slug].js for dynamic routing",
+          "Implement getStaticPaths and getStaticProps",
+          "Use next/head for meta tags",
+          "Implement search functionality"
+        ]
+      }
+    ],
+    "api_routes_challenges": [
+      {
+        "title": "Authentication API with JWT",
+        "difficulty": "Hard",
+        "description": "Implement complete authentication system with API routes",
+        "requirements": [
+          "User registration and login endpoints",
+          "JWT token generation and validation",
+          "Protected API routes",
+          "Password hashing",
+          "Refresh token mechanism"
+        ],
+        "solution_approach": [
+          "Use bcrypt for password hashing",
+          "Use jsonwebtoken for JWT handling",
+          "Implement middleware for auth",
+          "Store refresh tokens securely",
+          "Handle logout and token cleanup"
+        ]
+      }
+    ]
+  }
+}
