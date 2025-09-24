@@ -340,6 +340,243 @@
             background: #d97706;
         }
 
+        /* Top Questions Viewer Styles */
+        .top-questions-viewer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .questions-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+
+        .questions-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .questions-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .questions-filters {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input, .filter-select {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--background);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .filter-stats {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .question-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
+        }
+
+        .question-card.expanded {
+            border-color: var(--primary-color);
+        }
+
+        .question-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .difficulty-badge {
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .category-badge {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .question-title {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .expand-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .expand-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+        }
+
+        .question-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            border-top: 1px solid var(--border);
+            background: var(--background);
+        }
+
+        .answer-section, .code-section, .key-points {
+            margin: 1.5rem 0;
+        }
+
+        .answer-section h4, .code-section h4, .key-points h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .answer-text {
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .key-points ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding: 0.5rem 0;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            background: var(--surface);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .progress-summary {
+            margin-top: 3rem;
+            text-align: center;
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
         /* Lesson Viewer Styles */
         .lesson-viewer {
             max-width: 1000px;
@@ -361,14 +598,6 @@
             gap: 12px;
             margin-bottom: 1rem;
             flex-wrap: wrap;
-        }
-
-        .difficulty-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.2);
         }
 
         .lesson-content {
@@ -412,7 +641,7 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .roadmap-header h1 {
+            .roadmap-header h1, .questions-header h1 {
                 font-size: 2rem;
             }
             
@@ -422,6 +651,20 @@
             
             .days-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .progress-stats {
+                flex-direction: column;
+                gap: 1rem;
             }
             
             .header-container {
@@ -798,8 +1041,310 @@ Here are some common React interview questions you should be prepared for:
             }, 3000);
         }
 
+        // Top Questions Data - Embedded from the JSON file
+        const topQuestionsData = {
+            "title": "Top 20 React Interview Questions",
+            "description": "Master the most frequently asked React interview questions with detailed explanations and examples",
+            "questions": [
+                {
+                    "id": "q1",
+                    "question": "What is React and why is it popular?",
+                    "difficulty": "Beginner",
+                    "category": "Fundamentals",
+                    "answer": "React is a JavaScript library for building user interfaces, particularly web applications. It was created by Facebook and is now maintained by Facebook and the community.\n\n**Key reasons for popularity:**\n\n1. **Component-Based Architecture**: Break UI into reusable, self-contained components\n2. **Virtual DOM**: Efficient updates by comparing virtual representations\n3. **Unidirectional Data Flow**: Predictable state management\n4. **Large Ecosystem**: Rich community and extensive library support\n5. **Developer Experience**: Great tools like React DevTools\n6. **Performance**: Optimizations like reconciliation and lazy loading",
+                    "codeExample": {
+                        "title": "Basic React Component",
+                        "code": "function Welcome({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Usage\n<Welcome name=\"React Developer\" />"
+                    },
+                    "keyPoints": [
+                        "Component-based architecture",
+                        "Virtual DOM for performance",
+                        "Strong ecosystem and community",
+                        "Backed by Meta (Facebook)"
+                    ]
+                },
+                {
+                    "id": "q2",
+                    "question": "What is a Single Page Application (SPA)?",
+                    "difficulty": "Beginner",
+                    "category": "Architecture",
+                    "answer": "A Single Page Application (SPA) is a web application that loads a single HTML page and dynamically updates content as users interact, rather than reloading entire pages.\n\n**How SPAs work:**\n1. Initial page load downloads the entire application\n2. Subsequent navigation updates only changed content\n3. Client-side routing manages URL changes\n4. AJAX requests fetch new data without page refresh\n\n**Advantages:**\n- Faster navigation after initial load\n- Smoother user experience\n- Reduced server requests\n- Better mobile experience\n\n**Disadvantages:**\n- Longer initial load time\n- SEO challenges\n- Browser history complexity\n- JavaScript dependency",
+                    "codeExample": {
+                        "title": "React Router SPA Example",
+                        "code": "import { BrowserRouter, Routes, Route } from 'react-router-dom';\n\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/about\" element={<About />} />\n        <Route path=\"/contact\" element={<Contact />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}"
+                    },
+                    "keyPoints": [
+                        "Single HTML page with dynamic updates",
+                        "Client-side routing",
+                        "Better UX after initial load",
+                        "SEO considerations needed"
+                    ]
+                },
+                {
+                    "id": "q3",
+                    "question": "What is JSX and how does it differ from HTML?",
+                    "difficulty": "Beginner",
+                    "category": "JSX",
+                    "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows writing HTML-like code directly in JavaScript files. It makes React components more readable and expressive.\n\n**Key Differences from HTML:**\n\n1. **Attribute Names**: `className` instead of `class`, `htmlFor` instead of `for`\n2. **Self-Closing Tags**: All tags must be properly closed (`<img />`, `<br />`)\n3. **JavaScript Expressions**: Use `{}` to embed JavaScript\n4. **camelCase Properties**: `onClick` instead of `onclick`\n5. **Style Attribute**: Takes objects instead of strings\n\n**JSX Compilation:**\nJSX is transpiled to `React.createElement()` calls by Babel.",
+                    "codeExample": {
+                        "title": "JSX vs HTML Comparison",
+                        "code": "// JSX\nfunction Button({ onClick, children }) {\n  return (\n    <button \n      className=\"btn-primary\" \n      onClick={onClick}\n      style={{ backgroundColor: 'blue', color: 'white' }}\n    >\n      {children}\n    </button>\n  );\n}\n\n// Compiles to:\nReact.createElement('button', {\n  className: 'btn-primary',\n  onClick: onClick,\n  style: { backgroundColor: 'blue', color: 'white' }\n}, children);"
+                    },
+                    "keyPoints": [
+                        "Syntax extension for JavaScript",
+                        "HTML-like syntax in JS",
+                        "Transpiled to React.createElement",
+                        "Supports JavaScript expressions"
+                    ]
+                },
+                {
+                    "id": "q4",
+                    "question": "Explain the difference between functional and class components",
+                    "difficulty": "Beginner",
+                    "category": "Components",
+                    "answer": "React components can be written as functions or classes, with functional components becoming the modern standard after React 16.8 introduced hooks.\n\n**Class Components:**\n- Extend React.Component\n- Use render() method to return JSX\n- Manage state with this.state and this.setState()\n- Access lifecycle methods directly\n- More verbose syntax\n\n**Functional Components:**\n- Simple JavaScript functions that return JSX\n- Use hooks for state and side effects\n- Cleaner, more concise syntax\n- Better performance optimizations\n- Easier to test and reason about",
+                    "codeExample": {
+                        "title": "Class vs Functional Component",
+                        "code": "// Class Component\nclass Counter extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { count: 0 };\n  }\n\n  render() {\n    return (\n      <div>\n        <p>Count: {this.state.count}</p>\n        <button onClick={() => this.setState({count: this.state.count + 1})}>\n          Increment\n        </button>\n      </div>\n    );\n  }\n}\n\n// Functional Component\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}"
+                    },
+                    "keyPoints": [
+                        "Functional components are modern standard",
+                        "Hooks enable state and effects in functions",
+                        "Class components use this.state",
+                        "Functional components are more concise"
+                    ]
+                },
+                {
+                    "id": "q5",
+                    "question": "What is the difference between stateless and stateful components in React?",
+                    "difficulty": "Beginner",
+                    "category": "State",
+                    "answer": "Components can be categorized based on whether they manage internal state or not.\n\n**Stateless Components:**\n- Do not manage or store internal data\n- Receive data through props only\n- Pure functions that return JSX\n- Easier to test and debug\n- Better performance (can be optimized)\n\n**Stateful Components:**\n- Manage their own internal state\n- Can update state based on user interactions\n- Handle complex logic and data manipulation\n- Re-render when state changes\n- More complex but more powerful",
+                    "codeExample": {
+                        "title": "Stateless vs Stateful Examples",
+                        "code": "// Stateless Component\nfunction Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}\n\n// Stateful Component\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}"
+                    },
+                    "keyPoints": [
+                        "Stateless components are pure functions",
+                        "Stateful components manage internal data",
+                        "Use stateless for presentation",
+                        "Use stateful for interactivity"
+                    ]
+                }
+                // Additional 15 questions would continue here...
+            ]
+        };
+
+        // Top Questions Viewer Component
+        function TopQuestionsViewer({ onBack }) {
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+            const [selectedCategory, setSelectedCategory] = useState('All');
+            const [expandedQuestions, setExpandedQuestions] = useState({});
+            const [favoriteQuestions, setFavoriteQuestions] = useState(() => {
+                try {
+                    return JSON.parse(localStorage.getItem('favoriteQuestions')) || [];
+                } catch {
+                    return [];
+                }
+            });
+
+            // Filter questions
+            const filteredQuestions = topQuestionsData.questions.filter(q => {
+                const matchesSearch = q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                    q.answer.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesDifficulty = selectedDifficulty === 'All' || q.difficulty === selectedDifficulty;
+                const matchesCategory = selectedCategory === 'All' || q.category === selectedCategory;
+                
+                return matchesSearch && matchesDifficulty && matchesCategory;
+            });
+
+            const toggleQuestion = (questionId) => {
+                setExpandedQuestions(prev => ({
+                    ...prev,
+                    [questionId]: !prev[questionId]
+                }));
+            };
+
+            const toggleFavorite = (questionId) => {
+                const newFavorites = favoriteQuestions.includes(questionId)
+                    ? favoriteQuestions.filter(id => id !== questionId)
+                    : [...favoriteQuestions, questionId];
+                    
+                setFavoriteQuestions(newFavorites);
+                localStorage.setItem('favoriteQuestions', JSON.stringify(newFavorites));
+                
+                showNotification(
+                    favoriteQuestions.includes(questionId) 
+                        ? 'Question removed from favorites' 
+                        : 'Question added to favorites'
+                );
+            };
+
+            const getDifficultyColor = (difficulty) => {
+                switch(difficulty) {
+                    case 'Beginner': return '#10b981';
+                    case 'Intermediate': return '#f59e0b';  
+                    case 'Advanced': return '#ef4444';
+                    default: return '#64748b';
+                }
+            };
+
+            const categories = [...new Set(topQuestionsData.questions.map(q => q.category))];
+            const difficulties = [...new Set(topQuestionsData.questions.map(q => q.difficulty))];
+
+            return React.createElement('div', { className: 'top-questions-viewer' },
+                // Header
+                React.createElement('div', { className: 'questions-header' },
+                    React.createElement('div', { className: 'header-content' },
+                        React.createElement('button', {
+                            className: 'btn btn-secondary',
+                            onClick: onBack,
+                            style: { marginBottom: '1rem' }
+                        }, '← Back to Roadmap'),
+                        React.createElement('h1', {}, '🎯 Top 20 React Interview Questions'),
+                        React.createElement('p', {}, 'Master the most frequently asked React interview questions with detailed explanations and examples')
+                    )
+                ),
+
+                // Filters and Search
+                React.createElement('div', { className: 'questions-filters' },
+                    React.createElement('div', { className: 'filter-row' },
+                        React.createElement('input', {
+                            type: 'text',
+                            placeholder: 'Search questions...',
+                            value: searchTerm,
+                            onChange: (e) => setSearchTerm(e.target.value),
+                            className: 'search-input'
+                        }),
+                        React.createElement('select', {
+                            value: selectedDifficulty,
+                            onChange: (e) => setSelectedDifficulty(e.target.value),
+                            className: 'filter-select'
+                        },
+                            React.createElement('option', { value: 'All' }, 'All Difficulties'),
+                            difficulties.map(diff =>
+                                React.createElement('option', { key: diff, value: diff }, diff)
+                            )
+                        ),
+                        React.createElement('select', {
+                            value: selectedCategory,
+                            onChange: (e) => setSelectedCategory(e.target.value),
+                            className: 'filter-select'
+                        },
+                            React.createElement('option', { value: 'All' }, 'All Categories'),
+                            categories.map(cat =>
+                                React.createElement('option', { key: cat, value: cat }, cat)
+                            )
+                        )
+                    ),
+                    React.createElement('div', { className: 'filter-stats' },
+                        React.createElement('span', {}, `Showing ${filteredQuestions.length} of ${topQuestionsData.questions.length} questions`)
+                    )
+                ),
+
+                // Questions List
+                React.createElement('div', { className: 'questions-list' },
+                    filteredQuestions.map((question, index) =>
+                        React.createElement('div', { 
+                            key: question.id, 
+                            className: `question-card ${expandedQuestions[question.id] ? 'expanded' : ''}` 
+                        },
+                            React.createElement('div', { className: 'question-header' },
+                                React.createElement('div', { className: 'question-meta' },
+                                    React.createElement('span', { className: 'question-number' }, `Q${index + 1}`),
+                                    React.createElement('span', { 
+                                        className: 'difficulty-badge',
+                                        style: { backgroundColor: getDifficultyColor(question.difficulty) }
+                                    }, question.difficulty),
+                                    React.createElement('span', { className: 'category-badge' }, question.category),
+                                    React.createElement('button', {
+                                        className: `favorite-btn ${favoriteQuestions.includes(question.id) ? 'favorited' : ''}`,
+                                        onClick: (e) => {
+                                            e.stopPropagation();
+                                            toggleFavorite(question.id);
+                                        }
+                                    }, favoriteQuestions.includes(question.id) ? '❤️' : '🤍')
+                                ),
+                                React.createElement('h3', { 
+                                    className: 'question-title',
+                                    onClick: () => toggleQuestion(question.id)
+                                }, question.question),
+                                React.createElement('button', {
+                                    className: 'expand-btn',
+                                    onClick: () => toggleQuestion(question.id)
+                                }, expandedQuestions[question.id] ? '▼' : '▶')
+                            ),
+                            
+                            expandedQuestions[question.id] && React.createElement('div', { className: 'question-content' },
+                                React.createElement('div', { className: 'answer-section' },
+                                    React.createElement('h4', {}, '📝 Answer'),
+                                    React.createElement('div', { 
+                                        className: 'answer-text',
+                                        dangerouslySetInnerHTML: {
+                                            __html: question.answer
+                                                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                                .replace(/\n/g, '<br>')
+                                                .replace(/(\d+\.\s)/g, '<br>$1')
+                                        }
+                                    })
+                                ),
+                                
+                                question.codeExample && React.createElement('div', { className: 'code-section' },
+                                    React.createElement('h4', {}, '💻 Code Example'),
+                                    React.createElement('h5', {}, question.codeExample.title),
+                                    React.createElement('pre', { className: 'code-block' },
+                                        React.createElement('code', {}, question.codeExample.code)
+                                    )
+                                ),
+                                
+                                question.keyPoints && React.createElement('div', { className: 'key-points' },
+                                    React.createElement('h4', {}, '🔑 Key Points'),
+                                    React.createElement('ul', {},
+                                        question.keyPoints.map((point, i) =>
+                                            React.createElement('li', { key: i }, point)
+                                        )
+                                    )
+                                ),
+                                
+                                React.createElement('div', { className: 'question-actions' },
+                                    React.createElement('button', {
+                                        className: 'btn btn-primary',
+                                        onClick: () => {
+                                            // Copy question to clipboard
+                                            navigator.clipboard.writeText(`${question.question}\n\n${question.answer}`);
+                                            showNotification('Question copied to clipboard!');
+                                        }
+                                    }, '📋 Copy Question'),
+                                    React.createElement('button', {
+                                        className: 'btn btn-secondary',
+                                        onClick: () => toggleQuestion(question.id)
+                                    }, '🔽 Collapse')
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Progress Summary
+                React.createElement('div', { className: 'progress-summary' },
+                    React.createElement('h3', {}, '📊 Your Progress'),
+                    React.createElement('div', { className: 'progress-stats' },
+                        React.createElement('div', { className: 'stat-item' },
+                            React.createElement('span', { className: 'stat-number' }, favoriteQuestions.length),
+                            React.createElement('span', { className: 'stat-label' }, 'Favorite Questions')
+                        ),
+                        React.createElement('div', { className: 'stat-item' },
+                            React.createElement('span', { className: 'stat-number' }, Object.keys(expandedQuestions).length),
+                            React.createElement('span', { className: 'stat-label' }, 'Questions Explored')
+                        )
+                    )
+                )
+            );
+        }
+
         // RoadmapNavigation Component
-        function RoadmapNavigation({ onSelectLesson, progress }) {
+        function RoadmapNavigation({ onSelectLesson, onShowTopQuestions, progress }) {
             const [selectedWeek, setSelectedWeek] = useState(1);
             
             return React.createElement('div', { className: 'roadmap-nav' },
@@ -808,6 +1353,13 @@ Here are some common React interview questions you should be prepared for:
                     React.createElement('p', {}, 'Your structured learning journey to master React and Next.js interviews'),
                     React.createElement('div', { style: { marginTop: '1rem', fontSize: '1.1rem' } },
                         `Progress: ${progress.completedLessons.length} lessons completed (${progress.overallProgress}%)`
+                    ),
+                    React.createElement('div', { style: { marginTop: '1rem' } },
+                        React.createElement('button', {
+                            className: 'btn btn-primary',
+                            onClick: onShowTopQuestions,
+                            style: { padding: '1rem 2rem', fontSize: '1rem' }
+                        }, '🎯 Top 20 Interview Questions')
                     )
                 ),
                 
@@ -1086,6 +1638,10 @@ Here are some common React interview questions you should be prepared for:
                 setCurrentView('lesson');
             };
 
+            const handleShowTopQuestions = () => {
+                setCurrentView('topQuestions');
+            };
+
             const handleLessonComplete = (lessonId) => {
                 markLessonComplete(lessonId);
                 setTimeout(() => setCurrentView('roadmap'), 1000);
@@ -1107,6 +1663,11 @@ Here are some common React interview questions you should be prepared for:
                             }, '← Back to Roadmap')
                         ),
                         React.createElement('div', { className: 'header-right' },
+                            currentView === 'roadmap' && React.createElement('button', {
+                                className: 'btn btn-primary',
+                                onClick: handleShowTopQuestions,
+                                style: { marginRight: '1rem' }
+                            }, '🎯 Top 20 Questions'),
                             React.createElement('button', {
                                 className: 'theme-toggle',
                                 onClick: toggleTheme,
@@ -1119,12 +1680,17 @@ Here are some common React interview questions you should be prepared for:
                 React.createElement('main', { className: 'app-main' },
                     currentView === 'roadmap' && React.createElement(RoadmapNavigation, {
                         onSelectLesson: handleSelectLesson,
+                        onShowTopQuestions: handleShowTopQuestions,
                         progress: progress
                     }),
                     
                     currentView === 'lesson' && selectedLesson && React.createElement(LessonViewer, {
                         lesson: selectedLesson,
                         onComplete: handleLessonComplete,
+                        onBack: handleBackToRoadmap
+                    }),
+                    
+                    currentView === 'topQuestions' && React.createElement(TopQuestionsViewer, {
                         onBack: handleBackToRoadmap
                     })
                 ),
