@@ -1,0 +1,218 @@
+{
+  "title": "Complete React Interview Questions Database",
+  "description": "Comprehensive React interview questions with confidence tracking and tiered learning system",
+  "version": "3.0",
+  "lastUpdated": "2025-09-24",
+  "confidenceSystem": {
+    "name": "5-Circle Confidence System",
+    "description": "Rate your confidence level on each question",
+    "levels": {
+      "0": {"label": "Not familiar", "description": "Haven't encountered this topic", "percentage": 0, "color": "#e2e8f0"},
+      "1": {"label": "Just heard of it", "description": "Aware of the concept but limited understanding", "percentage": 20, "color": "#feb2b2"},
+      "2": {"label": "Basic understanding", "description": "Can recognize and explain basics", "percentage": 40, "color": "#f6e05e"},
+      "3": {"label": "Can explain it", "description": "Solid understanding, can teach others", "percentage": 60, "color": "#68d391"},
+      "4": {"label": "Very confident", "description": "Deep knowledge, can handle follow-ups", "percentage": 80, "color": "#63b3ed"},
+      "5": {"label": "Expert level", "description": "Complete mastery, can discuss edge cases", "percentage": 100, "color": "#9f7aea"}
+    }
+  },
+  "tiers": {
+    "top_10": {
+      "title": "Top 10 Essential Questions",
+      "description": "Must-know questions that appear in 90%+ of React interviews",
+      "difficulty": "Beginner to Intermediate",
+      "frequency": "90%+",
+      "gradient": "linear-gradient(135deg, #ff6b6b, #ee5a24)",
+      "icon": "🔥",
+      "estimatedTime": "2-3 hours",
+      "questions": [
+        {
+          "id": "q1",
+          "rank": 1,
+          "question": "What is React and why would you use it?",
+          "answer": "React is a JavaScript library developed by Facebook for building user interfaces, particularly single-page applications. It uses a component-based architecture, Virtual DOM for efficient updates, and follows a declarative programming paradigm. Key benefits include reusable components, better performance through Virtual DOM, strong community support, and excellent developer tools.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 95,
+          "priority": 1,
+          "keyPoints": [
+            "JavaScript library for building UIs",
+            "Component-based architecture",
+            "Virtual DOM for performance",
+            "Declarative programming paradigm",
+            "Strong ecosystem and community"
+          ],
+          "followUpQuestions": [
+            "What is the Virtual DOM?",
+            "How does React differ from Angular?",
+            "What are React components?"
+          ]
+        },
+        {
+          "id": "q2",
+          "rank": 2,
+          "question": "What is JSX and how does it work?",
+          "answer": "JSX (JavaScript XML) is a syntax extension for JavaScript that allows you to write HTML-like code within JavaScript. It makes React components more readable and easier to write. JSX gets transpiled by tools like Babel into React.createElement() calls. Example: <div>Hello World</div> becomes React.createElement('div', null, 'Hello World').",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 92,
+          "priority": 2,
+          "keyPoints": [
+            "Syntax extension for JavaScript",
+            "HTML-like code in JavaScript",
+            "Transpiled by Babel",
+            "Converts to React.createElement calls"
+          ],
+          "codeExample": {
+            "title": "JSX Example",
+            "code": "// JSX\nconst element = <h1>Hello, world!</h1>;\n\n// Compiles to:\nconst element = React.createElement('h1', null, 'Hello, world!');"
+          }
+        },
+        {
+          "id": "q3",
+          "rank": 3,
+          "question": "What is the Virtual DOM?",
+          "answer": "The Virtual DOM is a lightweight JavaScript representation of the actual DOM. React creates a virtual copy, compares it with the previous version when changes occur (diffing), and updates only the changed parts in the real DOM (reconciliation). This makes updates much faster than manipulating the DOM directly.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 88,
+          "priority": 3,
+          "keyPoints": [
+            "JavaScript representation of DOM",
+            "Efficient diffing algorithm",
+            "Reconciliation process",
+            "Better performance than direct DOM manipulation"
+          ]
+        },
+        {
+          "id": "q4",
+          "rank": 4,
+          "question": "What's the difference between props and state?",
+          "answer": "Props (properties) are immutable data passed from parent to child components - they're read-only. State is mutable data owned by a component that can change over time, typically in response to user actions or network responses. Props enable data flow down the component tree, while state manages local component data.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 85,
+          "priority": 4,
+          "keyPoints": [
+            "Props are immutable, passed from parent",
+            "State is mutable, owned by component",
+            "Props enable data flow",
+            "State manages local data"
+          ]
+        },
+        {
+          "id": "q5",
+          "rank": 5,
+          "question": "What are React components? Functional vs Class components?",
+          "answer": "Components are reusable, self-contained pieces of UI. Functional components are JavaScript functions that return JSX and use hooks for state/lifecycle. Class components extend React.Component and use lifecycle methods and this.state. Functional components are now preferred due to hooks, cleaner syntax, and better performance.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 82,
+          "priority": 5,
+          "keyPoints": [
+            "Reusable UI pieces",
+            "Functional components use hooks",
+            "Class components extend React.Component",
+            "Functional components are preferred"
+          ]
+        },
+        {
+          "id": "q6",
+          "rank": 6,
+          "question": "Why are keys important in React lists?",
+          "answer": "Keys help React identify which items have changed, been added, or removed in lists. They provide stable identity for each element, enabling efficient updates and preventing rendering bugs. Keys should be unique and stable - avoid using array indexes when list items can change order.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 80,
+          "priority": 6,
+          "keyPoints": [
+            "Help React identify list changes",
+            "Provide stable identity",
+            "Enable efficient updates",
+            "Should be unique and stable"
+          ]
+        },
+        {
+          "id": "q7",
+          "rank": 7,
+          "question": "What is useEffect and when do you use it?",
+          "answer": "useEffect is a Hook that lets you perform side effects in functional components (data fetching, subscriptions, DOM manipulation). It runs after render and can optionally clean up. The dependency array controls when it runs: [] runs once, [value] runs when value changes, no array runs every render.",
+          "difficulty": "Beginner",
+          "category": "React Hooks",
+          "frequency": 88,
+          "priority": 7,
+          "keyPoints": [
+            "Performs side effects",
+            "Runs after render",
+            "Dependency array controls execution",
+            "Can clean up resources"
+          ]
+        },
+        {
+          "id": "q8",
+          "rank": 8,
+          "question": "What are controlled vs uncontrolled components?",
+          "answer": "Controlled components have their value controlled by React state - the component's value comes from state and updates through event handlers. Uncontrolled components manage their own state internally and are accessed via refs. Controlled components are recommended for predictable data flow and easier validation.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 75,
+          "priority": 8,
+          "keyPoints": [
+            "Controlled: React manages state",
+            "Uncontrolled: DOM manages state",
+            "Controlled recommended for validation",
+            "Uncontrolled accessed via refs"
+          ]
+        },
+        {
+          "id": "q9",
+          "rank": 9,
+          "question": "What are React Hooks and name the common ones?",
+          "answer": "Hooks are functions that let you use state and other React features in functional components. Common hooks include: useState (state management), useEffect (side effects), useContext (context consumption), useRef (DOM access), useMemo (memoization), useCallback (function memoization), useReducer (complex state logic).",
+          "difficulty": "Intermediate",
+          "category": "React Hooks",
+          "frequency": 85,
+          "priority": 9,
+          "keyPoints": [
+            "Enable state in functional components",
+            "useState for state management",
+            "useEffect for side effects",
+            "useContext for context consumption"
+          ]
+        },
+        {
+          "id": "q10",
+          "rank": 10,
+          "question": "How do you handle events in React?",
+          "answer": "React uses SyntheticEvents, which are wrappers around native DOM events providing consistent behavior across browsers. Event handlers are named using camelCase (onClick, not onclick) and are passed as functions. Events are automatically bound in functional components, but need binding in class components.",
+          "difficulty": "Beginner",
+          "category": "React Fundamentals",
+          "frequency": 78,
+          "priority": 10,
+          "keyPoints": [
+            "SyntheticEvents for cross-browser consistency",
+            "camelCase naming convention",
+            "Automatic binding in functional components",
+            "Manual binding needed in class components"
+          ]
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "totalQuestions": 100,
+    "difficultyDistribution": {
+      "Beginner": 13,
+      "Intermediate": 34,
+      "Advanced": 53
+    },
+    "categoryDistribution": {
+      "React Fundamentals": 10,
+      "React Hooks": 11,
+      "State Management": 5,
+      "Performance": 9,
+      "Advanced Patterns": 3,
+      "Testing": 2,
+      "Forms": 3
+    }
+  }
+}
