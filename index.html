@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Interview Prep - 24-Hour Crash Course</title>
+    <title>React Interview Prep - Full-Stack Platform</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Supabase SDK -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -19,13 +22,29 @@
                     <span class="countdown__label">Interview in:</span>
                     <span class="countdown__time" id="countdownTime">24:00:00</span>
                 </div>
+                
+                <!-- User Info (shown when logged in) -->
+                <div class="user-info" id="userContainer" style="display: none;">
+                    <div class="user-stats" id="userStats"></div>
+                    <div class="user-profile">
+                        <span id="userName">User</span>
+                        <button class="btn btn--secondary btn--sm" id="signOutBtn">Sign Out</button>
+                    </div>
+                </div>
+                
+                <!-- Auth Buttons (shown when not logged in) -->
+                <div class="auth-buttons" id="authContainer">
+                    <button class="btn btn--secondary btn--sm" id="showLogin">Sign In</button>
+                    <button class="btn btn--primary btn--sm" id="showSignup">Sign Up</button>
+                </div>
+                
                 <button class="btn btn--secondary btn--sm" id="themeToggle">🌙</button>
             </div>
         </div>
     </nav>
 
     <!-- Main Application -->
-    <main class="main">
+    <main class="main" id="mainApp">
         <!-- Dashboard -->
         <section class="dashboard" id="dashboard">
             <div class="container">
@@ -45,12 +64,12 @@
                 <div class="study-modes">
                     <div class="study-mode-card" data-mode="flashcards">
                         <div class="study-mode-card__icon">🎯</div>
-                        <h3>Flashcards</h3>
-                        <p>Interactive cards with spaced repetition</p>
+                        <h3>Smart Flashcards</h3>
+                        <p>AI-powered spaced repetition system</p>
                         <div class="stats">
                             <span class="stat">
                                 <span class="stat-number" id="flashcardProgress">0</span>
-                                <span class="stat-label">Cards Studied</span>
+                                <span class="stat-label">Cards Mastered</span>
                             </span>
                         </div>
                     </div>
@@ -58,7 +77,7 @@
                     <div class="study-mode-card" data-mode="challenges">
                         <div class="study-mode-card__icon">💻</div>
                         <h3>Coding Challenges</h3>
-                        <p>Practice problems with solutions</p>
+                        <p>Real interview problems with solutions</p>
                         <div class="stats">
                             <span class="stat">
                                 <span class="stat-number" id="challengeProgress">0</span>
@@ -111,7 +130,7 @@
                         <div class="flashcard-front">
                             <div class="card-type-indicator">Question</div>
                             <div class="card-content" id="card-front-content">
-                                Click on a category to start studying!
+                                Loading flashcard...
                             </div>
                             <div class="flip-hint">Click to reveal answer</div>
                         </div>
@@ -145,36 +164,185 @@
                 </div>
             </div>
         </section>
-
-        <!-- Completion Modal -->
-        <div class="modal hidden" id="completionModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>🎉 Great job!</h3>
-                    <button class="btn btn--secondary btn--sm" id="closeModal">×</button>
-                </div>
-                <div class="modal-body">
-                    <p>You've completed this category!</p>
-                    <div class="modal-stats">
-                        <div class="modal-stat">
-                            <span class="modal-stat-number" id="knownCount">0</span>
-                            <span class="modal-stat-label">Known</span>
-                        </div>
-                        <div class="modal-stat">
-                            <span class="modal-stat-number" id="reviewCount">0</span>
-                            <span class="modal-stat-label">Review</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    <button class="btn btn--warning" id="studyReviewCards">Study Review Cards</button>
-                    <button class="btn btn--secondary" id="restartCategory">Restart Category</button>
-                    <button class="btn btn--primary" id="backToDashboardFromModal">Back to Dashboard</button>
-                </div>
-            </div>
-        </div>
     </main>
 
-    <script src="app.js"></script>
+    <!-- Login Modal -->
+    <div class="modal hidden" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sign In</h3>
+                <button class="btn btn--secondary btn--sm" onclick="document.getElementById('loginModal').classList.add('hidden')">×</button>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn--primary">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal hidden" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Account</h3>
+                <button class="btn btn--secondary btn--sm" onclick="document.getElementById('signupModal').classList.add('hidden')">×</button>
+            </div>
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn--primary">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Completion Modal -->
+    <div class="modal hidden" id="completionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🎉 Great job!</h3>
+                <button class="btn btn--secondary btn--sm" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <p>You've completed this study session!</p>
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <span class="modal-stat-number" id="knownCount">0</span>
+                        <span class="modal-stat-label">Known</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="modal-stat-number" id="reviewCount">0</span>
+                        <span class="modal-stat-label">Review</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn--warning" id="studyReviewCards">Study Review Cards</button>
+                <button class="btn btn--secondary" id="restartCategory">Restart Category</button>
+                <button class="btn btn--primary" id="backToDashboardFromModal">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/enhanced-app.js"></script>
+
+    <style>
+    /* Additional styles for auth and enhanced features */
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: var(--space-16);
+    }
+    
+    .user-stats {
+        display: flex;
+        gap: var(--space-12);
+        font-size: var(--font-size-sm);
+    }
+    
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: var(--space-8);
+    }
+    
+    .auth-buttons {
+        display: flex;
+        gap: var(--space-8);
+    }
+    
+    .auth-form {
+        padding: var(--space-16);
+    }
+    
+    .form-group {
+        margin-bottom: var(--space-16);
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: var(--space-8);
+        font-weight: var(--font-weight-medium);
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: var(--space-8) var(--space-12);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-base);
+        font-size: var(--font-size-base);
+        background: var(--color-surface);
+        color: var(--color-text);
+    }
+    
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+    }
+    
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .notification {
+        position: fixed;
+        top: var(--space-20);
+        right: var(--space-20);
+        padding: var(--space-12) var(--space-16);
+        border-radius: var(--radius-base);
+        color: white;
+        font-weight: var(--font-weight-medium);
+        z-index: 1001;
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    .notification--success {
+        background-color: var(--color-success);
+    }
+    
+    .notification--error {
+        background-color: var(--color-error);
+    }
+    
+    .notification--info {
+        background-color: var(--color-info);
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    </style>
 </body>
 </html>
