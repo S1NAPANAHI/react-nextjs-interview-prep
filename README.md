@@ -1,25 +1,37 @@
 # 🚀 React & Next.js Interview Preparation Hub
 
-**A comprehensive, full-stack interview preparation platform with Supabase backend, real-time progress tracking, and AI-powered spaced repetition.**
+**A comprehensive, full-stack interview preparation platform with interactive Top 20 Questions, Supabase backend, real-time progress tracking, and AI-powered spaced repetition.**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-👉%20Try%20Now-blue?style=for-the-badge)](https://s1napanahi.github.io/react-nextjs-interview-prep/)
 [![Supabase](https://img.shields.io/badge/Powered%20by-Supabase-green?style=flat-square&logo=supabase)](https://supabase.com)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![GitHub Stars](https://img.shields.io/github/stars/S1NAPANAHI/react-nextjs-interview-prep?style=flat-square)](https://github.com/S1NAPANAHI/react-nextjs-interview-prep/stargazers)
 
-## 🌟 What's New in v2.0
+## 🌟 What's New in v2.1
 
-🗺️ **Full-Stack Platform**: Complete Supabase integration with user authentication and real-time sync
+🎯 **Top 20 React Interview Questions**: Interactive comprehensive guide with detailed explanations, code examples, and search/filter functionality
 
-🧠 **Smart Learning**: AI-powered spaced repetition algorithm for optimal retention
+🔍 **Advanced Search & Filtering**: Find questions by difficulty, category, or keywords
 
-📊 **Advanced Analytics**: Detailed progress tracking and performance insights
+❤️ **Favorites System**: Save important questions for quick review
 
-🔄 **Real-time Sync**: Progress automatically syncs across all your devices
+📋 **One-Click Copy**: Copy questions and answers to clipboard instantly
 
-🏆 **Gamification**: Study streaks, achievements, and performance scoring
+📊 **Progress Tracking**: Monitor your learning progress and favorite questions
 
 ## 📚 Features
+
+### 🎯 Interactive Top 20 Questions
+- **Comprehensive Coverage**: 20 most frequently asked React interview questions
+- **Detailed Explanations**: In-depth answers with real-world context
+- **Code Examples**: Practical code snippets for each concept
+- **Key Points**: Quick reference highlights for each topic
+- **Smart Search**: Find questions by keywords or content
+- **Filter by Difficulty**: Beginner, Intermediate, Advanced levels
+- **Category Filtering**: Fundamentals, Components, State, JSX, etc.
+- **Favorites System**: Save questions for quick access
+- **Copy to Clipboard**: Share questions easily
+- **Responsive Design**: Perfect on all devices
 
 ### 🎯 Smart Flashcard System
 - **150+ Interview Questions** across 6 critical categories:
@@ -107,24 +119,38 @@ vercel --prod
 
 ## 🎮 How to Use
 
+### 🎯 Top 20 Questions Strategy
+
+**Quick Review (30 minutes)**
+1. **Browse by Category** - Focus on your weak areas
+2. **Use Search** - Find specific concepts you need to review
+3. **Save Favorites** - Mark important questions for later
+4. **Practice Explanations** - Read answers out loud
+
+**Deep Study (2-3 hours)**
+1. **Read All Questions** - Go through each question systematically
+2. **Study Code Examples** - Understand practical implementations
+3. **Copy Key Points** - Use clipboard feature for notes
+4. **Test Understanding** - Try to explain concepts without looking
+
 ### 🔥 24-Hour Crash Course Strategy
 
 **Phase 1: Foundation (8 hours)**
-1. **React Fundamentals** (3 hours) - Master core concepts
-2. **React Hooks** (3 hours) - Deep dive into modern React
-3. **Next.js Basics** (2 hours) - Learn SSR/SSG fundamentals
+1. **Top 20 Questions** (2 hours) - Master most common questions
+2. **React Fundamentals** (3 hours) - Core concepts and patterns
+3. **React Hooks** (3 hours) - Deep dive into modern React
 
 **Phase 2: Practice (4 hours)**
 4. **Coding Challenges** (2 hours) - Hands-on problem solving
-5. **System Design** (2 hours) - Architecture thinking
+5. **Next.js Basics** (2 hours) - Framework fundamentals
 
 **Phase 3: Review (4 hours)**
 6. **Spaced Repetition Review** (2 hours) - AI-optimized flashcard review
 7. **Mock Interview** (1 hour) - Practice explaining concepts
-8. **Final Prep** (1 hour) - Review weak areas identified by analytics
+8. **Final Prep** (1 hour) - Review favorites and weak areas
 
 ### 📅 1-Week Intensive Prep
-- **Days 1-2**: React mastery with analytics-driven focus
+- **Days 1-2**: Top 20 Questions + React mastery with analytics-driven focus
 - **Days 3-4**: Next.js and JavaScript fundamentals
 - **Days 5-6**: System design and advanced concepts
 - **Day 7**: Comprehensive review using spaced repetition
@@ -164,12 +190,14 @@ profiles              -- User profiles and preferences
 categories           -- Flashcard categories
 flashcards           -- Interview questions and answers
 challenges           -- Coding challenges with solutions
+top_questions        -- Top 20 curated questions
 
 -- Progress tracking
 user_flashcard_progress    -- Individual card progress
 user_challenge_progress    -- Challenge completion status
 study_sessions            -- Time tracking and performance
 user_stats               -- Streaks, goals, and achievements
+favorite_questions       -- User's saved questions
 
 -- Advanced features
 spaced_repetition_data   -- SM-2 algorithm data
@@ -296,6 +324,7 @@ git push origin feature/your-feature-name
 - [ ] **Video Integration** - Embedded explanation videos
 - [ ] **Interview Scheduling** - Calendar integration for interview prep
 - [ ] **Mock Interview Mode** - Practice with AI interviewer
+- [ ] **Extended Question Bank** - Top 50, Top 100 questions
 
 ### 🚀 Long-term (2026+)
 - [ ] **Collaborative Features** - Study groups and peer learning
@@ -326,6 +355,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 *Built with ❤️ for the developer community*
 
-**Ready to ace your React interviews? [Start studying now!]((https://s1napanahi.github.io/react-nextjs-interview-prep/)) 🚀**
+**Ready to ace your React interviews? [Start studying now!](https://s1napanahi.github.io/react-nextjs-interview-prep/) 🚀**
 
 </div>
