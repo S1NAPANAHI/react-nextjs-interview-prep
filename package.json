@@ -1,16 +1,18 @@
 {
   "name": "react-nextjs-interview-prep",
-  "version": "2.0.0",
-  "description": "🚀 Complete React.js + Next.js Interview Preparation Hub with Supabase backend",
+  "version": "2.1.0",
+  "description": "🚀 Interactive React.js + Next.js Interview Preparation Platform with hands-on lessons and coding challenges",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "start": "python -m http.server 8000",
     "dev": "python -m http.server 8000",
     "serve": "npx serve .",
-    "build": "echo 'No build step required for static site'",
+    "build": "echo 'Static site - no build required'",
     "deploy": "gh-pages -d .",
     "lint": "echo 'Linting JavaScript files...'",
-    "test": "echo 'Running tests...'"
+    "test": "echo 'Running tests...'",
+    "preview": "npx serve . -p 3000"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,10 @@
     "nextjs",
     "interview",
     "preparation",
-    "flashcards",
+    "interactive-learning",
     "coding-challenges",
+    "flashcards",
+    "roadmap",
     "supabase",
     "full-stack",
     "web-development",
@@ -30,12 +34,11 @@
     "typescript",
     "frontend",
     "backend",
-    "database",
-    "authentication",
-    "real-time",
     "progressive-web-app",
     "spaced-repetition",
-    "learning-platform"
+    "learning-platform",
+    "education",
+    "tutorial"
   ],
   "author": {
     "name": "SINA PANAHI",
@@ -52,7 +55,15 @@
     "serve": "^14.2.1"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0"
+    "@supabase/supabase-js": "^2.39.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "prismjs": "^1.29.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -61,10 +72,22 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not dead"
+    "not dead",
+    "not ie <= 11"
   ],
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/S1NAPANAHI"
+  },
+  "features": {
+    "interactive_lessons": "✅ Comprehensive lesson viewer with theory, practice, quizzes, and checklists",
+    "coding_challenges": "✅ Interactive coding challenges with test runner and hints",
+    "roadmap_navigation": "✅ Week-by-week structured learning path",
+    "progress_tracking": "✅ Local storage based progress tracking",
+    "responsive_design": "✅ Mobile-first responsive design",
+    "theme_support": "✅ Light and dark theme support",
+    "syntax_highlighting": "✅ Code syntax highlighting for better readability",
+    "flashcards": "✅ Spaced repetition flashcard system",
+    "real_time_sync": "🔄 Supabase integration for cross-device sync"
   }
 }
