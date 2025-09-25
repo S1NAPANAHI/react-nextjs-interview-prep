@@ -146,17 +146,6 @@
                             <li><a href="#" class="nav-link" data-section="mock-interviews">Mock Interviews</a></li>
                         </ul>
                     </div>
-
-                    <div class="nav-section">
-                        <div class="nav-section-header">
-                            <span class="nav-section-icon">🧠</span>
-                            <span class="nav-section-title">Practice</span>
-                        </div>
-                        <ul class="nav-list">
-                            <li><a href="#" class="nav-link" data-section="flashcards">Flashcards</a></li>
-                            <li><a href="#" class="nav-link" data-section="quiz">Quiz</a></li>
-                        </ul>
-                    </div>
                 </nav>
             </div>
         </aside>
@@ -181,100 +170,98 @@
                 </div>
             </div>
 
-                            <div class="content-body" id="contentBody">
-                            <!-- Dashboard Content -->
-                            <div class="dashboard" id="dashboard">
-                                <div class="welcome-section">
-                                    <h2>Welcome to React Interview Prep! 🚀</h2>
-                                    <p>Master React concepts with our comprehensive collection of interview questions, coding challenges, and practice sessions.</p>
-                                </div>
-            
-                                <div class="stats-grid">
-                                    <div class="stat-card">
-                                        <div class="stat-card-icon">⚛️</div>
-                                        <div class="stat-card-content">
-                                            <h3>100+</h3>
-                                            <p>React Questions</p>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-card-icon">🪝</div>
-                                        <div class="stat-card-content">
-                                            <h3>25+</h3>
-                                            <p>Hooks Examples</p>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-card-icon">🎯</div>
-                                        <div class="stat-card-content">
-                                            <h3>15+</h3>
-                                            <p>Coding Challenges</p>
-                                        </div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-card-icon">📚</div>
-                                        <div class="stat-card-content">
-                                            <h3>10+</h3>
-                                            <p>Categories</p>
-                                        </div>
-                                    </div>
-                                </div>
-            
-                                <div class="quick-start-grid">
-                                    <div class="card quick-start-card">
-                                        <div class="card__body">
-                                            <h3>🎯 Quick Start</h3>
-                                            <p>Jump right into the most important React concepts</p>
-                                            <button class="btn btn--primary" onclick="navigateToSection('top-10')">Top 10 Questions</button>
-                                        </div>
-                                    </div>
-                                    <div class="card quick-start-card">
-                                        <div class="card__body">
-                                            <h3>🪝 Master Hooks</h3>
-                                            <p>Deep dive into React Hooks with practical examples</p>
-                                            <button class="btn btn--primary" onclick="navigateToSection('basic-hooks')">Learn Hooks</button>
-                                        </div>
-                                    </div>
-                                    <div class="card quick-start-card">
-                                        <div class="card__body">
-                                            <h3>🎮 Practice Mode</h3>
-                                            <p>Test your knowledge with timed practice sessions</p>
-                                            <button class="btn btn--primary" id="startPracticeDashboard">Start Practice</button>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="content-body" id="contentBody">
+                <!-- Dashboard Content -->
+                <div class="dashboard" id="dashboard">
+                    <div class="welcome-section">
+                        <h2>Welcome to React Interview Prep! 🚀</h2>
+                        <p>Master React concepts with our comprehensive collection of interview questions, coding challenges, and practice sessions.</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-icon">⚛️</div>
+                            <div class="stat-card-content">
+                                <h3>100+</h3>
+                                <p>React Questions</p>
                             </div>
-            
-                            <!-- Questions Container -->
-                            <div class="questions-container hidden" id="questionsContainer">
-                                <div class="questions-header">
-                                    <h2 id="sectionTitle">Questions</h2>
-                                    <div class="questions-meta">
-                                        <span id="questionsCount">0 questions</span>
-                                    </div>
-                                </div>
-                                <div class="questions-list" id="questionsList">
-                                    <!-- Questions will be populated here -->
-                                </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">🪝</div>
+                            <div class="stat-card-content">
+                                <h3>25+</h3>
+                                <p>Hooks Examples</p>
                             </div>
-            
-                            <!-- Practice Mode -->
-                            <div class="practice-mode hidden" id="practiceMode">
-                                <div class="practice-header">
-                                    <h2>Practice Mode</h2>
-                                    <div class="practice-timer">
-                                        <span id="timer">00:00</span>
-                                    </div>
-                                    <button class="btn btn--secondary" id="exitPractice">Exit Practice</button>
-                                </div>
-                                <div class="practice-question" id="practiceQuestion">
-                                    <!-- Practice question will be populated here -->
-                                </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">🎯</div>
+                            <div class="stat-card-content">
+                                <h3>15+</h3>
+                                <p>Coding Challenges</p>
                             </div>
-            
-                            <div id="flashcardContainer" class="hidden"></div>
-                            <div id="quizContainer" class'="hidden"></div>
-                        </div>        </main>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">📚</div>
+                            <div class="stat-card-content">
+                                <h3>10+</h3>
+                                <p>Categories</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-start-grid">
+                        <div class="card quick-start-card">
+                            <div class="card__body">
+                                <h3>🎯 Quick Start</h3>
+                                <p>Jump right into the most important React concepts</p>
+                                <button class="btn btn--primary" onclick="navigateToSection('top-10')">Top 10 Questions</button>
+                            </div>
+                        </div>
+                        <div class="card quick-start-card">
+                            <div class="card__body">
+                                <h3>🪝 Master Hooks</h3>
+                                <p>Deep dive into React Hooks with practical examples</p>
+                                <button class="btn btn--primary" onclick="navigateToSection('basic-hooks')">Learn Hooks</button>
+                            </div>
+                        </div>
+                        <div class="card quick-start-card">
+                            <div class="card__body">
+                                <h3>🎮 Practice Mode</h3>
+                                <p>Test your knowledge with timed practice sessions</p>
+                                <button class="btn btn--primary" id="startPracticeDashboard">Start Practice</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions Container -->
+                <div class="questions-container hidden" id="questionsContainer">
+                    <div class="questions-header">
+                        <h2 id="sectionTitle">Questions</h2>
+                        <div class="questions-meta">
+                            <span id="questionsCount">0 questions</span>
+                        </div>
+                    </div>
+                    <div class="questions-list" id="questionsList">
+                        <!-- Questions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Practice Mode -->
+                <div class="practice-mode hidden" id="practiceMode">
+                    <div class="practice-header">
+                        <h2>Practice Mode</h2>
+                        <div class="practice-timer">
+                            <span id="timer">00:00</span>
+                        </div>
+                        <button class="btn btn--secondary" id="exitPractice">Exit Practice</button>
+                    </div>
+                    <div class="practice-question" id="practiceQuestion">
+                        <!-- Practice question will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
     <!-- Question Modal -->
@@ -291,10 +278,6 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script type="module" src="react-loader.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

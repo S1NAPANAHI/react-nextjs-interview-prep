@@ -45,9 +45,7 @@ class ReactInterviewApp {
                             "Transpiled to React.createElement",
                             "Supports JavaScript expressions"
                         ],
-                        "codeExample": "// JSX\nconst element = <h1>Hello, world!</h1>;
-
-// Transpiled to:\nconst element = React.createElement('h1', null, 'Hello, world!');",
+                        "codeExample": "// JSX\nconst element = <h1>Hello, world!</h1>;\n\n// Transpiled to:\nconst element = React.createElement('h1', null, 'Hello, world!');",
                         "followUpQuestions": [
                             "How does JSX differ from HTML?",
                             "What are JSX expressions?",
@@ -66,8 +64,7 @@ class ReactInterviewApp {
                             "Minimizes expensive DOM operations",
                             "Improves performance significantly"
                         ],
-                        "codeExample": "// React creates virtual DOM nodes\nconst element = {\n  type: 'h1',\n  props: {\n    className: 'greeting',\n    children: 'Hello, world!'\n  }
-};",
+                        "codeExample": "// React creates virtual DOM nodes\nconst element = {\n  type: 'h1',\n  props: {\n    className: 'greeting',\n    children: 'Hello, world!'\n  }\n};",
                         "followUpQuestions": [
                             "How does diffing work?",
                             "What is reconciliation?",
@@ -86,8 +83,7 @@ class ReactInterviewApp {
                             "Accept props and return JSX",
                             "Promote code reusability"
                         ],
-                        "codeExample": "// Functional Component\nfunction Button({ text, onClick }) {\n  return (\n    <button onClick={onClick}>\n      {text}\n    </button>\n  );\n}\n
-// Class Component\nclass Button extends React.Component {\n  render() {\n    return (\n      <button onClick={this.props.onClick}>\n        {this.props.text}\n      </button>\n    );\n  }\n}",
+                        "codeExample": "// Functional Component\nfunction Button({ text, onClick }) {\n  return (\n    <button onClick={onClick}>\n      {text}\n    </button>\n  );\n}\n\n// Class Component\nclass Button extends React.Component {\n  render() {\n    return (\n      <button onClick={this.props.onClick}>\n        {this.props.text}\n      </button>\n    );\n  }\n}",
                         "followUpQuestions": [
                             "What's the difference between functional and class components?",
                             "How do you pass data between components?",
@@ -106,10 +102,7 @@ class ReactInterviewApp {
                             "Props flow down, events flow up",
                             "State changes trigger re-renders"
                         ],
-                        "codeExample": "function UserProfile({ name, age }) { // props\n  const [isVisible, setIsVisible] = useState(true); // state\n  \n  return (\n    <div>\n      {isVisible && (\n        <div>\n          <h2>{name}</h2>\n          <p>Age: {age}</p>\n          <button onClick={() => setIsVisible(false)}>
-            Hide\n          </button>\n        </div>\n      )}
-    </div>\n  );
-}",
+                        "codeExample": "function UserProfile({ name, age }) { // props\n  const [isVisible, setIsVisible] = useState(true); // state\n  \n  return (\n    <div>\n      {isVisible && (\n        <div>\n          <h2>{name}</h2>\n          <p>Age: {age}</p>\n          <button onClick={() => setIsVisible(false)}>\n            Hide\n          </button>\n        </div>\n      )}\n    </div>\n  );\n}",
                         "followUpQuestions": [
                             "Can you modify props inside a component?",
                             "How do you pass functions as props?",
@@ -130,14 +123,7 @@ class ReactInterviewApp {
                             "Triggers re-renders on state change",
                             "Supports functional updates"
                         ],
-                        "codeExample": "function Counter() {\n  const [count, setCount] = useState(0);\n
-  const increment = () => setCount(prevCount => prevCount + 1);
-  const decrement = () => setCount(count - 1);
-
-  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={increment}>+</button>\n      <button onClick={decrement}>-</button>
-    </div>
-  );
-}",
+                        "codeExample": "function Counter() {\n  const [count, setCount] = useState(0);\n\n  const increment = () => setCount(prevCount => prevCount + 1);\n  const decrement = () => setCount(count - 1);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={increment}>+</button>\n      <button onClick={decrement}>-</button>\n    </div>\n  );\n}",
                         "followUpQuestions": [
                             "What are the rules of hooks?",
                             "How do you update state based on previous state?",
@@ -156,26 +142,7 @@ class ReactInterviewApp {
                             "Can be controlled with dependency array",
                             "Cleanup function prevents memory leaks"
                         ],
-                        "codeExample": "function DataFetcher({ userId }) {\n  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {\n    let cancelled = false;
-    
-    fetch(`/api/users/${userId}`)
-      .then(response => response.json())
-      .then(userData => {
-        if (!cancelled) {
-          setUser(userData);
-          setLoading(false);
-        }
-      });
-    
-    return () => { cancelled = true; };
-  }, [userId]);
-
-  if (loading) return <div>Loading...</div>;
-  return <div>{user.name}</div>;
-}",
+                        "codeExample": "function DataFetcher({ userId }) {\n  const [user, setUser] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    let cancelled = false;\n    \n    fetch(`/api/users/${userId}`)\n      .then(response => response.json())\n      .then(userData => {\n        if (!cancelled) {\n          setUser(userData);\n          setLoading(false);\n        }\n      });\n    \n    return () => { cancelled = true; };\n  }, [userId]);\n\n  if (loading) return <div>Loading...</div>;\n  return <div>{user.name}</div>;\n}",
                         "followUpQuestions": [
                             "What is the dependency array?",
                             "When does the cleanup function run?",
@@ -194,16 +161,7 @@ class ReactInterviewApp {
                             "Share stateful logic between components",
                             "Follow all rules of hooks"
                         ],
-                        "codeExample": "// Custom hook for local storage\nfunction useLocalStorage(key, initialValue) {\n  const [storedValue, setStoredValue] = useState(() => {\n    try {\n      const item = window.localStorage.getItem(key);\n      return item ? JSON.parse(item) : initialValue;\n    } catch (error) {\n      return initialValue;\n    }\n  });
-
-  const setValue = (value) => {\n    try {\n      setStoredValue(value);\n      window.localStorage.setItem(key, JSON.stringify(value));\n    } catch (error) {\n      console.error(error);\n    }\n  };
-
-  return [storedValue, setValue];
-}
-
-// Usage\nfunction Settings() {\n  const [theme, setTheme] = useLocalStorage('theme', 'light');\n  return (\n    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>\n      Current theme: {theme}      </button>
-  );
-}",
+                        "codeExample": "// Custom hook for local storage\nfunction useLocalStorage(key, initialValue) {\n  const [storedValue, setStoredValue] = useState(() => {\n    try {\n      const item = window.localStorage.getItem(key);\n      return item ? JSON.parse(item) : initialValue;\n    } catch (error) {\n      return initialValue;\n    }\n  });\n\n  const setValue = (value) => {\n    try {\n      setStoredValue(value);\n      window.localStorage.setItem(key, JSON.stringify(value));\n    } catch (error) {\n      console.error(error);\n    }\n  };\n\n  return [storedValue, setValue];\n}\n\n// Usage\nfunction Settings() {\n  const [theme, setTheme] = useLocalStorage('theme', 'light');\n  return (\n    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>\n      Current theme: {theme}\n    </button>\n  );\n}",
                         "followUpQuestions": [
                             "What are the rules for custom hooks?",
                             "How do you test custom hooks?",
@@ -224,20 +182,7 @@ class ReactInterviewApp {
                             "Don't modify original component",
                             "Follow naming convention: withFeatureName"
                         ],
-                        "codeExample": "function withAuth(Component) {\n  return function AuthenticatedComponent(props) {\n    const [isAuthenticated, setIsAuthenticated] = useState(false);\n    \n    useEffect(() => {\n      // Check authentication status
-      checkAuthStatus().then(setIsAuthenticated);
-    }, []);
-    
-    if (!isAuthenticated) {
-      return <div>Please log in</div>;
-    }
-    
-    return <Component {...props} />;
-  };
-}
-
-// Usage
-const ProtectedDashboard = withAuth(Dashboard);",
+                        "codeExample": "function withAuth(Component) {\n  return function AuthenticatedComponent(props) {\n    const [isAuthenticated, setIsAuthenticated] = useState(false);\n    \n    useEffect(() => {\n      // Check authentication status\n      checkAuthStatus().then(setIsAuthenticated);\n    }, []);\n    \n    if (!isAuthenticated) {\n      return <div>Please log in</div>;\n    }\n    \n    return <Component {...props} />;\n  };\n}\n\n// Usage\nconst ProtectedDashboard = withAuth(Dashboard);",
                         "followUpQuestions": [
                             "What are the disadvantages of HOCs?",
                             "How do HOCs compare to hooks?",
@@ -259,19 +204,7 @@ const ProtectedDashboard = withAuth(Dashboard);",
                             "Display current count value", 
                             "Handle negative numbers properly"
                         ],
-                        "codeExample": "function Counter() {\n  const [count, setCount] = useState(0);\n  \n  const increment = () => setCount(prev => prev + 1);
-  const decrement = () => setCount(prev => prev - 1);
-  const reset = () => setCount(0);
-  \n  return (\n    <div class=\"counter\">
-      <h2>Count: {count}</h2>
-      <div class=\"controls\">
-        <button onClick={increment}>+</button>
-        <button onClick={decrement}>-</button>
-        <button onClick={reset}>Reset</button>
-      </div>
-    </div>
-  );
-}",
+                        "codeExample": "function Counter() {\n  const [count, setCount] = useState(0);\n  \n  const increment = () => setCount(prev => prev + 1);\n  const decrement = () => setCount(prev => prev - 1);\n  const reset = () => setCount(0);\n  \n  return (\n    <div className=\"counter\">\n      <h2>Count: {count}</h2>\n      <div className=\"controls\">\n        <button onClick={increment}>+</button>\n        <button onClick={decrement}>-</button>\n        <button onClick={reset}>Reset</button>\n      </div>\n    </div>\n  );\n}",
                         "followUpQuestions": [
                             "How would you add validation for maximum/minimum values?",
                             "Can you make the counter persistent?",
@@ -291,44 +224,7 @@ const ProtectedDashboard = withAuth(Dashboard);",
                             "Add, toggle, and delete functionality",
                             "Persist data across browser sessions"
                         ],
-                        "codeExample": "function TodoList() {\n  const [todos, setTodos] = useState(() => {\n    const saved = localStorage.getItem('todos');\n    return saved ? JSON.parse(saved) : [];
-  });
-  const [input, setInput] = useState('');
-
-  useEffect(() => {\n    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-
-  const addTodo = () => {\n    if (input.trim()) {\n      setTodos([...todos, {\n        id: Date.now(),
-        text: input,
-        completed: false
-      }]);
-      setInput('');
-    }
-  };
-
-  const toggleTodo = (id) => {\n    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
-  };
-
-  return (
-    <div>
-      <input 
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyPress={(e) => e.key === 'Enter' && addTodo()}
-      />
-      <button onClick={addTodo}>Add</button>
-      <ul>
-        {todos.map(todo => (
-          <li key={todo.id} onClick={() => toggleTodo(todo.id)}>
-            {todo.completed ? '✅' : '⭕'} {todo.text}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}",
+                        "codeExample": "function TodoList() {\n  const [todos, setTodos] = useState(() => {\n    const saved = localStorage.getItem('todos');\n    return saved ? JSON.parse(saved) : [];\n  });\n  const [input, setInput] = useState('');\n\n  useEffect(() => {\n    localStorage.setItem('todos', JSON.stringify(todos));\n  }, [todos]);\n\n  const addTodo = () => {\n    if (input.trim()) {\n      setTodos([...todos, {\n        id: Date.now(),\n        text: input,\n        completed: false\n      }]);\n      setInput('');\n    }\n  };\n\n  const toggleTodo = (id) => {\n    setTodos(todos.map(todo =>\n      todo.id === id ? { ...todo, completed: !todo.completed } : todo\n    ));\n  };\n\n  return (\n    <div>\n      <input \n        value={input}\n        onChange={(e) => setInput(e.target.value)}\n        onKeyPress={(e) => e.key === 'Enter' && addTodo()}\n      />\n      <button onClick={addTodo}>Add</button>\n      <ul>\n        {todos.map(todo => (\n          <li key={todo.id} onClick={() => toggleTodo(todo.id)}>\n            {todo.completed ? '✅' : '⭕'} {todo.text}\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}",
                         "followUpQuestions": [
                             "How would you add edit functionality?",
                             "Can you implement drag-and-drop reordering?",
@@ -509,14 +405,6 @@ const ProtectedDashboard = withAuth(Dashboard);",
         if (sectionId === 'dashboard') {
             document.getElementById('dashboard').classList.remove('hidden');
             this.updateBreadcrumb('Dashboard');
-        } else if (sectionId === 'flashcards') {
-            document.getElementById('flashcardContainer').classList.remove('hidden');
-            this.updateBreadcrumb('Flashcards');
-            window.renderReactComponent('FlashcardViewer', 'flashcardContainer');
-        } else if (sectionId === 'quiz') {
-            document.getElementById('quizContainer').classList.remove('hidden');
-            this.updateBreadcrumb('Quiz');
-            window.renderReactComponent('QuizViewer', 'quizContainer');
         } else {
             this.showCurrentSectionQuestions();
         }
