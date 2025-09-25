@@ -3,673 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Interview Prep - Complete Question Bank</title>
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Comprehensive React and Next.js interview preparation with integrated question bank.">
-    <meta name="keywords" content="React, Next.js, Interview, Questions, Preparation, JavaScript, Hooks">
-    
-    <!-- External Libraries -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- Syntax Highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
-    
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
-
-    <link rel="stylesheet" href="wiki-styles.css">
-    
-    <style>
-        /* Enhanced Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.3s ease;
-        }
-        
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 2rem;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            text-align: center;
-            color: white;
-        }
-        
-        .loading-text h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        
-        .loading-text p {
-            margin: 0 0 1.5rem 0;
-            opacity: 0.9;
-            font-size: 1rem;
-        }
-        
-        .loading-bar {
-            width: 300px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        
-        .loading-progress {
-            height: 100%;
-            background: white;
-            border-radius: 2px;
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-        
-        /* FIXED LAYOUT CSS - Prevents overlap issues */
-        
-        /* Reset and ensure proper layout */
-        .app {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        .main-layout {
-            display: flex;
-            flex: 1;
-            position: relative;
-        }
-        
-        /* Fixed sidebar - no overlap */
-        .sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            background: var(--card-bg);
-            border-right: 1px solid var(--border-color);
-            overflow-y: auto;
-            height: calc(100vh - 80px); /* Account for header */
-            position: sticky;
-            top: 0;
-        }
-        
-        /* Content area with proper spacing */
-        .content {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-            background: var(--background-color);
-            min-height: calc(100vh - 80px);
-        }
-        
-        /* Question card styling */
-        .question-card {
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            background: var(--card-bg);
-            transition: all 0.2s ease;
-            overflow: hidden;
-        }
-        
-        .question-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 12px rgba(0,123,255,0.1);
-        }
-        
-        .question-card.expanded {
-            border-color: var(--primary-color);
-        }
-        
-        .question-card.answered {
-            border-left: 4px solid var(--success-color);
-            background: var(--success-bg);
-        }
-        
-        .question-header {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .question-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-        
-        .question-number {
-            background: var(--primary-color);
-            color: white;
-            padding: 0.35rem 0.7rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-align: center;
-            min-width: 2.5rem;
-        }
-        
-        .difficulty-badge {
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-align: center;
-            text-transform: capitalize;
-        }
-        
-        .difficulty-beginner { 
-            background: #d4edda; 
-            color: #155724; 
-        }
-        .difficulty-intermediate { 
-            background: #fff3cd; 
-            color: #856404; 
-        }
-        .difficulty-advanced { 
-            background: #f8d7da; 
-            color: #721c24; 
-        }
-        
-        [data-theme="dark"] .difficulty-beginner { 
-            background: #1e4620; 
-            color: #90ee90; 
-        }
-        [data-theme="dark"] .difficulty-intermediate { 
-            background: #4a4419; 
-            color: #ffeb3b; 
-        }
-        [data-theme="dark"] .difficulty-advanced { 
-            background: #4a1e1e; 
-            color: #ffcdd2; 
-        }
-        
-        .category-badge {
-            background: var(--accent-bg);
-            color: var(--accent-color);
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-align: center;
-        }
-        
-        .question-content-area {
-            flex: 1;
-        }
-        
-        .question-title {
-            margin: 0 0 1rem 0;
-            font-size: 1.15rem;
-            font-weight: 600;
-            line-height: 1.4;
-            color: var(--text-color);
-        }
-        
-        .question-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .expand-btn {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s ease;
-        }
-        
-        .expand-btn:hover {
-            background: var(--hover-bg);
-            border-color: var(--primary-color);
-        }
-        
-        /* Question content when expanded */
-        .question-content {
-            padding: 1.5rem;
-            background: var(--secondary-bg);
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                max-height: 0;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-            to {
-                opacity: 1;
-                max-height: 1000px;
-                padding-top: 1.5rem;
-                padding-bottom: 1.5rem;
-            }
-        }
-        
-        .practice-area {
-            margin-bottom: 2rem;
-            padding: 1.25rem;
-            background: var(--background-color);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .practice-area h4 {
-            margin: 0 0 1rem 0;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-        
-        .user-answer-input {
-            width: 100%;
-            padding: 0.875rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            resize: vertical;
-            min-height: 80px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            transition: border-color 0.2s ease;
-        }
-        
-        .user-answer-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
-        }
-        
-        .mark-answered-btn {
-            margin-top: 0.75rem;
-            padding: 0.6rem 1.2rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-        
-        .mark-answered-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-        
-        .mark-answered-btn.answered {
-            background: var(--success-color);
-        }
-        
-        .mark-answered-btn.answered:hover {
-            background: #28a745;
-        }
-        
-        .content-card {
-            margin: 1.5rem 0;
-        }
-        
-        .content-card.info {
-            background: var(--info-bg, var(--secondary-bg));
-            border: 1px solid var(--info-border, var(--border-color));
-            border-radius: 8px;
-            padding: 1.25rem;
-        }
-        
-        .content-card h4 {
-            margin: 0 0 0.75rem 0;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-        
-        .code-section {
-            margin: 1.5rem 0;
-        }
-        
-        .code-section h4 {
-            margin: 0 0 0.75rem 0;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-        
-        .code-section pre {
-            background: #1a1a1a !important;
-            padding: 1.25rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid var(--border-color);
-            margin: 0;
-        }
-        
-        .code-section code {
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-        
-        .key-points, .follow-up {
-            margin: 1.5rem 0;
-        }
-        
-        .key-points h4, .follow-up h4 {
-            margin: 0 0 0.75rem 0;
-            color: var(--text-color);
-            font-size: 1rem;
-        }
-        
-        .key-points ul, .follow-up ul {
-            margin: 0;
-            padding-left: 1.5rem;
-            list-style-type: none;
-        }
-        
-        .key-points li, .follow-up li {
-            margin-bottom: 0.6rem;
-            line-height: 1.5;
-            position: relative;
-        }
-        
-        .key-points li:before {
-            content: "→";
-            position: absolute;
-            left: -1.25rem;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        .follow-up li:before {
-            content: "❓";
-            position: absolute;
-            left: -1.5rem;
-        }
-        
-        .question-source {
-            margin-top: 1.5rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-color);
-            opacity: 0.7;
-            font-size: 0.85rem;
-        }
-        
-        /* Content controls */
-        .content-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1.25rem;
-            background: var(--secondary-bg);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-        
-        .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
-        }
-        
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted-color);
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            background: var(--card-bg);
-            color: var(--text-color);
-            transition: border-color 0.2s ease;
-        }
-        
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            padding: 0.6rem 1rem;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-        
-        .filter-btn:hover {
-            border-color: var(--primary-color);
-            background: var(--hover-bg);
-        }
-        
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        /* Question container */
-        .questions-container {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .no-questions {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--muted-color);
-        }
-        
-        .no-questions i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-        
-        /* Stats badge in header */
-        .stats-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--primary-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        /* Question count in sidebar */
-        .question-count {
-            background: var(--accent-color);
-            color: white;
-            padding: 0.25rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            min-width: 1.5rem;
-            text-align: center;
-        }
-        
-        .category-stats {
-            margin-top: 1rem;
-        }
-        
-        .stat {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--muted-color);
-            font-size: 0.9rem;
-        }
-        
-        /* Enhanced Error state */
-        .error-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 2rem;
-            background: var(--background-color, #f8f9fa);
-            color: var(--text-color, #333);
-        }
-        
-        .error-state h1 {
-            color: #dc3545;
-            margin-bottom: 1rem;
-        }
-        
-        .error-state p {
-            max-width: 600px;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-        
-        .btn-primary {
-            background: var(--primary-color, #007bff);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .btn-primary:hover {
-            background: var(--primary-hover, #0056b3);
-            transform: translateY(-1px);
-        }
-        
-        /* Responsive design */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 250px;
-            }
-            
-            .content {
-                padding: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .main-layout {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
-            
-            .content {
-                padding: 1rem;
-            }
-            
-            .content-controls {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .search-box {
-                min-width: auto;
-            }
-            
-            .filter-buttons {
-                justify-content: center;
-            }
-            
-            .loading-bar {
-                width: 250px;
-            }
-        }
-    </style>
+    <title>React Interview Prep - Master Your React Skills</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
 </head>
-
 <body>
-    <!-- Enhanced Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">
-            <h3>Loading Interview Questions</h3>
-            <p>Preparing your personalized study experience...</p>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="header-title">
+                <h1>React Interview Prep</h1>
+                <span class="header-subtitle">Master your React skills</span>
+            </div>
+            <div class="header-controls">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search questions...">
+                    <div class="search-icon">🔍</div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <div class="progress-summary">
+                    <div class="progress-card">
+                        <h3>Your Progress</h3>
+                        <div class="progress-stats">
+                            <div class="stat">
+                                <span class="stat-number" id="completedCount">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="bookmarkedCount">0</span>
+                                <span class="stat-label">Bookmarked</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🚀</span>
+                            <span class="nav-section-title">Quick Start</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+                            <li><a href="#" class="nav-link" data-section="top-10">Top 10 Questions</a></li>
+                            <li><a href="#" class="nav-link" data-section="top-20">Top 20 Questions</a></li>
+                            <li><a href="#" class="nav-link" data-section="getting-started">Getting Started</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">⚛️</span>
+                            <span class="nav-section-title">React Fundamentals</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="components-jsx">Components & JSX</a></li>
+                            <li><a href="#" class="nav-link" data-section="props-state">Props vs State</a></li>
+                            <li><a href="#" class="nav-link" data-section="event-handling">Event Handling</a></li>
+                            <li><a href="#" class="nav-link" data-section="virtual-dom">Virtual DOM</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🪝</span>
+                            <span class="nav-section-title">React Hooks</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="basic-hooks">useState & useEffect</a></li>
+                            <li><a href="#" class="nav-link" data-section="custom-hooks">Custom Hooks</a></li>
+                            <li><a href="#" class="nav-link" data-section="advanced-hooks">Advanced Hooks</a></li>
+                            <li><a href="#" class="nav-link" data-section="context-reducer">useContext & useReducer</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🗄️</span>
+                            <span class="nav-section-title">State Management</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="local-state">Local State</a></li>
+                            <li><a href="#" class="nav-link" data-section="context-api">Context API</a></li>
+                            <li><a href="#" class="nav-link" data-section="redux-patterns">Redux Patterns</a></li>
+                            <li><a href="#" class="nav-link" data-section="zustand">Zustand & Others</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">⚡</span>
+                            <span class="nav-section-title">Performance</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="react-memo">React.memo</a></li>
+                            <li><a href="#" class="nav-link" data-section="memo-callback">useMemo & useCallback</a></li>
+                            <li><a href="#" class="nav-link" data-section="code-splitting">Code Splitting</a></li>
+                            <li><a href="#" class="nav-link" data-section="optimization">Bundle Optimization</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🎯</span>
+                            <span class="nav-section-title">Advanced Topics</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="error-boundaries">Error Boundaries</a></li>
+                            <li><a href="#" class="nav-link" data-section="hoc">Higher-Order Components</a></li>
+                            <li><a href="#" class="nav-link" data-section="render-props">Render Props</a></li>
+                            <li><a href="#" class="nav-link" data-section="testing">Testing Strategies</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">📚</span>
+                            <span class="nav-section-title">Complete Collections</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="top-50">Top 50 Questions</a></li>
+                            <li><a href="#" class="nav-link" data-section="top-100">Top 100 Questions</a></li>
+                            <li><a href="#" class="nav-link" data-section="challenges">Coding Challenges</a></li>
+                            <li><a href="#" class="nav-link" data-section="mock-interviews">Mock Interviews</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="content-header">
+                <div class="breadcrumb" id="breadcrumb">
+                    <span>Dashboard</span>
+                </div>
+                <div class="content-actions">
+                    <div class="filter-controls">
+                        <select id="difficultyFilter" class="form-control">
+                            <option value="">All Difficulties</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <button class="btn btn--secondary" id="randomQuestion">Random Question</button>
+                    <button class="btn btn--primary" id="startPractice">Start Practice</button>
+                </div>
+            </div>
+
+            <div class="content-body" id="contentBody">
+                <!-- Dashboard Content -->
+                <div class="dashboard" id="dashboard">
+                    <div class="welcome-section">
+                        <h2>Welcome to React Interview Prep! 🚀</h2>
+                        <p>Master React concepts with our comprehensive collection of interview questions, coding challenges, and practice sessions.</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-icon">⚛️</div>
+                            <div class="stat-card-content">
+                                <h3>100+</h3>
+                                <p>React Questions</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">🪝</div>
+                            <div class="stat-card-content">
+                                <h3>25+</h3>
+                                <p>Hooks Examples</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">🎯</div>
+                            <div class="stat-card-content">
+                                <h3>15+</h3>
+                                <p>Coding Challenges</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">📚</div>
+                            <div class="stat-card-content">
+                                <h3>10+</h3>
+                                <p>Categories</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-start-grid">
+                        <div class="card quick-start-card">
+                            <div class="card__body">
+                                <h3>🎯 Quick Start</h3>
+                                <p>Jump right into the most important React concepts</p>
+                                <button class="btn btn--primary" onclick="navigateToSection('top-10')">Top 10 Questions</button>
+                            </div>
+                        </div>
+                        <div class="card quick-start-card">
+                            <div class="card__body">
+                                <h3>🪝 Master Hooks</h3>
+                                <p>Deep dive into React Hooks with practical examples</p>
+                                <button class="btn btn--primary" onclick="navigateToSection('basic-hooks')">Learn Hooks</button>
+                            </div>
+                        </div>
+                        <div class="card quick-start-card">
+                            <div class="card__body">
+                                <h3>🎮 Practice Mode</h3>
+                                <p>Test your knowledge with timed practice sessions</p>
+                                <button class="btn btn--primary" id="startPracticeDashboard">Start Practice</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions Container -->
+                <div class="questions-container hidden" id="questionsContainer">
+                    <div class="questions-header">
+                        <h2 id="sectionTitle">Questions</h2>
+                        <div class="questions-meta">
+                            <span id="questionsCount">0 questions</span>
+                        </div>
+                    </div>
+                    <div class="questions-list" id="questionsList">
+                        <!-- Questions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Practice Mode -->
+                <div class="practice-mode hidden" id="practiceMode">
+                    <div class="practice-header">
+                        <h2>Practice Mode</h2>
+                        <div class="practice-timer">
+                            <span id="timer">00:00</span>
+                        </div>
+                        <button class="btn btn--secondary" id="exitPractice">Exit Practice</button>
+                    </div>
+                    <div class="practice-question" id="practiceQuestion">
+                        <!-- Practice question will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Question Modal -->
+    <div class="modal hidden" id="questionModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalQuestionTitle">Question Details</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalQuestionBody">
+                <!-- Question details will be populated here -->
             </div>
         </div>
     </div>
-    
-    <!-- Main App -->
-    <div id="root"></div>
-    
-    <!-- Using the fixed app with better error handling -->
-    <script src="fixed-app.js"></script>
+
+    <script src="app.js"></script>
 </body>
 </html>
