@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Interview Prep - Enhanced Organization</title>
+    <link rel="stylesheet" href="enhanced-organized-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/jsx.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="header-title">
+                <h1>🚀 React Interview Prep</h1>
+                <span class="header-subtitle">Master your React skills with organized learning</span>
+            </div>
+            <div class="header-controls">
+                <div class="search-container">
+                    <input type="text" id="globalSearch" class="search-input" placeholder="Search all questions...">
+                    <div class="search-icon">🔍</div>
+                </div>
+                <div class="header-actions">
+                    <button class="practice-mode-btn" id="practiceMode" title="Start Practice Mode">
+                        ⏱️ Practice
+                    </button>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <!-- Progress Summary -->
+                <div class="progress-summary">
+                    <div class="progress-card">
+                        <h3>Your Progress</h3>
+                        <div class="progress-stats">
+                            <div class="stat">
+                                <span class="stat-number" id="completedCount">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="totalCount">0</span>
+                                <span class="stat-label">Total</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="bookmarkedCount">0</span>
+                                <span class="stat-label">Bookmarked</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Sections -->
+                <nav class="navigation" id="navigationSections">
+                    <!-- Dynamic content loaded by JavaScript -->
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="content-area">
+                <!-- Dynamic content loaded by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading interview questions...</p>
+    </div>
+
+    <!-- Practice Modal -->
+    <div class="modal-overlay" id="practiceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Practice Mode</h2>
+                <button class="modal-close" id="closePracticeModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="practice-options">
+                    <h3>Choose Practice Type:</h3>
+                    <div class="practice-type-grid">
+                        <button class="practice-type-btn" data-type="random">🎲 Random Questions</button>
+                        <button class="practice-type-btn" data-type="timed">⏱️ Timed Practice</button>
+                        <button class="practice-type-btn" data-type="category">📚 By Category</button>
+                        <button class="practice-type-btn" data-type="difficulty">📊 By Difficulty</button>
+                    </div>
+                </div>
+                <div class="practice-settings" id="practiceSettings">
+                    <!-- Dynamic settings based on practice type -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="enhanced-organized-app.js"></script>
+</body>
+</html>
