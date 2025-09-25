@@ -429,8 +429,7 @@ function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion
                 className: 'filter-btn' + (filter === level ? ' active' : ''),
                 onClick: () => setFilter(level)
               }, level.charAt(0).toUpperCase() + level.slice(1)))
-            )
-          )
+          ),
     React.createElement('div', { className: 'questions-container' },
       filteredQuestions.length === 0 ?
         React.createElement('div', { className: 'no-questions' },
