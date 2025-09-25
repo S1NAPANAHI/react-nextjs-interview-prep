@@ -3,46 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Interview Prep - Enhanced Organization</title>
+    <title>React Interview Prep | Master React Concepts</title>
     <link rel="stylesheet" href="enhanced-organized-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/jsx.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-color-scheme="light">
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+            <button class="sidebar-toggle" id="sidebarToggle">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
             <div class="header-title">
-                <h1>🚀 React Interview Prep</h1>
-                <span class="header-subtitle">Master your React skills with organized learning</span>
+                <h1>React Interview Prep</h1>
+                <span class="header-subtitle">Master React Concepts</span>
             </div>
             <div class="header-controls">
                 <div class="search-container">
-                    <input type="text" id="globalSearch" class="search-input" placeholder="Search all questions...">
-                    <div class="search-icon">🔍</div>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search questions...">
+                    <span class="search-icon">🔍</span>
                 </div>
-                <div class="header-actions">
-                    <button class="practice-mode-btn" id="practiceMode" title="Start Practice Mode">
-                        ⏱️ Practice
-                    </button>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Layout -->
     <div class="main-layout">
-        <!-- Sidebar -->
+        <!-- Organized Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-content">
                 <!-- Progress Summary -->
@@ -51,71 +44,147 @@
                         <h3>Your Progress</h3>
                         <div class="progress-stats">
                             <div class="stat">
-                                <span class="stat-number" id="completedCount">0</span>
-                                <span class="stat-label">Completed</span>
+                                <div class="stat-number" id="completedCount">0</div>
+                                <div class="stat-label">Completed</div>
                             </div>
                             <div class="stat">
-                                <span class="stat-number" id="totalCount">0</span>
-                                <span class="stat-label">Total</span>
+                                <div class="stat-number" id="bookmarkedCount">0</div>
+                                <div class="stat-label">Bookmarked</div>
                             </div>
-                            <div class="stat">
-                                <span class="stat-number" id="bookmarkedCount">0</span>
-                                <span class="stat-label">Bookmarked</span>
-                            </div>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Navigation Sections -->
-                <nav class="navigation" id="navigationSections">
-                    <!-- Dynamic content loaded by JavaScript -->
+                <!-- Organized Navigation -->
+                <nav class="sidebar-nav">
+                    <!-- Quick Start Section -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🚀</span>
+                            <span class="nav-section-title">Quick Start</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="top-10">📋 Top 10 Essential</a></li>
+                            <li><a href="#" class="nav-link" data-section="top-20">🔥 Top 20 Core</a></li>
+                            <li><a href="#" class="nav-link" data-section="getting-started">📚 Getting Started Guide</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- React Fundamentals -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">⚛️</span>
+                            <span class="nav-section-title">React Fundamentals</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="components">🧩 Components & JSX</a></li>
+                            <li><a href="#" class="nav-link" data-section="props-state">📦 Props vs State</a></li>
+                            <li><a href="#" class="nav-link" data-section="lifecycle">🔄 Component Lifecycle</a></li>
+                            <li><a href="#" class="nav-link" data-section="virtual-dom">⚡ Virtual DOM</a></li>
+                            <li><a href="#" class="nav-link" data-section="events">🎮 Event Handling</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- React Hooks -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🪝</span>
+                            <span class="nav-section-title">React Hooks</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="basic-hooks">🎣 useState & useEffect</a></li>
+                            <li><a href="#" class="nav-link" data-section="custom-hooks">🔧 Custom Hooks</a></li>
+                            <li><a href="#" class="nav-link" data-section="context-hooks">🌐 useContext & useReducer</a></li>
+                            <li><a href="#" class="nav-link" data-section="performance-hooks">🚀 Performance Hooks</a></li>
+                            <li><a href="#" class="nav-link" data-section="advanced-hooks">📚 Advanced Hooks</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- State Management -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🗄️</span>
+                            <span class="nav-section-title">State Management</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="local-state">🏠 Local State</a></li>
+                            <li><a href="#" class="nav-link" data-section="context-api">🌍 Context API</a></li>
+                            <li><a href="#" class="nav-link" data-section="redux">🔴 Redux & RTK</a></li>
+                            <li><a href="#" class="nav-link" data-section="other-state">🐻 Zustand & Others</a></li>
+                            <li><a href="#" class="nav-link" data-section="state-patterns">📊 State Patterns</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Performance & Optimization -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">⚡</span>
+                            <span class="nav-section-title">Performance</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="memo">🚀 React.memo</a></li>
+                            <li><a href="#" class="nav-link" data-section="usememo-callback">💾 useMemo & useCallback</a></li>
+                            <li><a href="#" class="nav-link" data-section="code-splitting">📦 Code Splitting</a></li>
+                            <li><a href="#" class="nav-link" data-section="bundle-optimization">🔧 Bundle Optimization</a></li>
+                            <li><a href="#" class="nav-link" data-section="performance-monitoring">📈 Performance Monitoring</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Advanced Topics -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🔬</span>
+                            <span class="nav-section-title">Advanced Topics</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="error-boundaries">🛡️ Error Boundaries</a></li>
+                            <li><a href="#" class="nav-link" data-section="hoc">🎭 Higher-Order Components</a></li>
+                            <li><a href="#" class="nav-link" data-section="render-props">🎨 Render Props</a></li>
+                            <li><a href="#" class="nav-link" data-section="testing">🧪 Testing Strategies</a></li>
+                            <li><a href="#" class="nav-link" data-section="architecture">🏗️ Architecture Patterns</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Practice & Assessment -->
+                    <div class="nav-section">
+                        <div class="nav-section-header">
+                            <span class="nav-section-icon">🏋️</span>
+                            <span class="nav-section-title">Practice</span>
+                        </div>
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link" data-section="top-50">💯 Top 50 Complete</a></li>
+                            <li><a href="#" class="nav-link" data-section="top-100">🎯 Top 100 Complete</a></li>
+                            <li><a href="#" class="nav-link" data-section="random-practice">🎲 Random Practice</a></li>
+                            <li><a href="#" class="nav-link" data-section="timed-sessions">⏱️ Timed Sessions</a></li>
+                            <li><a href="#" class="nav-link" data-section="flashcards">🃏 Flashcards Review</a></li>
+                            <li><a href="#" class="nav-link" data-section="challenges">💻 Coding Challenges</a></li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Main Content Area -->
         <main class="main-content" id="mainContent">
-            <div class="content-area">
-                <!-- Dynamic content loaded by JavaScript -->
+            <div id="contentArea">
+                <!-- Content will be dynamically loaded here -->
             </div>
         </main>
     </div>
 
-    <!-- Loading State -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <p>Loading interview questions...</p>
-    </div>
-
-    <!-- Practice Modal -->
-    <div class="modal-overlay" id="practiceModal">
+    <!-- Modal for Practice Sessions -->
+    <div class="modal hidden" id="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Practice Mode</h2>
-                <button class="modal-close" id="closePracticeModal">✕</button>
+                <h3 id="modalTitle">Modal Title</h3>
+                <button class="modal-close" id="modalClose">×</button>
             </div>
-            <div class="modal-body">
-                <div class="practice-options">
-                    <h3>Choose Practice Type:</h3>
-                    <div class="practice-type-grid">
-                        <button class="practice-type-btn" data-type="random">🎲 Random Questions</button>
-                        <button class="practice-type-btn" data-type="timed">⏱️ Timed Practice</button>
-                        <button class="practice-type-btn" data-type="category">📚 By Category</button>
-                        <button class="practice-type-btn" data-type="difficulty">📊 By Difficulty</button>
-                    </div>
-                </div>
-                <div class="practice-settings" id="practiceSettings">
-                    <!-- Dynamic settings based on practice type -->
-                </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content -->
             </div>
         </div>
     </div>
-
-    <!-- Toast Notifications -->
-    <div class="toast-container" id="toastContainer"></div>
 
     <script src="enhanced-organized-app.js"></script>
 </body>
