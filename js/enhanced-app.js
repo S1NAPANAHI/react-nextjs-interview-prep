@@ -1,768 +1,385 @@
-// Enhanced Flashcard Application with Supabase Integration
-class EnhancedFlashcardApp {
-  constructor() {
-    this.data = null;
-    this.categories = [];
-    this.currentCategory = null;
-    this.currentCards = [];
-    this.currentCardIndex = 0;
-    this.isFlipped = false;
-    this.progress = new Map();
-    this.userStats = null;
-    this.interviewDate = this.loadInterviewDate();
-    this.studySession = {
-      startTime: null,
-      itemsStudied: 0,
-      correctAnswers: 0
-    };
-    
-    this.init();
-  }
-
-  async init() {
-    // Wait for auth manager to initialize
-    await this.waitForAuthManager();
-    
-    this.setupEventListeners();
-    this.initTheme();
-    this.startCountdown();
-    
-    // Load data from Supabase
-    await this.loadData();
-    
-    // Setup realtime subscriptions if user is authenticated
-    if (window.authManager?.isAuthenticated()) {
-      this.setupRealtimeSubscriptions();
-    }
-    
-    this.renderDashboard();
-    this.updateDashboardStats();
-  }
-
-  async waitForAuthManager() {
-    while (!window.authManager) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-  }
-
-  async loadData() {
-    try {
-      // Load categories
-      const { data: categories, error: categoriesError } = await window.dbService.getCategories();
-      if (categoriesError) throw categoriesError;
-      this.categories = categories || [];
-
-      // Load flashcards
-      const { data: flashcards, error: flashcardsError } = await window.dbService.getFlashcards();
-      if (flashcardsError) throw flashcardsError;
-      
-      // Group flashcards by category
-      this.data = {};
-      this.categories.forEach(category => {
-        const categoryCards = flashcards?.filter(card => card.category_id === category.id) || [];
-        this.data[category.id] = {
-          ...category,
-          cards: categoryCards
+// Enhanced Interview Application with Full Data Integration
+class EnhancedInterviewSystem {
+    constructor() {
+        this.currentStage = 1;
+        this.userProgress = {
+            completedQuestions: new Set(),
+            scores: {},
+            currentStreak: 0,
+            totalCorrect: 0,
+            weakAreas: [],
+            strengths: []
         };
-      });
-
-      // Load user progress if authenticated
-      if (window.authManager?.isAuthenticated()) {
-        await this.loadUserProgress();
-      } else {
-        // Load from localStorage for offline use
-        this.loadLocalProgress();
-      }
-    } catch (error) {
-      console.error('Error loading data:', error);
-      // Fallback to local data
-      this.loadFallbackData();
-    }
-  }
-
-  async loadUserProgress() {
-    const user = window.authManager.getCurrentUser();
-    if (!user) return;
-
-    try {
-      // Load flashcard progress
-      const { data: progressData } = await window.dbService.getUserFlashcardProgress(user.id);
-      
-      // Convert to Map for easier access
-      this.progress = new Map();
-      progressData?.forEach(progress => {
-        this.progress.set(progress.flashcard_id, {
-          confidence_level: progress.confidence_level,
-          times_reviewed: progress.times_reviewed,
-          is_mastered: progress.is_mastered,
-          last_reviewed_at: progress.last_reviewed_at,
-          next_review_at: progress.next_review_at
-        });
-      });
-
-      // Load user stats
-      const { data: stats } = await window.dbService.getUserStats(user.id);
-      this.userStats = stats;
-
-    } catch (error) {
-      console.error('Error loading user progress:', error);
-    }
-  }
-
-  loadLocalProgress() {
-    const saved = localStorage.getItem('flashcard-progress');
-    if (saved) {
-      const progressData = JSON.parse(saved);
-      this.progress = new Map();
-      Object.entries(progressData).forEach(([cardId, data]) => {
-        this.progress.set(cardId, data);
-      });
-    }
-  }
-
-  loadFallbackData() {
-    // Use the original static data as fallback
-    this.data = {
-      'react_fundamentals': {
-        id: 'react_fundamentals',
-        name: 'React Fundamentals',
-        description: 'Core React concepts, components, and patterns',
-        color: '#61dafb',
-        icon: '⚛️',
-        cards: [
-          {
-            id: 'react_001',
-            front: 'What is the Virtual DOM and how does it work?',
-            back: 'The Virtual DOM is a JavaScript representation of the actual DOM...'
-          }
-          // ... more cards
-        ]
-      }
-      // ... more categories
-    };
-  }
-
-  setupRealtimeSubscriptions() {
-    const user = window.authManager.getCurrentUser();
-    if (!user) return;
-
-    // Subscribe to progress updates
-    window.dbService.subscribeToUserProgress(user.id, (payload) => {
-      this.handleProgressUpdate(payload);
-    });
-
-    // Subscribe to stats updates
-    window.dbService.subscribeToUserStats(user.id, (payload) => {
-      this.handleStatsUpdate(payload);
-    });
-  }
-
-  handleProgressUpdate(payload) {
-    // Update local progress cache
-    const { eventType, new: newRecord, old: oldRecord } = payload;
-    
-    if (eventType === 'INSERT' || eventType === 'UPDATE') {
-      this.progress.set(newRecord.flashcard_id, {
-        confidence_level: newRecord.confidence_level,
-        times_reviewed: newRecord.times_reviewed,
-        is_mastered: newRecord.is_mastered,
-        last_reviewed_at: newRecord.last_reviewed_at,
-        next_review_at: newRecord.next_review_at
-      });
-    } else if (eventType === 'DELETE' && oldRecord) {
-      this.progress.delete(oldRecord.flashcard_id);
-    }
-
-    // Update UI
-    this.updateDashboardStats();
-  }
-
-  handleStatsUpdate(payload) {
-    if (payload.eventType === 'UPDATE') {
-      this.userStats = payload.new;
-      window.authManager.updateUserInfo();
-    }
-  }
-
-  setupEventListeners() {
-    // Theme toggle
-    document.getElementById('themeToggle')?.addEventListener('click', () => this.toggleTheme());
-    
-    // Dashboard navigation
-    document.getElementById('backToDashboard')?.addEventListener('click', () => this.showDashboard());
-    
-    // Auth buttons
-    document.getElementById('showLogin')?.addEventListener('click', () => this.showLoginModal());
-    document.getElementById('showSignup')?.addEventListener('click', () => this.showSignupModal());
-    document.getElementById('signOutBtn')?.addEventListener('click', () => this.signOut());
-    
-    // Study mode cards
-    document.querySelectorAll('.study-mode-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const mode = card.dataset.mode;
-        this.handleStudyModeClick(mode);
-      });
-    });
-    
-    // Flashcard controls
-    document.getElementById('flashcard')?.addEventListener('click', () => this.flipCard());
-    document.getElementById('prevCard')?.addEventListener('click', () => this.previousCard());
-    document.getElementById('nextCard')?.addEventListener('click', () => this.nextCard());
-    document.getElementById('reviewAgain')?.addEventListener('click', () => this.markCard('review'));
-    document.getElementById('knowIt')?.addEventListener('click', () => this.markCard('known'));
-    
-    // Modal controls
-    document.getElementById('closeModal')?.addEventListener('click', () => this.hideModal());
-    document.getElementById('studyReviewCards')?.addEventListener('click', () => this.studyReviewCards());
-    document.getElementById('restartCategory')?.addEventListener('click', () => this.restartCategory());
-    document.getElementById('backToDashboardFromModal')?.addEventListener('click', () => {
-      this.hideModal();
-      this.showDashboard();
-    });
-    
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => this.handleKeyboard(e));
-    
-    // Auth form submissions
-    document.getElementById('loginForm')?.addEventListener('submit', (e) => this.handleLogin(e));
-    document.getElementById('signupForm')?.addEventListener('submit', (e) => this.handleSignup(e));
-  }
-
-  async startStudying(categoryId) {
-    this.currentCategory = categoryId;
-    this.currentCards = this.data[categoryId]?.cards || [];
-    
-    if (this.currentCards.length === 0) {
-      alert('No cards found in this category.');
-      return;
-    }
-
-    // Start study session tracking
-    this.startStudySession('flashcards');
-    
-    // Get optimal cards to study (spaced repetition)
-    if (window.authManager?.isAuthenticated()) {
-      this.currentCards = await this.getOptimalCards(categoryId);
-    }
-    
-    this.currentCardIndex = 0;
-    this.showStudyView();
-    this.renderCurrentCard();
-    this.updateStudyInterface();
-  }
-
-  async getOptimalCards(categoryId) {
-    const user = window.authManager.getCurrentUser();
-    if (!user) return this.data[categoryId]?.cards || [];
-
-    // Get spaced repetition data
-    const { data: spacedData } = await window.dbService.getSpacedRepetitionData(user.id);
-    
-    const allCards = this.data[categoryId]?.cards || [];
-    const now = new Date();
-    
-    // Sort cards by review priority
-    return allCards.sort((a, b) => {
-      const aData = spacedData?.find(d => d.flashcard_id === a.id);
-      const bData = spacedData?.find(d => d.flashcard_id === b.id);
-      
-      // Cards due for review first
-      if (aData?.next_review && bData?.next_review) {
-        const aNext = new Date(aData.next_review);
-        const bNext = new Date(bData.next_review);
         
-        if (aNext <= now && bNext > now) return -1;
-        if (bNext <= now && aNext > now) return 1;
+        // Load all your existing data
+        this.loadInterviewData();
+        this.initializeUI();
+    }
+
+    async loadInterviewData() {
+        try {
+            // Load all your existing JSON data files
+            const dataFiles = [
+                'data/top-10-questions.json',
+                'data/top-20-questions.json',
+                'data/top-50-questions.json',
+                'data/top-100-questions.json',
+                'data/flashcards.json',
+                'data/challenges.json',
+                'data/enhanced-questions.json',
+                'data/tier-system.json'
+            ];
+
+            const loadedData = {};
+            for (const file of dataFiles) {
+                try {
+                    const response = await fetch(file);
+                    const data = await response.json();
+                    const fileName = file.split('/')[1].replace('.json', '');
+                    loadedData[fileName] = data;
+                } catch (error) {
+                    console.warn(`Could not load ${file}:`, error);
+                }
+            }
+
+            this.interviewData = loadedData;
+            this.processInterviewData();
+        } catch (error) {
+            console.error('Error loading interview data:', error);
+        }
+    }
+
+    processInterviewData() {
+        // Combine all questions from different sources
+        this.allQuestions = [];
         
-        return aNext - bNext;
-      }
-      
-      // New cards last
-      if (!aData && bData) return 1;
-      if (!bData && aData) return -1;
-      
-      return 0;
-    });
-  }
-
-  startStudySession(type) {
-    this.studySession = {
-      type,
-      startTime: new Date(),
-      itemsStudied: 0,
-      correctAnswers: 0
-    };
-  }
-
-  async endStudySession() {
-    if (!this.studySession.startTime) return;
-    
-    const duration = Math.round((new Date() - this.studySession.startTime) / 60000); // minutes
-    const performanceScore = this.studySession.itemsStudied > 0 
-      ? this.studySession.correctAnswers / this.studySession.itemsStudied 
-      : 0;
-    
-    // Save session to database if authenticated
-    const user = window.authManager.getCurrentUser();
-    if (user) {
-      await window.dbService.createStudySession(user.id, {
-        session_type: this.studySession.type,
-        duration,
-        items_studied: this.studySession.itemsStudied,
-        performance_score: performanceScore,
-        session_date: new Date().toISOString().split('T')[0]
-      });
-    }
-    
-    // Reset session
-    this.studySession = {
-      startTime: null,
-      itemsStudied: 0,
-      correctAnswers: 0
-    };
-  }
-
-  async markCard(type) {
-    if (!this.currentCategory || !this.currentCards.length) return;
-    
-    const card = this.currentCards[this.currentCardIndex];
-    const user = window.authManager.getCurrentUser();
-    
-    // Update session stats
-    this.studySession.itemsStudied++;
-    if (type === 'known') {
-      this.studySession.correctAnswers++;
-    }
-    
-    if (user) {
-      // Update progress in database
-      const confidenceLevel = type === 'known' ? 5 : 2;
-      
-      await window.dbService.updateFlashcardProgress(user.id, card.id, {
-        confidence_level: confidenceLevel,
-        times_reviewed: (this.progress.get(card.id)?.times_reviewed || 0) + 1,
-        last_reviewed_at: new Date().toISOString(),
-        is_mastered: type === 'known'
-      });
-      
-      // Update spaced repetition data
-      await window.dbService.updateSpacedRepetitionData(user.id, card.id, confidenceLevel);
-    } else {
-      // Update local progress
-      this.updateLocalProgress(card.id, type);
-    }
-    
-    this.nextCard();
-  }
-
-  updateLocalProgress(cardId, type) {
-    const current = this.progress.get(cardId) || {
-      confidence_level: 3,
-      times_reviewed: 0,
-      is_mastered: false
-    };
-    
-    current.times_reviewed++;
-    current.confidence_level = type === 'known' ? 5 : 2;
-    current.is_mastered = type === 'known';
-    current.last_reviewed_at = new Date().toISOString();
-    
-    this.progress.set(cardId, current);
-    
-    // Save to localStorage
-    const progressObj = {};
-    this.progress.forEach((value, key) => {
-      progressObj[key] = value;
-    });
-    localStorage.setItem('flashcard-progress', JSON.stringify(progressObj));
-  }
-
-  renderDashboard() {
-    const grid = document.getElementById('categoriesGrid');
-    if (!grid) return;
-    
-    grid.innerHTML = '';
-    
-    Object.entries(this.data || {}).forEach(([key, category]) => {
-      const totalCards = category.cards?.length || 0;
-      const masteredCards = this.getMasteredCardsCount(category.cards);
-      const completionPercentage = totalCards > 0 ? Math.round((masteredCards / totalCards) * 100) : 0;
-      
-      const card = document.createElement('div');
-      card.className = 'category-card';
-      card.style.setProperty('--category-color', category.color);
-      card.innerHTML = `
-        <div class="category-header">
-          <div class="category-icon">${category.icon}</div>
-          <div>
-            <h3 class="category-title">${category.name}</h3>
-          </div>
-        </div>
-        <p class="category-description">${category.description}</p>
-        <div class="category-meta">
-          <span class="category-cards-count">${totalCards} cards</span>
-          <div class="category-progress">
-            <div class="progress-circle">${completionPercentage}%</div>
-          </div>
-        </div>
-      `;
-      
-      card.addEventListener('click', () => this.startStudying(key));
-      grid.appendChild(card);
-    });
-  }
-
-  getMasteredCardsCount(cards) {
-    if (!cards) return 0;
-    return cards.filter(card => this.progress.get(card.id)?.is_mastered).length;
-  }
-
-  updateDashboardStats() {
-    let totalStudied = 0;
-    let totalCards = 0;
-    let masteredCards = 0;
-    
-    Object.values(this.data || {}).forEach(category => {
-      if (category.cards) {
-        totalCards += category.cards.length;
-        category.cards.forEach(card => {
-          const progress = this.progress.get(card.id);
-          if (progress?.times_reviewed > 0) totalStudied++;
-          if (progress?.is_mastered) masteredCards++;
+        // Process top questions
+        ['top-10-questions', 'top-20-questions', 'top-50-questions', 'top-100-questions'].forEach(source => {
+            if (this.interviewData[source]) {
+                this.allQuestions.push(...this.interviewData[source].questions || []);
+            }
         });
-      }
-    });
-    
-    const overallPercentage = totalCards > 0 ? Math.round((masteredCards / totalCards) * 100) : 0;
-    
-    const overallProgressEl = document.getElementById('overallProgress');
-    const overallProgressTextEl = document.getElementById('overallProgressText');
-    const flashcardProgressEl = document.getElementById('flashcardProgress');
-    
-    if (overallProgressEl) overallProgressEl.style.width = `${overallPercentage}%`;
-    if (overallProgressTextEl) overallProgressTextEl.textContent = `${overallPercentage}% Complete`;
-    if (flashcardProgressEl) flashcardProgressEl.textContent = masteredCards;
-  }
 
-  // Auth methods
-  showLoginModal() {
-    this.showModal('loginModal');
-  }
+        // Add enhanced questions
+        if (this.interviewData['enhanced-questions']) {
+            this.allQuestions.push(...this.interviewData['enhanced-questions'].questions || []);
+        }
 
-  showSignupModal() {
-    this.showModal('signupModal');
-  }
-
-  showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.classList.remove('hidden');
+        // Organize by categories and difficulty
+        this.organizeQuestionsByCategory();
+        this.setupFiveStageSystem();
     }
-  }
 
-  hideModal(modalId = null) {
-    if (modalId) {
-      const modal = document.getElementById(modalId);
-      if (modal) modal.classList.add('hidden');
-    } else {
-      document.querySelectorAll('.modal').forEach(modal => {
-        modal.classList.add('hidden');
-      });
+    organizeQuestionsByCategory() {
+        this.categorizedQuestions = {
+            'react-fundamentals': [],
+            'hooks': [],
+            'state-management': [],
+            'performance': [],
+            'testing': [],
+            'advanced-patterns': []
+        };
+
+        this.allQuestions.forEach(question => {
+            const category = this.determineCategory(question);
+            if (this.categorizedQuestions[category]) {
+                this.categorizedQuestions[category].push(question);
+            }
+        });
     }
-  }
 
-  async handleLogin(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const email = formData.get('email');
-    const password = formData.get('password');
-    
-    const result = await window.authManager.signIn(email, password);
-    
-    if (!result.error) {
-      this.hideModal('loginModal');
-      // Reload data with user context
-      await this.loadData();
-      this.renderDashboard();
-      this.updateDashboardStats();
+    setupFiveStageSystem() {
+        this.stages = {
+            1: {
+                name: "Foundation Check",
+                description: "Basic React concepts and fundamentals",
+                questions: this.categorizedQuestions['react-fundamentals'].slice(0, 10),
+                passingScore: 70,
+                timeLimit: 15 // minutes
+            },
+            2: {
+                name: "Hooks Mastery",
+                description: "React Hooks and modern patterns",
+                questions: this.categorizedQuestions['hooks'].slice(0, 15),
+                passingScore: 75,
+                timeLimit: 20
+            },
+            3: {
+                name: "State & Logic",
+                description: "State management and complex logic",
+                questions: this.categorizedQuestions['state-management'].slice(0, 15),
+                passingScore: 75,
+                timeLimit: 25
+            },
+            4: {
+                name: "Performance & Optimization",
+                description: "Advanced performance concepts",
+                questions: this.categorizedQuestions['performance'].slice(0, 12),
+                passingScore: 80,
+                timeLimit: 30
+            },
+            5: {
+                name: "Expert Level",
+                description: "Advanced patterns and architecture",
+                questions: this.categorizedQuestions['advanced-patterns'].slice(0, 20),
+                passingScore: 85,
+                timeLimit: 40
+            }
+        };
     }
-  }
 
-  async handleSignup(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const email = formData.get('email');
-    const password = formData.get('password');
-    const fullName = formData.get('fullName');
-    
-    const result = await window.authManager.signUp(email, password, fullName);
-    
-    if (!result.error) {
-      this.hideModal('signupModal');
+    // UI Integration Methods
+    renderWikiWithInterviewData() {
+        const mainContent = document.querySelector('.wiki-content');
+        
+        // Create navigation for interview stages
+        const stageNavigation = this.createStageNavigation();
+        
+        // Create question browsers for each category
+        const questionBrowsers = this.createQuestionBrowsers();
+        
+        // Add practice modes
+        const practiceModes = this.createPracticeModes();
+        
+        mainContent.innerHTML = `
+            ${stageNavigation}
+            ${questionBrowsers}
+            ${practiceModes}
+            ${this.createProgressDashboard()}
+        `;
     }
-  }
 
-  async signOut() {
-    await this.endStudySession();
-    await window.authManager.signOut();
-  }
-
-  // All other methods from the original app...
-  // (keeping them for compatibility)
-  
-  // Rest of the original FlashcardApp methods go here
-  // (I'll include a few key ones for demonstration)
-  
-  flipCard() {
-    this.isFlipped = !this.isFlipped;
-    const flashcard = document.getElementById('flashcard');
-    if (flashcard) {
-      flashcard.classList.toggle('flipped', this.isFlipped);
+    createStageNavigation() {
+        return `
+            <div class="interview-stages">
+                <h2>🎯 Five-Stage Interview System</h2>
+                <div class="stage-grid">
+                    ${Object.entries(this.stages).map(([stageNum, stage]) => `
+                        <div class="stage-card" data-stage="${stageNum}">
+                            <div class="stage-number">Stage ${stageNum}</div>
+                            <h3>${stage.name}</h3>
+                            <p>${stage.description}</p>
+                            <div class="stage-stats">
+                                <span>📝 ${stage.questions.length} questions</span>
+                                <span>⏱️ ${stage.timeLimit} mins</span>
+                                <span>🎯 ${stage.passingScore}% to pass</span>
+                            </div>
+                            <button class="btn-primary" onclick="interviewSystem.startStage(${stageNum})">
+                                Start Stage ${stageNum}
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
     }
-  }
 
-  nextCard() {
-    if (!this.currentCards.length) return;
-    
-    if (this.currentCardIndex < this.currentCards.length - 1) {
-      this.currentCardIndex++;
-      this.renderCurrentCard();
-      this.updateStudyInterface();
-    } else {
-      this.showCompletionModal();
+    createQuestionBrowsers() {
+        return `
+            <div class="question-browsers">
+                <h2>📚 Question Collections</h2>
+                <div class="browser-grid">
+                    ${Object.entries(this.categorizedQuestions).map(([category, questions]) => `
+                        <div class="question-browser-card">
+                            <h3>${this.formatCategoryName(category)}</h3>
+                            <p>${questions.length} questions available</p>
+                            <button class="btn-secondary" onclick="interviewSystem.browseCategory('${category}')">
+                                Browse Questions
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
     }
-  }
 
-  previousCard() {
-    if (this.currentCardIndex > 0) {
-      this.currentCardIndex--;
-      this.renderCurrentCard();
-      this.updateStudyInterface();
+    createPracticeModes() {
+        return `
+            <div class="practice-modes">
+                <h2>🏋️ Practice Modes</h2>
+                <div class="mode-grid">
+                    <div class="practice-card">
+                        <h3>🎲 Random Quiz</h3>
+                        <p>Test yourself with random questions from all categories</p>
+                        <button class="btn-accent" onclick="interviewSystem.startRandomQuiz()">Start Quiz</button>
+                    </div>
+                    <div class="practice-card">
+                        <h3>⚡ Quick Review</h3>
+                        <p>Flashcard-style review of key concepts</p>
+                        <button class="btn-accent" onclick="interviewSystem.startFlashcards()">Review Cards</button>
+                    </div>
+                    <div class="practice-card">
+                        <h3>💪 Coding Challenges</h3>
+                        <p>Hands-on coding exercises</p>
+                        <button class="btn-accent" onclick="interviewSystem.startChallenges()">Code Now</button>
+                    </div>
+                </div>
+            </div>
+        `;
     }
-  }
 
-  renderCurrentCard() {
-    if (!this.currentCards.length) return;
-    
-    const card = this.currentCards[this.currentCardIndex];
-    
-    const frontContent = document.getElementById('card-front-content');
-    const backContent = document.getElementById('card-back-content');
-    
-    if (frontContent) frontContent.innerHTML = this.formatCardContent(card.front);
-    if (backContent) backContent.innerHTML = this.formatCardContent(card.back);
-    
-    // Reset flip state
-    this.isFlipped = false;
-    const flashcard = document.getElementById('flashcard');
-    if (flashcard) flashcard.classList.remove('flipped');
-  }
-
-  formatCardContent(content) {
-    return content
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/```\n([\s\S]*?)\n```/g, '<pre><code>$1</code></pre>')
-      .replace(/\n/g, '<br>');
-  }
-
-  showStudyView() {
-    const dashboard = document.getElementById('dashboard');
-    const studyView = document.getElementById('study-view');
-    
-    if (dashboard) dashboard.classList.add('hidden');
-    if (studyView) studyView.classList.remove('hidden');
-  }
-
-  showDashboard() {
-    const studyView = document.getElementById('study-view');
-    const dashboard = document.getElementById('dashboard');
-    
-    if (studyView) studyView.classList.add('hidden');
-    if (dashboard) dashboard.classList.remove('hidden');
-    
-    this.endStudySession();
-    this.renderDashboard();
-    this.updateDashboardStats();
-  }
-
-  updateStudyInterface() {
-    if (!this.currentCards.length) return;
-    
-    const totalCards = this.currentCards.length;
-    const currentIndex = this.currentCardIndex + 1;
-    
-    const categoryTitleEl = document.getElementById('categoryTitle');
-    const cardProgressEl = document.getElementById('cardProgress');
-    const studyProgressEl = document.getElementById('studyProgress');
-    
-    if (categoryTitleEl && this.currentCategory) {
-      categoryTitleEl.textContent = this.data[this.currentCategory]?.name || 'Category';
+    createProgressDashboard() {
+        return `
+            <div class="progress-dashboard">
+                <h2>📊 Your Progress</h2>
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <h3>Questions Completed</h3>
+                        <div class="big-number">${this.userProgress.completedQuestions.size}</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Success Rate</h3>
+                        <div class="big-number">${this.calculateSuccessRate()}%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Current Streak</h3>
+                        <div class="big-number">${this.userProgress.currentStreak}</div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
-    
-    if (cardProgressEl) {
-      cardProgressEl.textContent = `${currentIndex} / ${totalCards}`;
+
+    // Stage Management
+    startStage(stageNumber) {
+        const stage = this.stages[stageNumber];
+        this.currentStage = stageNumber;
+        
+        // Create stage interface
+        this.renderStageInterface(stage, stageNumber);
+        this.startTimer(stage.timeLimit);
     }
-    
-    if (studyProgressEl) {
-      const progressPercentage = (currentIndex / totalCards) * 100;
-      studyProgressEl.style.width = `${progressPercentage}%`;
+
+    renderStageInterface(stage, stageNumber) {
+        const mainContent = document.querySelector('.wiki-content');
+        
+        mainContent.innerHTML = `
+            <div class="stage-interface">
+                <div class="stage-header">
+                    <h1>Stage ${stageNumber}: ${stage.name}</h1>
+                    <div class="stage-progress">
+                        <span>Question <span id="current-question">1</span> of ${stage.questions.length}</span>
+                        <span>Time: <span id="timer">${stage.timeLimit}:00</span></span>
+                    </div>
+                </div>
+                
+                <div class="question-container" id="question-container">
+                    ${this.renderQuestion(stage.questions[0], 0)}
+                </div>
+                
+                <div class="stage-controls">
+                    <button id="prev-btn" class="btn-secondary" disabled>Previous</button>
+                    <button id="next-btn" class="btn-primary">Next</button>
+                    <button id="submit-stage" class="btn-accent" style="display: none;">Submit Stage</button>
+                </div>
+            </div>
+        `;
+        
+        this.setupStageEventListeners(stage);
     }
-    
-    // Update navigation buttons
-    const prevBtn = document.getElementById('prevCard');
-    const nextBtn = document.getElementById('nextCard');
-    
-    if (prevBtn) prevBtn.disabled = this.currentCardIndex === 0;
-    if (nextBtn) nextBtn.disabled = this.currentCardIndex === totalCards - 1;
-  }
 
-  showCompletionModal() {
-    const modal = document.getElementById('completionModal');
-    if (modal) {
-      modal.classList.remove('hidden');
+    renderQuestion(question, index) {
+        return `
+            <div class="question-card">
+                <h3>Question ${index + 1}</h3>
+                <div class="question-text">${question.question}</div>
+                
+                ${question.type === 'multiple-choice' ? `
+                    <div class="answer-options">
+                        ${question.options.map((option, i) => `
+                            <label class="option-label">
+                                <input type="radio" name="answer-${index}" value="${i}">
+                                <span class="option-text">${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                ` : `
+                    <textarea class="answer-textarea" placeholder="Type your answer here..." rows="6"></textarea>
+                `}
+                
+                ${question.code ? `
+                    <div class="code-example">
+                        <pre><code class="language-javascript">${question.code}</code></pre>
+                    </div>
+                ` : ''}
+            </div>
+        `;
     }
-    
-    this.endStudySession();
-  }
 
-  initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-color-scheme', savedTheme);
-      this.updateThemeIcon(savedTheme);
+    // Coincidence Checking System
+    checkAnswerCoincidence(userAnswer, correctAnswer, question) {
+        const coincidenceScore = this.calculateCoincidence(userAnswer, correctAnswer);
+        
+        return {
+            score: coincidenceScore,
+            feedback: this.generateFeedback(coincidenceScore, question),
+            suggestions: this.generateSuggestions(coincidenceScore, question)
+        };
     }
-  }
 
-  toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-color-scheme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.documentElement.setAttribute('data-color-scheme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    this.updateThemeIcon(newTheme);
-  }
-
-  updateThemeIcon(theme) {
-    const icon = document.getElementById('themeToggle');
-    if (icon) {
-      icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    calculateCoincidence(userAnswer, correctAnswer) {
+        // Implement sophisticated string matching
+        const userWords = userAnswer.toLowerCase().split(/\s+/);
+        const correctWords = correctAnswer.toLowerCase().split(/\s+/);
+        
+        const matches = userWords.filter(word => 
+            correctWords.some(correctWord => 
+                correctWord.includes(word) || word.includes(correctWord)
+            )
+        ).length;
+        
+        return Math.min(100, (matches / correctWords.length) * 100);
     }
-  }
 
-  loadInterviewDate() {
-    const saved = localStorage.getItem('interview-date');
-    if (saved) {
-      return new Date(saved);
+    generateFeedback(score, question) {
+        if (score >= 90) return "Excellent! Perfect understanding.";
+        if (score >= 75) return "Very good! Minor improvements possible.";
+        if (score >= 60) return "Good grasp, but some key concepts missing.";
+        if (score >= 40) return "Partial understanding, needs more study.";
+        return "Needs significant improvement in this area.";
     }
-    const tomorrow = new Date();
-    tomorrow.setHours(tomorrow.getHours() + 24);
-    return tomorrow;
-  }
 
-  startCountdown() {
-    const updateCountdown = () => {
-      const now = new Date();
-      const diff = this.interviewDate - now;
-      
-      const countdownEl = document.getElementById('countdownTime');
-      if (!countdownEl) return;
-      
-      if (diff <= 0) {
-        countdownEl.textContent = '00:00:00';
-        return;
-      }
-      
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      countdownEl.textContent = 
-        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    };
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  }
-
-  handleKeyboard(e) {
-    const studyView = document.getElementById('study-view');
-    if (!studyView || studyView.classList.contains('hidden')) return;
-    
-    switch(e.code) {
-      case 'Space':
-        e.preventDefault();
-        this.flipCard();
-        break;
-      case 'ArrowLeft':
-        e.preventDefault();
-        this.previousCard();
-        break;
-      case 'ArrowRight':
-        e.preventDefault();
-        this.nextCard();
-        break;
-      case 'Digit1':
-        e.preventDefault();
-        this.markCard('review');
-        break;
-      case 'Digit2':
-        e.preventDefault();
-        this.markCard('known');
-        break;
+    // Utility Methods
+    determineCategory(question) {
+        const text = (question.question + ' ' + (question.answer || '')).toLowerCase();
+        
+        if (text.includes('hook') || text.includes('usestate') || text.includes('useeffect')) return 'hooks';
+        if (text.includes('performance') || text.includes('optimization') || text.includes('memo')) return 'performance';
+        if (text.includes('test') || text.includes('jest') || text.includes('enzyme')) return 'testing';
+        if (text.includes('redux') || text.includes('context') || text.includes('state')) return 'state-management';
+        if (text.includes('component') || text.includes('jsx') || text.includes('props')) return 'react-fundamentals';
+        
+        return 'advanced-patterns';
     }
-  }
 
-  handleStudyModeClick(mode) {
-    switch(mode) {
-      case 'flashcards':
-        // Show flashcard categories - this is handled by category cards
-        break;
-      case 'challenges':
-        alert('Coding challenges coming soon! Enhanced version will include full challenge mode.');
-        break;
-      case 'roadmap':
-        alert('Study roadmap coming soon! Enhanced version will include progress tracking.');
-        break;
+    formatCategoryName(category) {
+        return category.split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
     }
-  }
 
-  restartCategory() {
-    this.currentCardIndex = 0;
-    this.hideModal();
-    this.renderCurrentCard();
-    this.updateStudyInterface();
-    this.startStudySession('flashcards');
-  }
-
-  studyReviewCards() {
-    // Filter to only review cards (cards marked for review)
-    if (window.authManager?.isAuthenticated()) {
-      this.currentCards = this.currentCards.filter(card => {
-        const progress = this.progress.get(card.id);
-        return progress && !progress.is_mastered;
-      });
+    calculateSuccessRate() {
+        const totalAttempts = Object.keys(this.userProgress.scores).length;
+        if (totalAttempts === 0) return 0;
+        
+        const totalScore = Object.values(this.userProgress.scores).reduce((sum, score) => sum + score, 0);
+        return Math.round(totalScore / totalAttempts);
     }
-    
-    if (this.currentCards.length === 0) {
-      alert('No cards to review!');
-      return;
-    }
-    
-    this.currentCardIndex = 0;
-    this.hideModal();
-    this.renderCurrentCard();
-    this.updateStudyInterface();
-    this.startStudySession('flashcards');
-  }
 
-  resetProgress() {
-    this.progress = new Map();
-    localStorage.removeItem('flashcard-progress');
-    this.updateDashboardStats();
-  }
+    // Save progress to localStorage
+    saveProgress() {
+        localStorage.setItem('interviewProgress', JSON.stringify(this.userProgress));
+    }
+
+    loadProgress() {
+        const saved = localStorage.getItem('interviewProgress');
+        if (saved) {
+            this.userProgress = { ...this.userProgress, ...JSON.parse(saved) };
+        }
+    }
 }
 
-// Initialize the enhanced application when DOM is loaded
+// Initialize the enhanced system
 document.addEventListener('DOMContentLoaded', () => {
-  window.enhancedFlashcardApp = new EnhancedFlashcardApp();
+    window.interviewSystem = new EnhancedInterviewSystem();
 });
