@@ -412,26 +412,25 @@ function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion
       )
     ),
 
-    questions.length > 5 && React.createElement('div', { className: 'content-controls' },
-      React.createElement('div', { className: 'search-box' },
-        React.createElement('i', { className: 'fas fa-search' }),
-        React.createElement('input', {
-          type: 'text',
-          placeholder: 'Search questions...', 
-          value: searchTerm,
-          onChange: (e) => setSearchTerm(e.target.value)
-        })
-      ),
-      React.createElement('div', { className: 'filter-buttons' },
-        ['all', 'beginner', 'intermediate', 'advanced'].map(level =>
-          React.createElement('button', {
-            key: level,
-            className: 'filter-btn' + (filter === level ? ' active' : ''),
-            onClick: () => setFilter(level)
-          }, level.charAt(0).toUpperCase() + level.slice(1))) // <--- This line ends with `)))`
-        ) // <--- This line ends with `)`
-      ), // <--- This line ends with `)`
-
+        questions.length > 5 && React.createElement('div', { className: 'content-controls' },
+          React.createElement('div', { className: 'search-box' },
+            React.createElement('i', { className: 'fas fa-search' }),
+            React.createElement('input', {
+              type: 'text',
+              placeholder: 'Search questions...',
+              value: searchTerm,
+              onChange: (e) => setSearchTerm(e.target.value)
+            })
+          ),
+          React.createElement('div', { className: 'filter-buttons' },
+            ['all', 'beginner', 'intermediate', 'advanced'].map(level =>
+              React.createElement('button', {
+                key: level,
+                className: 'filter-btn' + (filter === level ? ' active' : ''),
+                onClick: () => setFilter(level)
+              }, level.charAt(0).toUpperCase() + level.slice(1)))
+            )
+          )
     React.createElement('div', { className: 'questions-container' },
       filteredQuestions.length === 0 ?
         React.createElement('div', { className: 'no-questions' },
