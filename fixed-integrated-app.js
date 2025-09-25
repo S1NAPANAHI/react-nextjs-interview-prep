@@ -446,7 +446,7 @@ function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion
           })
         )
     )
-  );
+  ;
 }
 function App() {
   const [currentPage, setCurrentPage] = useLocalStorage('wiki-current-page', 'react-fundamentals');
