@@ -342,7 +342,7 @@ function QuestionCard({ question, expanded, onToggle, questionIndex }) {
             typeof question.codeExample === 'object' ? question.codeExample.code : question.codeExample
           )
         )
-      ),
+      )
       
       question.keyPoints && question.keyPoints.length > 0 && React.createElement('div', { className: 'key-points' },
         React.createElement('h4', {}, '🔑 Key Points:'),
