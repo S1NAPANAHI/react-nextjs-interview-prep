@@ -375,31 +375,31 @@ function QuestionCard({ question, expanded, onToggle, questionIndex }) {
 function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion }) {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   const filteredQuestions = useMemo(() => {
     let filtered = questions;
-    
+
     if (filter !== 'all') {
       filtered = filtered.filter(q => q.difficulty?.toLowerCase() === filter);
     }
-    
+
     if (searchTerm) {
-      filtered = filtered.filter(q => 
+      filtered = filtered.filter(q =>
         q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (q.answer && q.answer.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
-    
+
     return filtered;
   }, [questions, filter, searchTerm]);
-  
+
   // Syntax highlighting effect
   useEffect(() => {
     if (window.Prism) {
       setTimeout(() => window.Prism.highlightAll(), 100);
     }
   }, [expandedQuestions]);
-  
+
   return React.createElement('main', { className: 'content fade-in' },
     React.createElement('div', { className: 'content-header' },
       React.createElement('h1', { className: 'page-title' }, category.title),
@@ -411,13 +411,13 @@ function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion
         )
       )
     ),
-    
+
     questions.length > 5 && React.createElement('div', { className: 'content-controls' },
       React.createElement('div', { className: 'search-box' },
         React.createElement('i', { className: 'fas fa-search' }),
         React.createElement('input', {
           type: 'text',
-          placeholder: 'Search questions...',
+          placeholder: 'Search questions...', 
           value: searchTerm,
           onChange: (e) => setSearchTerm(e.target.value)
         })
@@ -428,11 +428,10 @@ function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion
             key: level,
             className: 'filter-btn' + (filter === level ? ' active' : ''),
             onClick: () => setFilter(level)
-          }, level.charAt(0).toUpperCase() + level.slice(1))
-        )
-      )
-    ),
-    
+          }, level.charAt(0).toUpperCase() + level.slice(1))) // <--- This line ends with `)))`
+        ) // <--- This line ends with `)`
+      ), // <--- This line ends with `)`
+
     React.createElement('div', { className: 'questions-container' },
       filteredQuestions.length === 0 ?
         React.createElement('div', { className: 'no-questions' },
@@ -451,7 +450,6 @@ function CategoryPage({ category, questions, expandedQuestions, onToggleQuestion
     )
   );
 }
-
 function App() {
   const [currentPage, setCurrentPage] = useLocalStorage('wiki-current-page', 'react-fundamentals');
   const [expandedQuestions, setExpandedQuestions] = useLocalStorage('wiki-expanded-questions', {});
