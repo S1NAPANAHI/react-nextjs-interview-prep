@@ -271,23 +271,7 @@ function ThemedButton() {
   }
 };
 
-// Sidebar navigation structure
-const NAVIGATION = [
-  {
-    title: 'Getting Started',
-    items: [
-      { id: 'quick-start', title: 'Quick Start', icon: 'fas fa-rocket' },
-      { id: 'react-fundamentals', title: 'React Fundamentals', icon: 'fas fa-cube' }
-    ]
-  },
-  {
-    title: 'Core Concepts',
-    items: [
-      { id: 'hooks', title: 'Hooks', icon: 'fas fa-link' },
-      { id: 'advanced-patterns', title: 'Advanced Patterns', icon: 'fas fa-cogs' }
-    ]
-  }
-];
+
 
 // Custom hooks
 function useLocalStorage(key, initialValue) {
@@ -326,7 +310,265 @@ function useTheme() {
   return { theme, toggleTheme };
 }
 
+// Utility methods
+const formatSetName = (setName) => {
+    return setName.split('-').map(word =>
+        word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+};
+
+const formatCategoryName = (category) => {
+    return category.split('-').map(word =>
+        word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+};
+
 // Components
+
+function EnhancedSidebarComponent({ onNavigate, onQuestionSetLoad, onQuestionsByCategoryLoad }) {
+    const [activeCategory, setActiveCategory] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [questionCounts, setQuestionCounts] = useState({});
+    const [completedQuestions, setCompletedQuestions] = useLocalStorage('interviewProgress_completedQuestions', []);
+
+    // Initialize sidebar and load counts
+    useEffect(() => {
+        const fetchInitialCounts = async () => {
+            const counts = {};
+            const sets = ['top-10-questions', 'top-20-questions', 'top-50-questions', 'top-100-questions'];
+            for (const setName of sets) {
+                try {
+                    const response = await fetch(`data/${setName}.json`);
+                    const data = await response.json();
+                    counts[setName] = (data.questions || data).length;
+                } catch (error) {
+                    console.warn(`Could not load count for ${setName}:`, error);
+                }
+            }
+            setQuestionCounts(counts);
+        };
+        fetchInitialCounts();
+    }, []);
+
+    // Update progress display
+    useEffect(() => {
+        const total = Object.values(questionCounts).reduce((a, b) => a + b, 0);
+        const percentage = total > 0 ? (completedQuestions.length / total) * 100 : 0;
+
+        const completedElement = document.getElementById('completed-count');
+        const totalElement = document.getElementById('total-count');
+        const progressFill = document.getElementById('progress-fill');
+
+        if (completedElement) completedElement.textContent = completedQuestions.length;
+        if (totalElement) totalElement.textContent = total;
+        if (progressFill) progressFill.style.width = `${percentage}%`;
+    }, [questionCounts, completedQuestions]);
+
+    const toggleCategory = useCallback((categoryId) => {
+        setActiveCategory(prev => (prev === categoryId ? null : categoryId));
+    }, []);
+
+    const handleSearch = useCallback((query) => {
+        setSearchTerm(query);
+        // Implement filtering logic here based on query
+        // This will involve filtering the displayed topic items
+    }, []);
+
+    const loadQuestionSet = useCallback((setName) => {
+        onQuestionSetLoad(setName); // Callback to parent App component
+    }, [onQuestionSetLoad]);
+
+    const loadQuestionsByCategory = useCallback((categoryName) => {
+        onQuestionsByCategoryLoad(categoryName); // Callback to parent App component
+    }, [onQuestionsByCategoryLoad]);
+
+    return React.createElement('nav', { className: 'sidebar' },
+        React.createElement('div', { className: 'sidebar-header' },
+            React.createElement('h2', {}, '📚 Interview Prep'),
+            React.createElement('div', { className: 'search-container' },
+                React.createElement('input', {
+                    type: 'text',
+                    id: 'topic-search',
+                    placeholder: 'Search topics...',
+                    value: searchTerm,
+                    onChange: (e) => handleSearch(e.target.value)
+                }),
+                React.createElement('span', { className: 'search-icon' }, '🔍')
+            )
+        ),
+        React.createElement('div', { className: 'sidebar-content' },
+            React.createElement('div', { className: 'progress-section' },
+                React.createElement('h3', {}, '📊 Your Progress'),
+                React.createElement('div', { className: 'progress-stats' },
+                    React.createElement('div', { className: 'stat-item' },
+                        React.createElement('span', { className: 'stat-number', id: 'completed-count' }, completedQuestions.length),
+                        React.createElement('span', { className: 'stat-label' }, 'Completed')
+                    ),
+                    React.createElement('div', { className: 'stat-item' },
+                        React.createElement('span', { className: 'stat-number', id: 'total-count' }, Object.values(questionCounts).reduce((a, b) => a + b, 0)),
+                        React.createElement('span', { className: 'stat-label' }, 'Total')
+                    )
+                ),
+                React.createElement('div', { className: 'progress-bar' },
+                    React.createElement('div', { className: 'progress-fill', id: 'progress-fill', style: { width: `${Object.values(questionCounts).reduce((a, b) => a + b, 0) > 0 ? (completedQuestions.length / Object.values(questionCounts).reduce((a, b) => a + b, 0)) * 100 : 0}%` } })
+                )
+            ),
+            React.createElement('div', { className: 'topic-sections' },
+                // Quick Start
+                React.createElement('div', { className: 'topic-category' },
+                    React.createElement('div', { className: `category-header ${activeCategory === 'quick-start' ? 'expanded' : ''}`, onClick: () => toggleCategory('quick-start') },
+                        React.createElement('span', { className: 'category-icon' }, '🚀'),
+                        React.createElement('span', { className: 'category-title' }, 'Quick Start'),
+                        React.createElement('span', { className: 'expand-icon' }, activeCategory === 'quick-start' ? '▲' : '▼')
+                    ),
+                    React.createElement('div', { className: `category-content ${activeCategory === 'quick-start' ? 'expanded' : ''}`, id: 'quick-start', style: { maxHeight: activeCategory === 'quick-start' ? '500px' : '0' } },
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionSet('top-10-questions') },
+                            React.createElement('span', { className: 'topic-icon' }, '⭐'),
+                            React.createElement('span', { className: 'topic-name' }, 'Top 10 Questions'),
+                            React.createElement('span', { className: 'question-count' }, questionCounts['top-10-questions'] || 0)
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionSet('top-20-questions') },
+                            React.createElement('span', { className: 'topic-icon' }, '🔥'),
+                            React.createElement('span', { className: 'topic-name' }, 'Top 20 Questions'),
+                            React.createElement('span', { className: 'question-count' }, questionCounts['top-20-questions'] || 0)
+                        )
+                    )
+                ),
+                // React Fundamentals
+                React.createElement('div', { className: 'topic-category' },
+                    React.createElement('div', { className: `category-header ${activeCategory === 'react-fundamentals' ? 'expanded' : ''}`, onClick: () => toggleCategory('react-fundamentals') },
+                        React.createElement('span', { className: 'category-icon' }, '⚛️'),
+                        React.createElement('span', { className: 'category-title' }, 'React Fundamentals'),
+                        React.createElement('span', { className: 'expand-icon' }, activeCategory === 'react-fundamentals' ? '▲' : '▼')
+                    ),
+                    React.createElement('div', { className: `category-content ${activeCategory === 'react-fundamentals' ? 'expanded' : ''}`, id: 'react-fundamentals', style: { maxHeight: activeCategory === 'react-fundamentals' ? '500px' : '0' } },
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('components') },
+                            React.createElement('span', { className: 'topic-icon' }, '🧩'),
+                            React.createElement('span', { className: 'topic-name' }, 'Components & JSX'),
+                            React.createElement('span', { className: 'question-count' }, '15') // Placeholder, will need to calculate dynamically
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('props-state') },
+                            React.createElement('span', { className: 'topic-icon' }, '📦'),
+                            React.createElement('span', { className: 'topic-name' }, 'Props & State'),
+                            React.createElement('span', { className: 'question-count' }, '12') // Placeholder
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('lifecycle') },
+                            React.createElement('span', { className: 'topic-icon' }, '🔄'),
+                            React.createElement('span', { className: 'topic-name' }, 'Lifecycle Methods'),
+                            React.createElement('span', { className: 'question-count' }, '8') // Placeholder
+                        )
+                    )
+                ),
+                // React Hooks
+                React.createElement('div', { className: 'topic-category' },
+                    React.createElement('div', { className: `category-header ${activeCategory === 'react-hooks' ? 'expanded' : ''}`, onClick: () => toggleCategory('react-hooks') },
+                        React.createElement('span', { className: 'category-icon' }, '🪝'),
+                        React.createElement('span', { className: 'category-title' }, 'React Hooks'),
+                        React.createElement('span', { className: 'expand-icon' }, activeCategory === 'react-hooks' ? '▲' : '▼')
+                    ),
+                    React.createElement('div', { className: `category-content ${activeCategory === 'react-hooks' ? 'expanded' : ''}`, id: 'react-hooks', style: { maxHeight: activeCategory === 'react-hooks' ? '500px' : '0' } },
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('basic-hooks') },
+                            React.createElement('span', { className: 'topic-icon' }, '🎣'),
+                            React.createElement('span', { className: 'topic-name' }, 'useState & useEffect'),
+                            React.createElement('span', { className: 'question-count' }, '18') // Placeholder
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('advanced-hooks') },
+                            React.createElement('span', { className: 'topic-icon' }, '🔥'),
+                            React.createElement('span', { className: 'topic-name' }, 'Custom Hooks'),
+                            React.createElement('span', { className: 'question-count' }, '10') // Placeholder
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('context-hooks') },
+                            React.createElement('span', { className: 'topic-icon' }, '🌐'),
+                            React.createElement('span', { className: 'topic-name' }, 'useContext & useReducer'),
+                            React.createElement('span', { className: 'question-count' }, '8') // Placeholder
+                        )
+                    )
+                ),
+                // State Management
+                React.createElement('div', { className: 'topic-category' },
+                    React.createElement('div', { className: `category-header ${activeCategory === 'state-management' ? 'expanded' : ''}`, onClick: () => toggleCategory('state-management') },
+                        React.createElement('span', { className: 'category-icon' }, '🗄️'),
+                        React.createElement('span', { className: 'category-title' }, 'State Management'),
+                        React.createElement('span', { className: 'expand-icon' }, activeCategory === 'state-management' ? '▲' : '▼')
+                    ),
+                    React.createElement('div', { className: `category-content ${activeCategory === 'state-management' ? 'expanded' : ''}`, id: 'state-management', style: { maxHeight: activeCategory === 'state-management' ? '500px' : '0' } },
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('redux') },
+                            React.createElement('span', { className: 'topic-icon' }, '🔴'),
+                            React.createElement('span', { className: 'topic-name' }, 'Redux & RTK'),
+                            React.createElement('span', { className: 'question-count' }, '15') // Placeholder
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('context-api') },
+                            React.createElement('span', { className: 'topic-icon' }, '🌍'),
+                            React.createElement('span', { className: 'topic-name' }, 'Context API'),
+                            React.createElement('span', { className: 'question-count' }, '8') // Placeholder
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('zustand') },
+                            React.createElement('span', { className: 'topic-icon' }, '🐻'),
+                            React.createElement('span', { className: 'topic-name' }, 'Zustand & Others'),
+                            React.createElement('span', { className: 'question-count' }, '6') // Placeholder
+                        )
+                    )
+                ),
+                // Performance
+                React.createElement('div', { className: 'topic-category' },
+                    React.createElement('div', { className: `category-header ${activeCategory === 'performance' ? 'expanded' : ''}`, onClick: () => toggleCategory('performance') },
+                        React.createElement('span', { className: 'category-icon' }, '⚡'),
+                        React.createElement('span', { className: 'category-title' }, 'Performance'),
+                        React.createElement('span', { className: 'expand-icon' }, activeCategory === 'performance' ? '▲' : '▼')
+                    ),
+                    React.createElement('div', { className: `category-content ${activeCategory === 'performance' ? 'expanded' : ''}`, id: 'performance', style: { maxHeight: activeCategory === 'performance' ? '500px' : '0' } },
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('optimization') },
+                            React.createElement('span', { className: 'topic-icon' }, '🚀'),
+                            React.createElement('span', { className: 'topic-name' }, 'Optimization'),
+                            React.createElement('span', { className: 'question-count' }, '12') // Placeholder
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionsByCategory('memoization') },
+                            React.createElement('span', { className: 'topic-icon' }, '💾'),
+                            React.createElement('span', { className: 'topic-name' }, 'Memoization'),
+                            React.createElement('span', { className: 'question-count' }, '8') // Placeholder
+                        )
+                    )
+                ),
+                // Complete Collections
+                React.createElement('div', { className: 'topic-category' },
+                    React.createElement('div', { className: `category-header ${activeCategory === 'complete-sets' ? 'expanded' : ''}`, onClick: () => toggleCategory('complete-sets') },
+                        React.createElement('span', { className: 'category-icon' }, '📚'),
+                        React.createElement('span', { className: 'category-title' }, 'Complete Sets'),
+                        React.createElement('span', { className: 'expand-icon' }, activeCategory === 'complete-sets' ? '▲' : '▼')
+                    ),
+                    React.createElement('div', { className: `category-content ${activeCategory === 'complete-sets' ? 'expanded' : ''}`, id: 'complete-sets', style: { maxHeight: activeCategory === 'complete-sets' ? '500px' : '0' } },
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionSet('top-50-questions') },
+                            React.createElement('span', { className: 'topic-icon' }, '🎯'),
+                            React.createElement('span', { className: 'topic-name' }, 'Top 50 Questions'),
+                            React.createElement('span', { className: 'question-count' }, questionCounts['top-50-questions'] || 0)
+                        ),
+                        React.createElement('div', { className: 'topic-item', onClick: () => loadQuestionSet('top-100-questions') },
+                            React.createElement('span', { className: 'topic-icon' }, '💯'),
+                            React.createElement('span', { className: 'topic-name' }, 'Top 100 Questions'),
+                            React.createElement('span', { className: 'question-count' }, questionCounts['top-100-questions'] || 0)
+                        )
+                    )
+                )
+            ),
+            React.createElement('div', { className: 'practice-section' },
+                React.createElement('h3', {}, '🏋️ Practice Modes'),
+                React.createElement('div', { className: 'practice-item', onClick: () => console.log('Starting random quiz...') },
+                    React.createElement('span', { className: 'practice-icon' }, '🎲'),
+                    React.createElement('span', { className: 'practice-name' }, 'Random Quiz')
+                ),
+                React.createElement('div', { className: 'practice-item', onClick: () => console.log('Starting flashcards...') },
+                    React.createElement('span', { className: 'practice-icon' }, '⚡'),
+                    React.createElement('span', { className: 'practice-name' }, 'Flashcards')
+                ),
+                React.createElement('div', { className: 'practice-item', onClick: () => console.log('Starting timed practice...') },
+                    React.createElement('span', { className: 'practice-icon' }, '⏱️'),
+                    React.createElement('span', { className: 'practice-name' }, 'Timed Practice')
+                )
+            )
+        )
+    );
+}
+
 function LoadingScreen() {
   return React.createElement('div', { className: 'loading-screen' },
     React.createElement('div', { className: 'loading-spinner' }),
@@ -400,37 +642,7 @@ function Header({ currentPage, onNavigate, theme, toggleTheme }) {
   );
 }
 
-function Sidebar({ currentPage, onNavigate }) {
-  return React.createElement('aside', { className: 'sidebar' },
-    React.createElement('div', { className: 'sidebar-content' },
-      NAVIGATION.map(section =>
-        React.createElement('div', {
-          key: section.title,
-          className: 'sidebar-section'
-        },
-          React.createElement('h3', { className: 'sidebar-title' }, section.title),
-          React.createElement('ul', { className: 'sidebar-nav' },
-            section.items.map(item =>
-              React.createElement('li', {
-                key: item.id,
-                className: 'sidebar-nav-item'
-              },
-                React.createElement('a', {
-                  href: '#',
-                  className: 'sidebar-nav-link' + (currentPage === item.id ? ' active' : ''),
-                  onClick: (e) => { e.preventDefault(); onNavigate(item.id); }
-                },
-                  React.createElement('i', { className: item.icon }),
-                  React.createElement('span', {}, item.title)
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  );
-}
+
 
 function CodeBlock({ title, language, code, showCopy = true }) {
   const [copied, setCopied] = useState(false);
@@ -473,50 +685,54 @@ function CodeBlock({ title, language, code, showCopy = true }) {
 }
 
 function QuestionCard({ question, expanded, onToggle }) {
-  return React.createElement('div', {
-    className: 'question-card' + (expanded ? ' expanded' : '')
-  },
-    React.createElement('div', {
-      className: 'question-header',
-      onClick: onToggle
-    },
-      React.createElement('div', { className: 'question-meta' },
-        React.createElement('div', { className: 'question-number' }, 'Q'),
-        React.createElement('div', {
-          className: `difficulty-badge difficulty-${question.difficulty}`
-        }, question.difficulty),
-        React.createElement('div', { className: 'category-badge' }, question.category)
-      ),
-      React.createElement('div', { className: 'question-content-area' },
-        React.createElement('h3', { className: 'question-title' }, question.question),
+    // Ensure question.id is a string or number for direct use, or generate a unique one if not present
+    const questionId = question.id || `q-${Math.random().toString(36).substr(2, 9)}`;
+
+    return React.createElement('div', { className: 'question-item', 'data-question-id': questionId },
+        React.createElement('div', { className: 'question-header' },
+            React.createElement('div', { className: 'question-number' }, `Q${questionId}`),
+            React.createElement('h3', { className: 'question-title' }, question.question),
+            React.createElement('div', { className: 'question-meta' },
+                React.createElement('span', { className: `difficulty ${question.difficulty?.toLowerCase() || 'beginner'}` }, question.difficulty || 'BEGINNER'),
+                React.createElement('span', { className: 'category' }, question.category || 'React Fundamentals')
+            )
+        ),
         React.createElement('div', { className: 'question-actions' },
-          React.createElement('button', { className: 'expand-btn' },
-            React.createElement('i', {
-              className: expanded ? 'fas fa-chevron-up' : 'fas fa-chevron-down'
-            }),
-            React.createElement('span', {}, expanded ? 'Collapse' : 'Expand')
-          )
+            React.createElement('button', {
+                className: 'expand-btn',
+                id: `expand-btn-${questionId}`,
+                onClick: () => onToggle(questionId)
+            },
+                expanded ? '▲ Collapse' : '▼ Expand'
+            )
+        ),
+        React.createElement('div', {
+            className: 'answer-content',
+            id: `answer-${questionId}`,
+            style: { display: expanded ? 'block' : 'none' }
+        },
+            React.createElement('div', { className: 'answer-text' },
+                React.createElement('p', {
+                    dangerouslySetInnerHTML: {
+                        __html: question.answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    }
+                })
+            ),
+            question.code && React.createElement('div', { className: 'code-example' },
+                React.createElement('pre', {},
+                    React.createElement('code', { className: 'language-javascript' }, question.code)
+                )
+            ),
+            question.keyPoints && React.createElement('div', { className: 'key-points' },
+                React.createElement('h4', {}, 'Key Points:'),
+                React.createElement('ul', {},
+                    question.keyPoints.map((point, index) =>
+                        React.createElement('li', { key: index }, point)
+                    )
+                )
+            )
         )
-      )
-    ),
-    expanded && React.createElement('div', { className: 'question-content' },
-      React.createElement('div', { className: 'content-card info' },
-        React.createElement('p', {
-          dangerouslySetInnerHTML: {
-            __html: question.answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          }
-        })
-      ),
-      question.keyPoints && React.createElement('div', {},
-        React.createElement('h4', {}, 'Key Points:'),
-        React.createElement('ul', {},
-          question.keyPoints.map((point, index) =>
-            React.createElement('li', { key: index }, point)
-          )
-        )
-      )
-    )
-  );
+    );
 }
 
 function ContentSection({ section, expandedQuestions, onToggleQuestion }) {
@@ -546,22 +762,41 @@ function ContentSection({ section, expandedQuestions, onToggleQuestion }) {
   );
 }
 
-function PageContent({ page, expandedQuestions, onToggleQuestion }) {
+function PageContent({ page, customQuestions, customTitle, expandedQuestions, onToggleQuestion }) {
+  if (page === 'custom-questions') {
+    return React.createElement('main', { className: 'content fade-in' },
+      React.createElement('div', { className: 'content-header' },
+        React.createElement('h1', { className: 'page-title' }, customTitle || 'Questions'),
+        React.createElement('p', { className: 'page-description' }, `Displaying ${customQuestions.length} questions.`)
+      ),
+      customQuestions.length > 0 ?
+        customQuestions.map((question, index) =>
+          React.createElement(QuestionCard, {
+            key: question.id || index, // Use question.id if available, otherwise index
+            question: question,
+            expanded: expandedQuestions[question.id] || false,
+            onToggle: onToggleQuestion
+          })
+        ) :
+        React.createElement('p', {}, 'No questions found for this selection.')
+    );
+  }
+
   const content = WIKI_CONTENT[page];
-  
+
   if (!content) {
     return React.createElement('div', { className: 'content' },
       React.createElement('h1', {}, 'Page Not Found'),
       React.createElement('p', {}, 'The requested page could not be found.')
     );
   }
-  
+
   return React.createElement('main', { className: 'content fade-in' },
     React.createElement('div', { className: 'content-header' },
       React.createElement('h1', { className: 'page-title' }, content.title),
       React.createElement('p', { className: 'page-description' }, content.description)
     ),
-    
+
     content.content.sections.length > 1 && React.createElement('div', { className: 'toc' },
       React.createElement('h3', { className: 'toc-title' }, 'In this article'),
       React.createElement('ul', { className: 'toc-list' },
@@ -575,7 +810,7 @@ function PageContent({ page, expandedQuestions, onToggleQuestion }) {
         )
       )
     ),
-    
+
     content.content.sections.map(section =>
       React.createElement(ContentSection, {
         key: section.id,
@@ -592,28 +827,103 @@ function App() {
   const [expandedQuestions, setExpandedQuestions] = useLocalStorage('wiki-expanded-questions', {});
   const [loading, setLoading] = useState(true);
   const { theme, toggleTheme } = useTheme();
-  
+  const [currentQuestions, setCurrentQuestions] = useState([]); // New state for questions
+  const [currentContentTitle, setCurrentContentTitle] = useState(''); // New state for content title
+
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
-  
+
+  // Need to move filterQuestionsByCategory out of EnhancedSidebarComponent.prototype
+  // or make it a utility function. For now, I'll define it here.
+  const filterQuestionsByCategory = (questions, category) => {
+    return questions.filter(question => {
+      const text = (question.question + ' ' + (question.answer || '')).toLowerCase();
+
+      switch (category) {
+        case 'components':
+          return text.includes('component') || text.includes('jsx') || text.includes('render');
+        case 'props-state':
+          return text.includes('props') || text.includes('state') && !text.includes('redux');
+        case 'lifecycle':
+          return text.includes('lifecycle') || text.includes('componentdid') || text.includes('mount');
+        case 'basic-hooks':
+          return text.includes('usestate') || text.includes('useeffect');
+        case 'advanced-hooks':
+          return text.includes('custom hook') || text.includes('usememo') || text.includes('usecallback');
+        case 'context-hooks':
+          return text.includes('usecontext') || text.includes('usereducer');
+        case 'redux':
+          return text.includes('redux') || text.includes('store') || text.includes('action');
+        case 'context-api':
+          return text.includes('context') && !text.includes('redux');
+        case 'optimization':
+          return text.includes('performance') || text.includes('optimization') || text.includes('lazy');
+        case 'memoization':
+          return text.includes('memo') || text.includes('memoiz') || text.includes('cache');
+        default:
+          return true;
+      }
+    });
+  };
+
+  // Function to load questions from a set (e.g., top-10-questions.json)
+  const loadQuestionSet = useCallback(async (setName) => {
+    try {
+      const response = await fetch(`data/${setName}.json`);
+      const data = await response.json();
+      setCurrentQuestions(data.questions || data);
+      setCurrentContentTitle(formatSetName(setName)); // Use formatSetName from the component
+      setCurrentPage('custom-questions'); // Set a custom page to indicate dynamic content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error(`Error loading ${setName}:`, error);
+      setCurrentQuestions([]);
+      setCurrentContentTitle('Error loading questions');
+    }
+  }, [setCurrentPage]);
+
+  // Function to load questions by category
+  const loadQuestionsByCategory = useCallback(async (categoryName) => {
+    try {
+      const allQuestions = [];
+      const questionSets = ['top-10-questions', 'top-20-questions', 'top-50-questions', 'top-100-questions']; // Define which sets to search
+      for (const setName of questionSets) {
+        const response = await fetch(`data/${setName}.json`);
+        const data = await response.json();
+        allQuestions.push(...(data.questions || data).map(q => ({ ...q, source: setName })));
+      }
+
+      const filteredQuestions = filterQuestionsByCategory(allQuestions, categoryName); // Use the local filter function
+      setCurrentQuestions(filteredQuestions);
+      setCurrentContentTitle(formatCategoryName(categoryName)); // Use formatCategoryName
+      setCurrentPage('custom-questions'); // Set a custom page to indicate dynamic content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error(`Error loading questions by category ${categoryName}:`, error);
+      setCurrentQuestions([]);
+      setCurrentContentTitle('Error loading questions');
+    }
+  }, [setCurrentPage]);
+
   const handleNavigate = useCallback((page) => {
     setCurrentPage(page);
+    setCurrentQuestions([]); // Clear custom questions when navigating to a wiki page
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [setCurrentPage]);
-  
+
   const handleToggleQuestion = useCallback((questionId) => {
     setExpandedQuestions(prev => ({
       ...prev,
       [questionId]: !prev[questionId]
     }));
   }, [setExpandedQuestions]);
-  
+
   if (loading) {
     return React.createElement(LoadingScreen);
   }
-  
+
   return React.createElement('div', { className: 'app' },
     React.createElement(Header, {
       currentPage: currentPage,
@@ -622,15 +932,24 @@ function App() {
       toggleTheme: toggleTheme
     }),
     React.createElement('div', { className: 'main-layout' },
-      React.createElement(Sidebar, {
-        currentPage: currentPage,
-        onNavigate: handleNavigate
+      React.createElement(EnhancedSidebarComponent, {
+        onNavigate: handleNavigate,
+        onQuestionSetLoad: loadQuestionSet,
+        onQuestionsByCategoryLoad: loadQuestionsByCategory
       }),
-      React.createElement(PageContent, {
-        page: currentPage,
-        expandedQuestions: expandedQuestions,
-        onToggleQuestion: handleToggleQuestion
-      })
+      currentPage === 'custom-questions' ?
+        React.createElement(PageContent, {
+          page: 'custom-questions', // A dummy page to render custom questions
+          customQuestions: currentQuestions,
+          customTitle: currentContentTitle,
+          expandedQuestions: expandedQuestions,
+          onToggleQuestion: handleToggleQuestion
+        }) :
+        React.createElement(PageContent, {
+          page: currentPage,
+          expandedQuestions: expandedQuestions,
+          onToggleQuestion: handleToggleQuestion
+        })
     )
   );
 }
