@@ -1,0 +1,164 @@
+{
+  "react-fundamentals": {
+    "title": "React Fundamentals",
+    "description": "Core React concepts every developer should master",
+    "questions": [
+      {
+        "id": "react-001",
+        "question": "What is React and what makes it different from other JavaScript frameworks?",
+        "difficulty": "beginner",
+        "category": "Introduction",
+        "answer": "React is a JavaScript library for building user interfaces, developed by Facebook. It differs from other frameworks in several key ways:\n\n**Component-Based Architecture**: React applications are built using reusable components that manage their own state.\n\n**Virtual DOM**: React uses a virtual representation of the DOM for efficient updates.\n\n**Declarative**: You describe what the UI should look like for any given state, and React handles the updates.\n\n**Unidirectional Data Flow**: Data flows down from parent to child components.",
+        "keyPoints": [
+          "React is a library, not a framework",
+          "Focuses on the view layer of applications",
+          "Uses component-based architecture",
+          "Implements virtual DOM for performance",
+          "Developed and maintained by Facebook"
+        ],
+        "codeExample": {
+          "title": "Simple React Component",
+          "language": "jsx",
+          "code": "function Welcome(props) {\n  return <h1>Hello, {props.name}!</h1>;\n}\n\n// Usage\nfunction App() {\n  return (\n    <div>\n      <Welcome name=\"Alice\" />\n      <Welcome name=\"Bob\" />\n    </div>\n  );\n}"
+        },
+        "followUpQuestions": [
+          "How does React's virtual DOM work?",
+          "What are the benefits of component-based architecture?",
+          "How does React compare to Vue.js or Angular?"
+        ]
+      },
+      {
+        "id": "react-002",
+        "question": "Explain the concept of Virtual DOM and how it improves performance.",
+        "difficulty": "intermediate",
+        "category": "Virtual DOM",
+        "answer": "The Virtual DOM is a programming concept where a virtual representation of the UI is kept in memory and synced with the real DOM. Here's how it works:\n\n**1. Virtual Representation**: React creates a lightweight JavaScript representation of the actual DOM.\n\n**2. Diffing Algorithm**: When state changes, React compares (diffs) the new virtual DOM tree with the previous version.\n\n**3. Reconciliation**: React calculates the minimum number of changes needed and updates only those parts of the real DOM.\n\n**Performance Benefits**:\n- Batch updates reduce DOM manipulation\n- Efficient diffing algorithm minimizes actual DOM changes\n- Predictable performance characteristics",
+        "keyPoints": [
+          "Virtual DOM is a JavaScript representation of the real DOM",
+          "Diffing compares virtual DOM trees to find changes",
+          "Reconciliation applies minimal changes to real DOM",
+          "Batch updates improve performance",
+          "Enables predictable performance patterns"
+        ],
+        "codeExample": {
+          "title": "Virtual DOM Concept",
+          "language": "jsx",
+          "code": "// Before update\nconst virtualDOM1 = {\n  type: 'div',\n  props: {\n    children: [\n      { type: 'h1', props: { children: 'Count: 0' } },\n      { type: 'button', props: { children: 'Increment' } }\n    ]\n  }\n};\n\n// After update\nconst virtualDOM2 = {\n  type: 'div',\n  props: {\n    children: [\n      { type: 'h1', props: { children: 'Count: 1' } }, // Changed\n      { type: 'button', props: { children: 'Increment' } }  // Unchanged\n    ]\n  }\n};\n\n// React will only update the h1 element's text content"
+        },
+        "followUpQuestions": [
+          "What is the reconciliation algorithm?",
+          "How does React decide which components to re-render?",
+          "What are the limitations of the Virtual DOM approach?"
+        ]
+      },
+      {
+        "id": "react-003",
+        "question": "What's the difference between props and state in React?",
+        "difficulty": "beginner",
+        "category": "Props & State",
+        "answer": "Props and state are both ways to store data in React, but they serve different purposes:\n\n**Props (Properties)**:\n- Data passed from parent to child components\n- Read-only (immutable) from the child's perspective\n- Used for component communication\n- Trigger re-renders when changed by parent\n\n**State**:\n- Internal data managed by the component itself\n- Mutable using setState or state setter functions\n- Local to the component\n- Triggers re-renders when updated\n\n**Key Rule**: Props flow down, events flow up.",
+        "keyPoints": [
+          "Props are passed from parent to child",
+          "Props are read-only in receiving component",
+          "State is internal component data",
+          "State changes trigger re-renders",
+          "Use props for communication, state for local data"
+        ],
+        "codeExample": {
+          "title": "Props vs State Example",
+          "language": "jsx",
+          "code": "// Parent component with state\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      {/* Passing state as props */}\n      <Display count={count} />\n      <button onClick={() => setCount(count + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}\n\n// Child component receiving props\nfunction Display({ count }) {\n  return <h2>Count: {count}</h2>;\n  // count is a prop - read-only here\n}"
+        },
+        "followUpQuestions": [
+          "When should you lift state up?",
+          "How do you pass data from child to parent?",
+          "What happens when props change?"
+        ]
+      }
+    ]
+  },
+  "react-hooks": {
+    "title": "React Hooks",
+    "description": "Modern React development with hooks",
+    "questions": [
+      {
+        "id": "hooks-001",
+        "question": "What are React Hooks and what problems do they solve?",
+        "difficulty": "intermediate",
+        "category": "Hooks Fundamentals",
+        "answer": "React Hooks are functions that let you use state and other React features in functional components. They solve several problems:\n\n**Problems Solved**:\n- **Complex Class Components**: Eliminated the need for class components for state management\n- **Lifecycle Complexity**: Simplified component lifecycle management\n- **Code Reuse**: Enabled better logic sharing between components\n- **Wrapper Hell**: Reduced deeply nested component trees\n\n**Key Benefits**:\n- Simpler, more readable code\n- Better code reuse with custom hooks\n- Easier testing and debugging\n- Gradual adoption possible",
+        "keyPoints": [
+          "Hooks enable state in functional components",
+          "Solve complex class component issues",
+          "Enable better code reuse patterns",
+          "Simplify component lifecycle management",
+          "Must follow Rules of Hooks"
+        ],
+        "codeExample": {
+          "title": "Before and After Hooks",
+          "language": "jsx",
+          "code": "// Before Hooks (Class Component)\nclass Counter extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { count: 0 };\n  }\n\n  componentDidMount() {\n    document.title = \`Count: \${this.state.count}\`;\n  }\n\n  componentDidUpdate() {\n    document.title = \`Count: \${this.state.count}\`;\n  }\n\n  render() {\n    return (\n      <button onClick={() => this.setState({ count: this.state.count + 1 })}>\n        Count: {this.state.count}\n      </button>\n    );\n  }\n}\n\n// After Hooks (Functional Component)\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    document.title = \`Count: \${count}\`;\n  });\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Count: {count}\n    </button>\n  );\n}"
+        },
+        "followUpQuestions": [
+          "What are the Rules of Hooks?",
+          "Can you use hooks in class components?",
+          "How do custom hooks work?"
+        ]
+      },
+      {
+        "id": "hooks-002",
+        "question": "Explain the useState hook and provide examples of different use cases.",
+        "difficulty": "beginner",
+        "category": "useState",
+        "answer": "The useState hook allows you to add state to functional components. It returns an array with two elements: the current state value and a function to update it.\n\n**Basic Syntax**: `const [state, setState] = useState(initialValue)`\n\n**Key Concepts**:\n- Initial state is only used on first render\n- State updates are asynchronous\n- Updates can be values or functions\n- State is preserved between re-renders",
+        "keyPoints": [
+          "Returns array with [state, setState]",
+          "Initial state only used on first render",
+          "State updates trigger re-renders",
+          "Can store any type of value",
+          "setState can accept value or function"
+        ],
+        "codeExample": {
+          "title": "useState Examples",
+          "language": "jsx",
+          "code": "function StateExamples() {\n  // String state\n  const [name, setName] = useState('');\n\n  // Number state\n  const [count, setCount] = useState(0);\n\n  // Boolean state\n  const [isVisible, setIsVisible] = useState(true);\n\n  // Object state\n  const [user, setUser] = useState({\n    name: '',\n    email: '',\n    age: 0\n  });\n\n  // Array state\n  const [items, setItems] = useState([]);\n\n  // Functional update (recommended for dependent updates)\n  const increment = () => {\n    setCount(prevCount => prevCount + 1);\n  };\n\n  // Object state update (must spread existing state)\n  const updateUser = () => {\n    setUser(prevUser => ({\n      ...prevUser,\n      name: 'John Doe'\n    }));\n  };\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={increment}>Increment</button>\n    </div>\n  );\n}"
+        },
+        "followUpQuestions": [
+          "When should you use functional updates with setState?",
+          "How do you update object or array state correctly?",
+          "What happens if you call setState with the same value?"
+        ]
+      }
+    ]
+  },
+  "advanced-concepts": {
+    "title": "Advanced React Concepts",
+    "description": "Advanced patterns and optimization techniques",
+    "questions": [
+      {
+        "id": "advanced-001",
+        "question": "What is the Context API and when should you use it?",
+        "difficulty": "advanced",
+        "category": "Context API",
+        "answer": "The Context API is React's built-in solution for sharing data across multiple components without prop drilling. It's designed for data that can be considered 'global' for a tree of React components.\n\n**When to Use Context**:\n- Theme information (dark/light mode)\n- Authentication data (current user)\n- Language/locale preferences\n- Shopping cart contents\n\n**When NOT to Use Context**:\n- For component communication (use props)\n- For all state management (consider useReducer or external libraries)\n- When props would work fine\n\n**Important**: Context makes components less reusable, so use it sparingly.",
+        "keyPoints": [
+          "Avoids prop drilling for global data",
+          "Creates Provider and Consumer patterns",
+          "Can be consumed with useContext hook",
+          "Makes components less reusable",
+          "Should be used sparingly"
+        ],
+        "codeExample": {
+          "title": "Context API Implementation",
+          "language": "jsx",
+          "code": "// 1. Create Context\nconst ThemeContext = React.createContext();\n\n// 2. Create Provider Component\nfunction ThemeProvider({ children }) {\n  const [theme, setTheme] = useState('light');\n\n  const toggleTheme = () => {\n    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');\n  };\n\n  return (\n    <ThemeContext.Provider value={{ theme, toggleTheme }}>\n      {children}\n    </ThemeContext.Provider>\n  );\n}\n\n// 3. Create Custom Hook (optional but recommended)\nfunction useTheme() {\n  const context = useContext(ThemeContext);\n  if (!context) {\n    throw new Error('useTheme must be used within a ThemeProvider');\n  }\n  return context;\n}\n\n// 4. Use in Components\nfunction App() {\n  return (\n    <ThemeProvider>\n      <Header />\n      <Main />\n    </ThemeProvider>\n  );\n}\n\nfunction Header() {\n  const { theme, toggleTheme } = useTheme();\n  \n  return (\n    <header className={theme}>\n      <button onClick={toggleTheme}>\n        Switch to {theme === 'light' ? 'dark' : 'light'} mode\n      </button>\n    </header>\n  );\n}"
+        },
+        "followUpQuestions": [
+          "How do you optimize Context performance?",
+          "Can you have multiple contexts in one app?",
+          "What's the difference between Context and Redux?"
+        ]
+      }
+    ]
+  }
+}
