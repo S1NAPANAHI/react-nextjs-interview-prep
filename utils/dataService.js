@@ -1,5 +1,5 @@
 // utils/dataService.js
-export class DataService {
+class DataService {
   static async fetchFlashcards() {
     try {
       const response = await fetch('/data/flashcards.json');
@@ -40,3 +40,5 @@ export class DataService {
     }
   }
 }
+
+window.DataService = DataService;

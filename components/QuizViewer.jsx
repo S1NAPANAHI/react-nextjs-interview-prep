@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { DataService } from '../utils/dataService';
+const { useState, useEffect } = React;
 
-export default function QuizViewer({ questionCount = 10 }) {
+function QuizViewer({ questionCount = 10 }) {
   const [questionsData, setQuestionsData] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -14,7 +13,7 @@ export default function QuizViewer({ questionCount = 10 }) {
 
   const loadQuestions = async () => {
     setLoading(true);
-    const data = await DataService.fetchTopQuestions(questionCount);
+    const data = await window.DataService.fetchTopQuestions(questionCount);
     if (data) {
       setQuestionsData(data);
     }
@@ -132,3 +131,5 @@ export default function QuizViewer({ questionCount = 10 }) {
     </div>
   );
 }
+
+window.QuizViewer = QuizViewer;

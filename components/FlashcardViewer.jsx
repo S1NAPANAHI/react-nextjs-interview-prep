@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { DataService } from '../utils/dataService';
+const { useState, useEffect } = React;
 
-export default function FlashcardViewer() {
+function FlashcardViewer() {
   const [flashcardsData, setFlashcardsData] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -14,7 +13,7 @@ export default function FlashcardViewer() {
 
   const loadFlashcards = async () => {
     setLoading(true);
-    const data = await DataService.fetchFlashcards();
+    const data = await window.DataService.fetchFlashcards();
     if (data) {
       setFlashcardsData(data);
       const firstCategory = Object.keys(data.categories)[0];
@@ -108,3 +107,5 @@ export default function FlashcardViewer() {
     </div>
   );
 }
+
+window.FlashcardViewer = FlashcardViewer;
