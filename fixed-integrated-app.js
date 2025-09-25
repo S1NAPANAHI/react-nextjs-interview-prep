@@ -562,4 +562,4 @@ window.addEventListener('error', (event) => {
 
 // Export for potential module use
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { App, QuestionDataLoader };
+  module.exports = { App, WIKI_CONTENT };
