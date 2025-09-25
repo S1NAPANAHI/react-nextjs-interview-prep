@@ -1,0 +1,230 @@
+/* QUICK FIX for Sidebar and Layout Issues */
+
+/* Fix the sidebar transparency and overlap */
+.sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 280px !important;
+    height: 100vh !important;
+    background: #2d2d2d !important;
+    border-right: 1px solid #404040 !important;
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Fix the main content area */
+.content {
+    margin-left: 280px !important;
+    padding: 20px !important;
+    min-height: 100vh !important;
+    background: #1a1a1a !important;
+    width: calc(100% - 280px) !important;
+}
+
+/* Fix the main layout */
+.main-layout {
+    display: block !important;
+}
+
+/* Fix the header if it exists */
+.header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 280px !important;
+    right: 0 !important;
+    height: 60px !important;
+    background: #2d2d2d !important;
+    border-bottom: 1px solid #404040 !important;
+    z-index: 999 !important;
+    padding: 0 20px !important;
+}
+
+/* Adjust content for header if it exists */
+.content {
+    padding-top: 80px !important;
+}
+
+/* Fix sidebar content styling */
+.sidebar-section {
+    background: transparent !important;
+}
+
+.sidebar-title {
+    color: #b0b0b0 !important;
+    padding: 16px 20px 8px !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-nav {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.sidebar-nav-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 20px !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    transition: all 0.2s ease !important;
+    border-left: 3px solid transparent !important;
+}
+
+.sidebar-nav-link:hover {
+    background: #3a3a3a !important;
+    border-left-color: #007bff !important;
+}
+
+.sidebar-nav-link.active {
+    background: #007bff !important;
+    border-left-color: #0056b3 !important;
+}
+
+.sidebar-nav-link i {
+    margin-right: 12px !important;
+    width: 16px !important;
+    text-align: center !important;
+}
+
+.question-count {
+    background: #007bff !important;
+    color: white !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    margin-left: auto !important;
+}
+
+/* Fix question cards */
+.question-card {
+    background: #2d2d2d !important;
+    border: 1px solid #404040 !important;
+    border-radius: 8px !important;
+    margin-bottom: 16px !important;
+    overflow: hidden !important;
+}
+
+.question-header {
+    padding: 20px !important;
+    cursor: pointer !important;
+    border-bottom: 1px solid #404040 !important;
+}
+
+.question-title {
+    color: #ffffff !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+}
+
+.expand-btn {
+    background: #007bff !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    margin-top: 12px !important;
+}
+
+.expand-btn:hover {
+    background: #0056b3 !important;
+}
+
+/* Fix content controls */
+.content-controls {
+    background: #2d2d2d !important;
+    border: 1px solid #404040 !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+.search-box {
+    flex: 1 !important;
+    position: relative !important;
+}
+
+.search-box input {
+    width: 100% !important;
+    padding: 8px 12px !important;
+    background: #1a1a1a !important;
+    border: 1px solid #404040 !important;
+    border-radius: 4px !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+}
+
+.filter-btn {
+    padding: 8px 16px !important;
+    background: #404040 !important;
+    border: 1px solid #555 !important;
+    border-radius: 4px !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+}
+
+.filter-btn.active {
+    background: #007bff !important;
+    border-color: #007bff !important;
+}
+
+/* Fix page header */
+.page-title {
+    color: #ffffff !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    margin: 0 0 8px 0 !important;
+}
+
+.page-description {
+    color: #b0b0b0 !important;
+    font-size: 16px !important;
+    margin: 0 0 20px 0 !important;
+}
+
+/* Remove any overlapping elements */
+body {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure proper stacking */
+.app {
+    position: relative !important;
+    min-height: 100vh !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s ease !important;
+    }
+    
+    .sidebar.mobile-open {
+        transform: translateX(0) !important;
+    }
+    
+    .content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .header {
+        left: 0 !important;
+    }
+}
